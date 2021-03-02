@@ -3,8 +3,9 @@ import { StyleSheet, SafeAreaView, View, Image, Text } from "react-native";
 
 import Screen from "./../components/Screen";
 
-import { Info } from "./../components/groups";
+import { Info, Members, Chat } from "./../components/groups";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import colors from "../config/colors";
 
 const group = {
   id: 1,
@@ -22,6 +23,100 @@ const group = {
   },
   image: require("../assets/3.jpg"),
 };
+
+const members = [
+  {
+    id: 1,
+    name: "Nahomi Rivas",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-2.png"),
+  },
+  {
+    id: 2,
+    name: "Karla Vega",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-3.png"),
+  },
+  {
+    id: 3,
+    name: "Johana Silva",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-4.png"),
+  },
+  {
+    id: 5,
+    name: "Nahomi Rivas",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-2.png"),
+  },
+  {
+    id: 6,
+    name: "Karla Vega",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-3.png"),
+  },
+  {
+    id: 7,
+    name: "Johana Silva",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-4.png"),
+  },
+  {
+    id: 8,
+    name: "Nahomi Rivas",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-2.png"),
+  },
+  {
+    id: 9,
+    name: "Karla Vega",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-3.png"),
+  },
+  {
+    id: 10,
+    name: "Johana Silva",
+    email: "nahomi@pcm.com",
+    image: require("../assets/avatar-4.png"),
+  },
+];
+
+const messages = [
+  {
+    id: 1,
+    name: "Karla Vegas",
+    image: require("../assets/avatar-3.png"),
+    date: "2 hours ago",
+    content:
+      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.Contrary to popular belief, Lorem Ipsum is not simply random text.",
+  },
+  {
+    id: 2,
+    name: "Johana Silva",
+    image: require("../assets/avatar-4.png"),
+    me: true,
+    date: "1 hour ago",
+    content:
+      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.",
+  },
+  {
+    id: 3,
+    name: "Karla Vegas",
+    image: require("../assets/avatar-3.png"),
+    date: "2 hours ago",
+    content:
+      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.Contrary to popular belief, Lorem Ipsum is not simply random text.",
+  },
+  {
+    id: 4,
+    name: "Johana Silva",
+    image: require("../assets/avatar-4.png"),
+    me: true,
+    date: "1 hour ago",
+    content:
+      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.",
+  },
+];
 
 function GroupScreen() {
   return (
@@ -42,12 +137,14 @@ function GroupScreen() {
           />
         </View>
         <View style={styles.tabs}>
-          <Info
+          {/*<Info
             title={group.title}
             description={group.description}
             address="Contrary to popular belief, Lorem Ipsum is not simply ran asd sdf asd fasdfdom text. It has roots. Contrary to popular belief."
             university="Montemorelos University"
-          />
+          />*/}
+          {/* <Members list={members} /> */}
+          <Chat messages={messages} />
         </View>
       </Screen>
     </View>
@@ -64,6 +161,7 @@ const styles = StyleSheet.create({
   },
   screen: {
     padding: 20,
+    overflow: "visible",
   },
   image: {
     width: "100%",
@@ -71,7 +169,6 @@ const styles = StyleSheet.create({
     position: "relative",
     top: 0,
   },
-  mainScreen: {},
   leaderContainer: {
     backgroundColor: "rgba(130, 77, 144, 0.8)",
     width: "100%",
@@ -85,6 +182,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -30,
     left: 20,
+    zIndex: 999,
+  },
+  tabs: {
+    overflow: "visible",
   },
   text: {
     color: "#FFF",
@@ -92,6 +193,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     paddingHorizontal: 20,
+  },
+  mainScreen: {
+    backgroundColor: colors.light,
+    overflow: "visible",
+    flex: 1,
   },
 });
 
