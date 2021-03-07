@@ -7,20 +7,22 @@ import colors from "../../config/colors";
 
 function Member({ name, email, image, onPress }) {
   return (
-    <View style={styles.memberContainer}>
-      <View style={styles.data}>
-        <Image source={image} style={styles.image} />
-        <View style={styles.text}>
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.email}>{email}</Text>
+    <View>
+      <TouchableOpacity style={styles.memberContainer} onPress={onPress}>
+        <View style={styles.data}>
+          <Image source={image} style={styles.image} />
+          <View style={styles.text}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.email}>{email}</Text>
+          </View>
         </View>
-      </View>
-      <MaterialCommunityIcons
-        name={"chevron-right"}
-        size={24}
-        color={"#000"}
-        style={styles.icon}
-      />
+        <MaterialCommunityIcons
+          name={"chevron-right"}
+          size={24}
+          color={"#000"}
+          style={styles.icon}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -28,7 +30,7 @@ function Member({ name, email, image, onPress }) {
 const styles = StyleSheet.create({
   memberContainer: {
     flexDirection: "row",
-    marginVertical: 10,
+    marginVertical: 5,
     backgroundColor: "#fff",
     paddingVertical: 10,
     borderRadius: 10,

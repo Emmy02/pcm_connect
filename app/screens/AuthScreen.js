@@ -9,7 +9,6 @@ import {
 } from "react-native";
 
 import colors from "../config/colors";
-import Button from "./../components/Button";
 
 import * as Yup from "yup";
 

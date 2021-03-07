@@ -4,7 +4,8 @@ export default {
   black: "#000",
   white: "#fff",
   medium: "#6e6969",
-  light: "rgba(0, 189, 255, 0.03)",
+  light: "#EFFBFF",
   dark: "#0c0c0c",
-  danger: "#ff5252",
+  danger: "#E7201F",
+  clear: "#DDDCDC",
 };

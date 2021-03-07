@@ -1,14 +1,15 @@
 import React from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 
-import Card from "../components/Card";
+import { VerticalCard, HorizontalCard } from "../components/card";
 import colors from "../config/colors";
 import Screen from "../components/Screen";
 import UniversityPointer from "../components/UniversityPointer";
 
-import Button from "./../components/Button";
+import Title from "./../components/Title";
+import { TopNav, SearchBar } from "../components/nav";
 
-import Presenter from "./../components/Presenter";
+import { OutLineButton } from "./../components/button";
 
 const listings = [
   {
@@ -48,36 +49,53 @@ const listings = [
 function FindGroupScreen() {
   return (
     <Screen style={styles.screen}>
-      <Presenter
-        title="PCM Virtual Congress 2021"
-        description="Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots."
-        image={require("../assets/2.jpg")}
-        controls={<Button title="This is a Button" onPress={() => {}} />}
+      <TopNav
+        image={require("../assets/avatar-3.png")}
+        controls={<SearchBar />}
       />
-      <Presenter
-        title="PCM Connect Submit"
-        description="Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots."
-        image={require("../assets/4.jpg")}
-        reverse
-        controls={<Button title="This is a Button" onPress={() => {}} />}
-      />
-      <FlatList
-        horizontal
-        data={listings}
-        keyExtractor={(listing) => listing.id.toString()}
-        renderItem={({ item, index }) => (
-          <Card
-            title={item.title}
-            description={item.decription}
-            members={item.members}
-            image={item.image}
-            key={index}
-            controls={
-              <UniversityPointer university={{ name: "University Pointer" }} />
-            }
-          />
-        )}
-      />
+      <View style={styles.closeGroups}>
+        <Title controls={<OutLineButton title="Create a Group" />}>
+          Groups close to you
+        </Title>
+        <FlatList
+          horizontal
+          data={listings}
+          keyExtractor={(listing) => listing.id.toString()}
+          renderItem={({ item, index }) => (
+            <VerticalCard
+              title={item.title}
+              description={item.decription}
+              members={item.members}
+              image={item.image}
+              key={index}
+              controls={
+                <UniversityPointer
+                  university={{ name: "University Pointer" }}
+                />
+              }
+            />
+          )}
+        />
+      </View>
+
+      <View style={styles.mostPopularGroups}>
+        <Title>Most Popular Groups</Title>
+        <FlatList
+          style={{ overflow: "visible" }}
+          data={listings}
+          keyExtractor={(listing) => listing.id.toString()}
+          renderItem={({ item, index }) => (
+            <HorizontalCard
+              title={item.title}
+              description={item.decription}
+              members={item.members}
+              image={item.image}
+              key={index}
+              reverse={index % 2}
+            />
+          )}
+        />
+      </View>
     </Screen>
   );
 }
@@ -86,6 +104,13 @@ const styles = StyleSheet.create({
   screen: {
     padding: 20,
     backgroundColor: colors.light,
+  },
+  closeGroups: {
+    height: 420,
+    zIndex: -1,
+  },
+  mostPopularGroups: {
+    overflow: "visible",
   },
 });
 

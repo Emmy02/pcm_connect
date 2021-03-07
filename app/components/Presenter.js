@@ -23,9 +23,10 @@ function Presenter({
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description} numberOfLines={2}>
+        <Text style={styles.description} numberOfLines={3}>
           {description}
         </Text>
+        <View style={styles.controls}>{controls}</View>
       </View>
     </View>
   );
@@ -33,8 +34,7 @@ function Presenter({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row-reverse",
+    height: 180,
   },
   description: {
     textAlign: "center",
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 20,
-    maxHeight: 110,
-    maxWidth: 170,
+    maxHeight: 130,
+    maxWidth: 200,
     width: "100%",
   },
   imageContainer: {
@@ -58,8 +58,13 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     fontWeight: "bold",
-    fontSize: 14,
+    fontSize: 13,
     marginBottom: 7,
+  },
+  controls: {
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

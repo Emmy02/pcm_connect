@@ -7,8 +7,8 @@ import Text from "./Text";
 function MemberCount({ count, avatars }) {
   return (
     <View style={styles.container}>
-      {avatars.map((avatar) => (
-        <Image source={avatar} style={styles.image} />
+      {avatars.map((avatar, index) => (
+        <Image source={avatar} style={styles.image} key={index} />
       ))}
       <Text style={styles.text}>{count}</Text>
     </View>

@@ -3,9 +3,17 @@ import { StyleSheet, SafeAreaView, View, Image, Text } from "react-native";
 
 import Screen from "./../components/Screen";
 
-import { Info, Members, Chat } from "./../components/groups";
+import {
+  Info,
+  Members,
+  Chat,
+  TopNavBar,
+  GroupNav,
+} from "./../components/groups";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../config/colors";
+
+import { EventCard } from "./../components/card";
 
 const group = {
   id: 1,
@@ -121,9 +129,13 @@ const messages = [
 function GroupScreen() {
   return (
     <View style={styles.mainScreen}>
+      <TopNavBar />
       <Image source={group.image} style={styles.image} />
+
       <Screen style={styles.screen}>
-        <View style={styles.leaderContainer}>
+        <GroupNav />
+        <View style={styles.tabs}>
+          {/*<View style={styles.leaderContainer}>
           <Image
             style={styles.avatar}
             source={require("../assets/avatar-1.png")}
@@ -135,16 +147,25 @@ function GroupScreen() {
             color={"#fff"}
             style={styles.icon}
           />
-        </View>
-        <View style={styles.tabs}>
-          {/*<Info
+        </View><Info
             title={group.title}
             description={group.description}
             address="Contrary to popular belief, Lorem Ipsum is not simply ran asd sdf asd fasdfdom text. It has roots. Contrary to popular belief."
             university="Montemorelos University"
           />*/}
-          {/* <Members list={members} /> */}
-          <Chat messages={messages} />
+          <EventCard
+            title="¡Follow Me!"
+            subtitle="The hard way"
+            description="Contrary to popular belief, Lorem Ipsum is not simply random text."
+            link="Zoom 193 -123 - 4564 Pwd: 123432"
+            peopleGoing="23"
+            date="23rd March"
+            dateTime="3:00 pm"
+            type="Public"
+          />
+
+          {/*<Members list={members} />
+          <Chat messages={messages} /> */}
         </View>
       </Screen>
     </View>

@@ -27,7 +27,7 @@ function Members({ list }) {
 const styles = StyleSheet.create({
   membersContainer: {
     overflow: "scroll",
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
 });
 

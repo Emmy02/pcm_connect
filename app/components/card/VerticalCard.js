@@ -1,11 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
-import Text from "./Text";
-import colors from "../config/colors";
-import MemberCount from "./MemberCount";
+import Text from "../Text";
+import colors from "../../config/colors";
+import MemberCount from "../MemberCount";
 
-function Card({ title, description, image, members, controls }) {
+function VerticalCard({ title, description, image, members, controls }) {
   return (
     <View style={styles.card}>
       <Image style={styles.image} source={image} />
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 150,
-    borderTopStartRadius: 20,
-    borderTopEndRadius: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   description: {
     color: colors.medium,
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Card;
+export default VerticalCard;
