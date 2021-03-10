@@ -9,7 +9,7 @@ import {
   FlatList,
 } from "react-native";
 
-import colors from "./../../config/colors";
+import { colors, defaultStyles } from "./../../config";
 
 const menuList = [
   {
@@ -49,10 +49,7 @@ function Menu({ role }) {
 const styles = StyleSheet.create({
   menuContainer: {
     borderRadius: 10,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
+    ...defaultStyles.shadows,
     backgroundColor: "#fff",
     position: "absolute",
     top: 60,
@@ -64,6 +61,7 @@ const styles = StyleSheet.create({
   text: {
     paddingVertical: 7,
     fontSize: 16,
+    zIndex: 1,
   },
 });
 

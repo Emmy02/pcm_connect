@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 
 import Text from "../Text";
-import colors from "../../config/colors";
+import { colors, defaultStyles } from "../../config";
 
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -37,7 +37,7 @@ function EventCard({
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
-        <Text style={styles.description} numberOfLines={3}>
+        <Text style={styles.description} numberOfLines={2}>
           {description}
         </Text>
         <Text style={styles.link}>{link}</Text>
@@ -65,18 +65,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     backgroundColor: "#fff",
-    minHeight: 200,
+    height: 220,
     maxHeight: 250,
     borderRadius: 10,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    borderColor: colors.clear,
+    borderWidth: 1,
     overflow: "visible",
   },
   dateContainer: {
     height: "100%",
-    width: "25%",
+    width: "30%",
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
     overflow: "hidden",
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   detailsContainer: {
-    width: "50%",
+    width: "45%",
     padding: 10,
   },
   typeContainer: {
@@ -129,7 +127,7 @@ const styles = StyleSheet.create({
   },
   description: {
     color: colors.medium,
-    fontSize: 16,
+    fontSize: 14,
   },
   typeLabel: {
     borderRadius: 20,

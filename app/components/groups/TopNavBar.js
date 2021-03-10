@@ -23,14 +23,8 @@ function TopNavBar({ isMember = false, onPress }) {
 
 const styles = StyleSheet.create({
   topNavBarContainer: {
-    marginVertical: 10,
-    height: 60,
-    position: "relative",
-    top: 50,
-    zIndex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingHorizontal: 20,
   },
   goBackBtn: {
     alignItems: "center",

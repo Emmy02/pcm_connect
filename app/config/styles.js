@@ -9,4 +9,11 @@ export default {
     fontSize: 18,
     fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
   },
+  shadows: {
+    elevation: 10,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 0.5 * 10 },
+    shadowOpacity: 0.2,
+    shadowRadius: 0.8 * 10,
+  },
 };

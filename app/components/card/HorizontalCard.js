@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 import Text from "../Text";
-import colors from "../../config/colors";
+import { colors, defaultStyles } from "../../config";
 
 function HorizontalCard({
   title,
@@ -45,13 +45,11 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
     borderRadius: 20,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
     width: "100%",
     marginVertical: 10,
     overflow: "visible",
+    borderWidth: 1,
+    borderColor: colors.clear,
   },
   controls: {
     textAlign: "left",

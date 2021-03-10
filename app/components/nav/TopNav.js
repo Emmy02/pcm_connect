@@ -2,13 +2,13 @@ import React, { useState } from "react";
 
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
-import colors from "./../../config/colors";
+import { colors, defaultStyles } from "./../../config";
 
 import SvgUri from "react-native-svg-uri";
 
 import Menu from "./Menu";
 
-function TopNav({ image, role, controls, ...otherProps }) {
+function TopNav({ image, role, controls }) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -19,6 +19,7 @@ function TopNav({ image, role, controls, ...otherProps }) {
             <SvgUri
               width="28"
               height="28"
+              style={styles.icon}
               source={require("./../../assets/menu_alt_03.svg")}
             />
           </View>
@@ -37,22 +38,21 @@ function TopNav({ image, role, controls, ...otherProps }) {
 
 const styles = StyleSheet.create({
   navContainer: {
+    backgroundColor: colors.light,
     width: "100%",
     height: 44,
     overflow: "visible",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 15,
   },
   menu: {
     backgroundColor: "#fff",
     height: 44,
     width: 44,
     borderRadius: 22,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
+    ...defaultStyles.shadows,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -60,10 +60,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     height: 44,
     width: 44,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
+    ...defaultStyles.shadows,
   },
 });
 

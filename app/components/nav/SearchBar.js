@@ -1,7 +1,7 @@
 import React from "react";
 
 import { StyleSheet, View, TextInput } from "react-native";
-import colors from "./../../config/colors";
+import { colors, defaultStyles } from "./../../config";
 
 import SvgUri from "react-native-svg-uri";
 
@@ -21,19 +21,17 @@ function SearchBar() {
 
 const styles = StyleSheet.create({
   searchBarContainer: {
-    width: 200,
+    width: 210,
     height: 44,
     backgroundColor: "#fff",
     borderRadius: 22,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 4, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
     alignItems: "center",
     alignContent: "center",
     justifyContent: "center",
     flexDirection: "row",
     padding: 7,
+    borderColor: colors.clear,
+    borderWidth: 1,
   },
   svg: {
     position: "absolute",

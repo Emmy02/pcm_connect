@@ -1,13 +1,12 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import colors from "../../config/colors";
-
 import { LinearGradient } from "expo-linear-gradient";
+import { colors, defaultStyles } from "../../config";
 
-function GradientCard({ children }) {
+function GradientCard({ children, height }) {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { height }]}>
       <LinearGradient
         start={{ x: 0, y: 0.2 }}
         locations={[1, 0.1]}
@@ -23,17 +22,15 @@ function GradientCard({ children }) {
 
 const styles = StyleSheet.create({
   card: {
+    width: "100%",
     marginTop: 15,
     flexDirection: "row",
     backgroundColor: "#fff",
     minHeight: 200,
     maxHeight: 250,
     borderRadius: 10,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
     overflow: "visible",
+    borderRadius: 10,
   },
   gradient: {
     width: "100%",
@@ -41,6 +38,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 10,
   },
 });
 

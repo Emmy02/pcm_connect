@@ -8,34 +8,34 @@ function GroupNav({ onPress }) {
   return (
     <View style={styles.groupNavContainer}>
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={[styles.btn]}>
+        <TouchableOpacity onPress={() => onPress(0)} style={[styles.btn]}>
           <SvgUri
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             style={styles.svg}
             source={require("./../../assets/group/home.svg")}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btn]}>
+        <TouchableOpacity onPress={() => onPress(1)} style={[styles.btn]}>
           <SvgUri
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             style={styles.svg}
             source={require("./../../assets/group/user.svg")}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btn]}>
+        <TouchableOpacity onPress={() => onPress(2)} style={[styles.btn]}>
           <SvgUri
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             style={styles.svg}
             source={require("./../../assets/group/chat.svg")}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.btn]}>
+        <TouchableOpacity onPress={() => onPress(3)} style={[styles.btn]}>
           <SvgUri
-            width="24"
-            height="24"
+            width="20"
+            height="20"
             style={styles.svg}
             source={require("./../../assets/group/coolicon-1.svg")}
           />

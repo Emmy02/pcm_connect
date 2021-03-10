@@ -2,8 +2,9 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 import Text from "../Text";
-import colors from "../../config/colors";
 import MemberCount from "../MemberCount";
+
+import { colors, defaultStyles } from "../../config";
 
 function VerticalCard({ title, description, image, members, controls }) {
   return (
@@ -30,13 +31,12 @@ const styles = StyleSheet.create({
     marginRight: 20,
     maxWidth: 220,
     maxHeight: 320,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 10, height: 10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    marginHorizontal: 10,
+    ...defaultStyles.shadows,
   },
   controls: {
     textAlign: "left",
+    width: "100%",
   },
   detailsContainer: {
     padding: 20,

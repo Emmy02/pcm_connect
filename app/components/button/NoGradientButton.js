@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "../../config/colors";
 
-function NoGradientButton({ title, color = "secondary", onPress }) {
+function NoGradientButton({ title, color = "primary", onPress }) {
   return (
     <TouchableOpacity
       style={[styles.button, { backgroundColor: colors[color] }]}
@@ -23,7 +23,6 @@ function NoGradientButton({ title, color = "secondary", onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 10,
     borderRadius: 10,
     height: 44,
     paddingHorizontal: 10,

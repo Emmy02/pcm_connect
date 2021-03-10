@@ -1,21 +1,21 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, View, Image, Text } from "react-native";
 
-import Screen from "./../components/Screen";
+import Screen from "./../../components/Screen";
 
-import { TopNavBar } from "./../components/groups";
-import colors from "../config/colors";
+import { TopNavBar } from "../../components/groups";
+import colors from "../../config/colors";
 
 import { LinearGradient } from "expo-linear-gradient";
 
 import SvgUri from "react-native-svg-uri";
 
-import Title from "./../components/Title";
-import { NoGradientButton } from "./../components/button";
+import Title from "./../../components/Title";
+import { NoGradientButton } from "./../../components/button";
 
 const member = {
-  groupImage: require("../assets/3.jpg"),
-  avatar: require("../assets/avatar-1.png"),
+  groupImage: require("../../assets/3.jpg"),
+  avatar: require("../../assets/avatar-1.png"),
   fullName: "Nahomi Rivas",
   date: "Tuesday 23rd , March 2021",
   email: "nahomi@pcm.com",
@@ -87,7 +87,7 @@ function UserProfileScreen() {
               width="100"
               height="100"
               style={styles.svg}
-              source={require("./../assets/quotes.svg")}
+              source={require("./../../assets/quotes.svg")}
             />
             <View>
               <Text style={styles.message}>{member.message}</Text>

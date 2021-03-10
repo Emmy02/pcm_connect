@@ -32,7 +32,6 @@ function GroupInfo({ title, description, address, university, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
     width: "100%",
   },
   title: {
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
   list: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 20,
+    marginVertical: 10,
     width: "100%",
     paddingRight: 44,
   },

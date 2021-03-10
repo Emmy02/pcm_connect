@@ -23,7 +23,7 @@ function Presenter({
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description} numberOfLines={3}>
+        <Text style={styles.description} numberOfLines={2}>
           {description}
         </Text>
         <View style={styles.controls}>{controls}</View>

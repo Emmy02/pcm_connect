@@ -8,31 +8,34 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 import * as Yup from "yup";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function AuthScreen() {
+function LogInScreen() {
   return (
     <View style={styles.container}>
       <Image
-        source={require("./../assets/Rectangle-42.png")}
+        source={require("./../../assets/Rectangle-42.png")}
         style={styles.image2}
       />
       <Image
-        source={require("./../assets/Rectangle-41.png")}
+        source={require("./../../assets/Rectangle-41.png")}
         style={styles.image1}
       />
       <SafeAreaView style={styles.safeAreaView}>
         <View style={styles.contentContainer}>
-          <Image style={styles.logo} source={require("./../assets/logo.png")} />
+          <Image
+            style={styles.logo}
+            source={require("./../../assets/logo.png")}
+          />
           <Text style={styles.title}>PCM Connect</Text>
           <Text style={styles.subtitle}>Welcome to the Family</Text>
 
@@ -59,7 +62,7 @@ function AuthScreen() {
               secureTextEntry
               textContentType="password"
             />
-            <SubmitButton title="Login" />
+            <SubmitButton title="Login" color="primary" />
           </Form>
         </View>
         <View style={styles.footer}>
@@ -77,11 +80,11 @@ function AuthScreen() {
       </SafeAreaView>
 
       <Image
-        source={require("./../assets/Rectangle-44.png")}
+        source={require("./../../assets/Rectangle-44.png")}
         style={styles.image3}
       />
       <Image
-        source={require("./../assets/Rectangle-45.png")}
+        source={require("./../../assets/Rectangle-45.png")}
         style={styles.image4}
       />
     </View>
@@ -175,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AuthScreen;
+export default LogInScreen;

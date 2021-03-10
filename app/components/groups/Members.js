@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   membersContainer: {
     overflow: "scroll",
     paddingVertical: 10,
+    zIndex: -1,
   },
 });
 

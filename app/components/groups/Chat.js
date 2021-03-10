@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, FlatList, View, Text } from "react-native";
 
 import Message from "./Message";
-import colors from "../../config/colors";
+import { colors, defaultStyles } from "../../config";
 
 import { SubmitButton, FormField, Form } from "./../forms";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -19,15 +19,7 @@ const validationSchema = Yup.object().shape({
 function Chat({ messages }) {
   return (
     <View style={styles.chatContainer}>
-      <View style={styles.chatHeader}>
-        <MaterialCommunityIcons
-          name={"video-plus"}
-          size={24}
-          color={colors.secondary}
-          style={styles.icon}
-        />
-        <Text style={styles.headerText}> Join Video Call</Text>
-      </View>
+      <View style={styles.chatHeader}></View>
       <FlatList
         style={{ flex: 1 }}
         data={messages}
@@ -64,9 +56,7 @@ const styles = StyleSheet.create({
     height: "100%",
     position: "relative",
     padding: 10,
-    shadowColor: colors.dark,
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+    ...defaultStyles.shadows,
   },
   chatHeader: {
     flexDirection: "row-reverse",
