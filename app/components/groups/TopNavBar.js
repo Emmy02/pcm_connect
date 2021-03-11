@@ -23,6 +23,9 @@ function TopNavBar({ isMember = false, onPress }) {
 
 const styles = StyleSheet.create({
   topNavBarContainer: {
+    position: "absolute",
+    width: "100%",
+    left: 10,
     flexDirection: "row",
     justifyContent: "space-between",
   },

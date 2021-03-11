@@ -48,7 +48,7 @@ function NoticesScreen() {
   return (
     <Screen style={styles.screen}>
       <TopNav image={require("../../assets/avatar-3.png")} />
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <View style={styles.filterList}>
           <Title>Notices</Title>
           <FlatList
@@ -86,6 +86,9 @@ const styles = StyleSheet.create({
   screen: {
     padding: 10,
     backgroundColor: colors.light,
+  },
+  scrollView: {
+    zIndex: -1,
   },
   filterList: {
     marginBottom: 30,

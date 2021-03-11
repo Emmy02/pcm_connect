@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Text,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 import colors from "../../config/colors";
@@ -22,125 +23,82 @@ const validationSchema = Yup.object().shape({
 function LogInScreen() {
   return (
     <View style={styles.container}>
-      <Image
-        source={require("./../../assets/Rectangle-42.png")}
-        style={styles.image2}
-      />
-      <Image
-        source={require("./../../assets/Rectangle-41.png")}
-        style={styles.image1}
-      />
-      <SafeAreaView style={styles.safeAreaView}>
-        <View style={styles.contentContainer}>
-          <Image
-            style={styles.logo}
-            source={require("./../../assets/logo.png")}
-          />
-          <Text style={styles.title}>PCM Connect</Text>
-          <Text style={styles.subtitle}>Welcome to the Family</Text>
-
-          <Form
-            initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => console.log(values)}
-            validationSchema={validationSchema}
-          >
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="email"
-              keyboardType="email-address"
-              name="email"
-              placeholder="Email"
-              textContentType="emailAddress"
+      <ImageBackground
+        source={require("./../../assets/background.png")}
+        style={styles.background}
+      >
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.contentContainer}>
+            <Image
+              style={styles.logo}
+              source={require("./../../assets/logo.png")}
             />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              icon="lock"
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-              textContentType="password"
-            />
-            <SubmitButton title="Login" color="primary" />
-          </Form>
-        </View>
-        <View style={styles.footer}>
-          <TouchableOpacity style={styles.buttons} onPress={() => {}}>
-            <View>
-              <Text style={styles.signup}>Sign Up</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons} onPress={() => {}}>
-            <View>
-              <Text style={styles.passwordRecovery}>Password Recovery</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+            <Text style={styles.title}>PCM Connect</Text>
+            <Text style={styles.subtitle}>Welcome to the Family</Text>
 
-      <Image
-        source={require("./../../assets/Rectangle-44.png")}
-        style={styles.image3}
-      />
-      <Image
-        source={require("./../../assets/Rectangle-45.png")}
-        style={styles.image4}
-      />
+            <Form
+              initialValues={{ email: "", password: "" }}
+              onSubmit={(values) => console.log(values)}
+              validationSchema={validationSchema}
+            >
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                icon="email"
+                keyboardType="email-address"
+                name="email"
+                placeholder="Email"
+                textContentType="emailAddress"
+              />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                icon="lock"
+                name="password"
+                placeholder="Password"
+                secureTextEntry
+                textContentType="password"
+              />
+              <SubmitButton title="Login" color="primary" />
+            </Form>
+          </View>
+          <View style={styles.footer}>
+            <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+              <View>
+                <Text style={styles.signup}>Sign Up</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttons} onPress={() => {}}>
+              <View>
+                <Text style={styles.passwordRecovery}>Password Recovery</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    resizeMode: "contain",
+    justifyContent: "center",
+    zIndex: -1,
+  },
   container: {
-    height: "100%",
-  },
-  image1: {
-    width: "25%",
-    height: "25%",
-    position: "absolute",
-    left: 160,
-    top: 0,
-    overflow: "visible",
-    zIndex: -1,
-  },
-  image2: {
-    width: "25%",
-    height: "25%",
-    position: "absolute",
-    left: 160,
-    top: 0,
-    overflow: "visible",
-    zIndex: -1,
-  },
-  image3: {
-    width: "25%",
-    height: "25%",
-    position: "absolute",
-    right: 140,
-    bottom: 0,
-    overflow: "visible",
-    zIndex: -1,
-  },
-  image4: {
-    width: "25%",
-    height: "25%",
-    position: "absolute",
-    right: 140,
-    bottom: 0,
-    overflow: "visible",
-    zIndex: -1,
+    flex: 1,
   },
   contentContainer: {
     alignItems: "center",
     width: "100%",
     height: "100%",
-    marginTop: "25%",
-    padding: 20,
+    paddingTop: 100,
+    paddingHorizontal: 20,
   },
   logo: {
-    width: 80,
-    maxHeight: 80,
+    width: 96,
+    height: 68,
     overflow: "visible",
   },
   title: {
@@ -156,7 +114,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    bottom: 120,
+    bottom: 10,
     flexDirection: "row",
     padding: 20,
     width: "100%",

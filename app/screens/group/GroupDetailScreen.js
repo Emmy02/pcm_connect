@@ -140,7 +140,10 @@ function GroupDetailScreen() {
   return (
     <View style={styles.mainScreen}>
       <Image source={group.image} style={styles.image} />
+
       <Screen style={styles.screen}>
+        <TopNavBar />
+        <GroupNav index={activeTab} onPress={(index) => setActiveTab(index)} />
         <View style={styles.tabs}>
           {false && (
             <View style={styles.leaderContainer}>
@@ -183,7 +186,7 @@ function GroupDetailScreen() {
                 peopleGoing="23"
                 date="23rd March"
                 dateTime="3:00 pm"
-                type="Public"
+                type="Private"
               />
             </ScrollView>
           )}
@@ -209,7 +212,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    height: "30%",
+    height: 230,
+    position: "absolute",
   },
   leaderContainer: {
     backgroundColor: "rgba(130, 77, 144, 0.8)",
@@ -227,6 +231,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   tabs: {
+    paddingTop: 230,
     overflow: "visible",
     zIndex: -1,
   },

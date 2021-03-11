@@ -38,7 +38,6 @@ function TopNav({ image, role, controls }) {
 
 const styles = StyleSheet.create({
   navContainer: {
-    backgroundColor: colors.light,
     width: "100%",
     height: 44,
     overflow: "visible",

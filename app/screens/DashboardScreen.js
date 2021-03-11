@@ -162,6 +162,7 @@ const styles = StyleSheet.create({
     height: 420,
   },
   mainScreen: {
+    overflow: "visible",
     zIndex: -1,
   },
   goToGroupContainer: {

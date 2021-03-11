@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-import colors from "../config/colors";
+import { colors, defaultStyles } from "../config";
 
 function Seed({ title, active, onPress }) {
   return (
@@ -34,10 +34,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
     marginVertical: 10,
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    ...defaultStyles.shadows,
     marginLeft: 10,
   },
   background: {
