@@ -47,10 +47,11 @@ function NoticeFormScreen() {
 
             <FormField
               autoCapitalize="none"
-              autoCorrect={false}
+              autoCorrect={true}
               name="description"
               placeholder="Description"
               numberOfLines={3}
+              multiline
               maxLength={255}
             />
             <FormField

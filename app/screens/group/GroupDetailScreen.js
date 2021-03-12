@@ -16,6 +16,7 @@ import {
   Chat,
   TopNavBar,
   GroupNav,
+  GroupForm,
 } from "./../../components/groups";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../config/colors";
@@ -139,67 +140,107 @@ function GroupDetailScreen() {
 
   return (
     <View style={styles.mainScreen}>
-      <Image source={group.image} style={styles.image} />
+      <Image
+        source={group.image}
+        style={styles.image}
+        blurRadius={activeTab === 2 ? 10 : 0}
+      />
 
       <Screen style={styles.screen}>
         <TopNavBar />
-        <GroupNav index={activeTab} onPress={(index) => setActiveTab(index)} />
-        <View style={styles.tabs}>
-          {false && (
-            <View style={styles.leaderContainer}>
-              <Image
-                style={styles.avatar}
-                source={require("../../assets/avatar-1.png")}
-              />
-              <Text style={styles.text}> Enmanuel Alejandro De Oleo</Text>
-              <MaterialCommunityIcons
-                name={"dots-horizontal"}
-                size={24}
-                color={"#fff"}
-                style={styles.icon}
-              />
-            </View>
-          )}
-          {activeTab === 0 && (
-            <ScrollView>
-              <Info
-                title={group.title}
-                description={group.description}
-                address="Contrary to popular belief, Lorem Ipsum is not simply ran asd sdf asd fasdfdom text. It has roots. Contrary to popular belief."
-                university="Montemorelos University"
-              />
-              <EventCard
-                title="¡Follow Me!"
-                subtitle="The hard way"
-                description="Contrary to popular belief, Lorem Ipsum is not simply random text."
-                link="Zoom 193 -123 - 4564 Pwd: 123432"
-                peopleGoing="23"
-                date="23rd March"
-                dateTime="3:00 pm"
-                type="Public"
-              />
-              <EventCard
-                title="¡Follow Me!"
-                subtitle="The hard way"
-                description="Contrary to popular belief, Lorem Ipsum is not simply random text."
-                link="Zoom 193 -123 - 4564 Pwd: 123432"
-                peopleGoing="23"
-                date="23rd March"
-                dateTime="3:00 pm"
-                type="Private"
-              />
-            </ScrollView>
-          )}
+        {activeTab !== 2 && (
+          <GroupNav
+            containerStyles={{
+              position: "absolute",
+              top: 175,
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+              alignContent: "center",
+              borderRadius: 10,
+            }}
+            index={activeTab}
+            onPress={(index) => setActiveTab(index)}
+          />
+        )}
+        {activeTab !== 2 && (
+          <View style={styles.tabs}>
+            {false && (
+              <View style={styles.leaderContainer}>
+                <Image
+                  style={styles.avatar}
+                  source={require("../../assets/avatar-1.png")}
+                />
+                <Text style={styles.text}> Enmanuel Alejandro De Oleo</Text>
+                <MaterialCommunityIcons
+                  name={"dots-horizontal"}
+                  size={24}
+                  color={"#fff"}
+                  style={styles.icon}
+                />
+              </View>
+            )}
+            {activeTab === 0 && (
+              <ScrollView>
+                <Info
+                  title={group.title}
+                  description={group.description}
+                  address="Contrary to popular belief, Lorem Ipsum is not simply ran asd sdf asd fasdfdom text. It has roots. Contrary to popular belief."
+                  university="Montemorelos University"
+                />
+                <EventCard
+                  title="¡Follow Me!"
+                  subtitle="The hard way"
+                  description="Contrary to popular belief, Lorem Ipsum is not simply random text."
+                  link="Zoom 193 -123 - 4564 Pwd: 123432"
+                  peopleGoing="23"
+                  date="23rd March"
+                  dateTime="3:00 pm"
+                  type="Public"
+                />
+                <EventCard
+                  title="¡Follow Me!"
+                  subtitle="The hard way"
+                  description="Contrary to popular belief, Lorem Ipsum is not simply random text."
+                  link="Zoom 193 -123 - 4564 Pwd: 123432"
+                  peopleGoing="23"
+                  date="23rd March"
+                  dateTime="3:00 pm"
+                  type="Private"
+                />
+              </ScrollView>
+            )}
 
-          {activeTab === 1 && <Members list={members} />}
-          {activeTab === 2 && <Chat messages={messages} />}
-        </View>
+            {activeTab === 1 && <Members list={members} />}
+            {activeTab === 3 && (
+              <GroupForm address={{ lat: 1, long: 2, street: "1232132" }} />
+            )}
+          </View>
+        )}
+        {activeTab === 2 && (
+          <View style={{ width: "100%", height: "100%", position: "absolute" }}>
+            <Chat messages={messages} />
+            <GroupNav
+              containerStyles={styles.bottomNav}
+              index={activeTab}
+              onPress={(index) => setActiveTab(index)}
+            />
+          </View>
+        )}
       </Screen>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bottomNav: {
+    position: "absolute",
+    bottom: 10,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    left: 10,
+  },
   avatar: {
     height: 44,
     width: 44,
@@ -243,7 +284,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   mainScreen: {
-    backgroundColor: colors.light,
     flex: 1,
   },
 });

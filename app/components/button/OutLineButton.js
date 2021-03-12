@@ -4,16 +4,21 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import colors from "../../config/colors";
 
-function OutLineButton({ title, onPress }) {
+function OutLineButton({
+  title,
+  backgroundColor = colors.light,
+  width = "100%",
+  onPress,
+}) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, { width }]} onPress={onPress}>
       <LinearGradient
         start={{ x: 1.7, y: 0.1 }}
         locations={[0.1, 1]}
         colors={[colors.primary, colors.secondary]}
         style={styles.background}
       >
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, { backgroundColor }]}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );
@@ -23,7 +28,6 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     marginVertical: 10,
-    width: "100%",
   },
   background: {
     borderRadius: 10,
@@ -36,7 +40,6 @@ const styles = StyleSheet.create({
     width: "100%",
     color: "rgba(2, 82, 111, 1)",
     fontSize: 14,
-    backgroundColor: colors.light,
     paddingHorizontal: 20,
     paddingVertical: 7,
     borderRadius: 10,

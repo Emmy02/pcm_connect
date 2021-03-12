@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   detailsContainer: {
-    padding: 20,
+    padding: 15,
     width: "50%",
   },
   image: {

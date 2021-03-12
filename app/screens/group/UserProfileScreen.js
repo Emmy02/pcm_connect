@@ -36,10 +36,10 @@ function UserProfileScreen() {
       <Screen style={styles.screen}>
         <View style={styles.card}>
           <LinearGradient
-            start={{ x: 0, y: 0.2 }}
-            locations={[1, 0.1]}
-            end={{ x: 2, y: 1.5 }}
-            colors={[colors.danger, colors.secondary]}
+            start={{ x: 0, y: 1 }}
+            locations={[1, 0]}
+            end={{ x: 1, y: 1 }}
+            colors={[colors.primary, colors.secondary]}
             style={styles.gradient}
           >
             <View style={styles.userInfoContainer}>

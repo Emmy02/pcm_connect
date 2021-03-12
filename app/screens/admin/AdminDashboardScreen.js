@@ -117,6 +117,13 @@ function AdminDashboardScreen() {
                 image={item.image}
                 key={index}
                 reverse={index % 2}
+                controls={
+                  <OutLineButton
+                    title="visit"
+                    backgroundColor={colors.white}
+                    width={100}
+                  />
+                }
               />
             )}
           />

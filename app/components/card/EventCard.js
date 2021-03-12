@@ -21,9 +21,9 @@ function EventCard({
     <View style={styles.card}>
       <View style={styles.dateContainer}>
         <LinearGradient
-          start={{ x: 0, y: 0.2 }}
-          locations={[1, 0.1]}
-          end={{ x: 2, y: 1.5 }}
+          start={{ x: 0.3, y: 1 }}
+          locations={[0, 0.9]}
+          end={[0.9, 0.2]}
           colors={[colors.primary, colors.secondary]}
           style={styles.gradient}
         >
@@ -44,17 +44,33 @@ function EventCard({
         {controls}
       </View>
       <View style={styles.typeContainer}>
-        <View style={styles.typeLabel}>
-          <LinearGradient
-            start={{ x: 0.2, y: 0 }}
-            locations={[0, 1]}
-            end={[1.3, 0]}
-            colors={[colors.primary, colors.secondary]}
-            style={styles.gradientType}
-          >
-            <Text style={styles.typeText}>{type}</Text>
-          </LinearGradient>
-        </View>
+        {type === "Public" && (
+          <View style={styles.typeLabel}>
+            <LinearGradient
+              start={{ x: 0.2, y: 0 }}
+              locations={[0, 1]}
+              end={[1.3, 0]}
+              colors={[colors.primary, colors.secondary]}
+              style={styles.gradientType}
+            >
+              <Text style={styles.typeText}>{type}</Text>
+            </LinearGradient>
+          </View>
+        )}
+
+        {type === "Private" && (
+          <View style={styles.typeLabel}>
+            <LinearGradient
+              start={{ x: 0.2, y: 0 }}
+              locations={[0, 1]}
+              end={[1.3, 0]}
+              colors={[colors.secondary, colors.danger]}
+              style={styles.gradientType}
+            >
+              <Text style={styles.typeText}>{type}</Text>
+            </LinearGradient>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -94,6 +110,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     padding: 10,
+    textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
   },

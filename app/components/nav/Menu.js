@@ -34,6 +34,7 @@ function Menu({ role }) {
   return (
     <View style={styles.menuContainer}>
       <FlatList
+        style={{ zIndex: 1 }}
         data={menuList}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (

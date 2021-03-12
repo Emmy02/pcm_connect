@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import colors from "../config/colors";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function UniversityPointer({ university }) {
   const { name } = university;
@@ -14,7 +15,13 @@ function UniversityPointer({ university }) {
         colors={[colors.secondary, colors.primary]}
         style={styles.background}
       >
-        <Text style={styles.text}>{name}</Text>
+        <MaterialCommunityIcons
+          name={"school-outline"}
+          size={24}
+          color={colors.white}
+          style={styles.icon}
+        />
+        <Text style={styles.text}>{name} </Text>
       </LinearGradient>
     </View>
   );
@@ -29,7 +36,7 @@ const styles = StyleSheet.create({
   },
   background: {
     borderRadius: 20,
-    padding: 2,
+    padding: 1,
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "center",
@@ -46,6 +53,9 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",
+  },
+  icon: {
+    paddingHorizontal: 5,
   },
 });
 

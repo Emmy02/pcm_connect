@@ -1,6 +1,6 @@
 import React from "react";
-import NoticeFormScreen from "./app/screens/admin/NoticeFormScreen";
+import UserProfileScreen from "./app/screens/group/UserProfileScreen";
 
 export default function App() {
-  return <NoticeFormScreen />;
+  return <UserProfileScreen />;
 }

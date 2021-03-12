@@ -4,9 +4,9 @@ import colors from "../../config/colors";
 
 import SvgUri from "react-native-svg-uri";
 
-function GroupNav({ index, onPress }) {
+function GroupNav({ index, containerStyles, onPress }) {
   return (
-    <View style={styles.groupNavContainer}>
+    <View style={containerStyles}>
       <View style={styles.menuContainer}>
         <TouchableOpacity onPress={() => onPress(0)} style={[styles.btn]}>
           <SvgUri
@@ -46,15 +46,6 @@ function GroupNav({ index, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  groupNavContainer: {
-    position: "absolute",
-    top: 175,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    alignContent: "center",
-    borderRadius: 10,
-  },
   menuContainer: {
     width: "80%",
     backgroundColor: "rgba(0,0,0,.5)",
