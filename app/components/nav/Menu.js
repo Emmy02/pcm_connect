@@ -1,5 +1,7 @@
 import React from "react";
 
+import routes from "./../../navigation/routes";
+
 import {
   StyleSheet,
   View,
@@ -14,23 +16,27 @@ import { colors, defaultStyles } from "./../../config";
 const menuList = [
   {
     id: 1,
-    title: "Notices",
+    title: "Dashboard",
+    route: routes.DASHBOARD,
   },
   {
     id: 2,
-    title: "Support",
+    title: "Notices",
+    route: routes.NOTICES,
   },
   {
     id: 3,
-    title: "Privacy Polices",
+    title: "About PCM Connect",
+    route: routes.CONTACT,
   },
   {
     id: 4,
-    title: "About PCM Connect",
+    title: "Stats",
+    route: routes.ADMIN_DASHBOARD,
   },
 ];
 
-function Menu({ role }) {
+function Menu({ navigation }) {
   return (
     <View style={styles.menuContainer}>
       <FlatList
@@ -38,7 +44,10 @@ function Menu({ role }) {
         data={menuList}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (
-          <TouchableOpacity>
+          <TouchableOpacity
+            key={index}
+            onPress={() => navigation.navigate(item.route)}
+          >
             <Text style={styles.text}>{item.title}</Text>
           </TouchableOpacity>
         )}

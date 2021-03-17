@@ -27,10 +27,13 @@ const listings = [
   },
 ];
 
-function GroupsValidationScreen() {
+function GroupsValidationScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/avatar-3.png")} />
+      <TopNav
+        image={require("../../assets/avatar-3.png")}
+        navigation={navigation}
+      />
       <Title>Validate Groups</Title>
       <ScrollView style={styles.mainScreen}>
         <FlatList

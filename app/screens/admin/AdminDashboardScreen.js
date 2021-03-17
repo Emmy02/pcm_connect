@@ -10,6 +10,7 @@ import { TopNav, SearchBar } from "../../components/nav";
 
 import { OutLineButton } from "./../../components/button";
 import GradientCardContent from "../../components/admin/GradientCardContent";
+import routes from "../../navigation/routes";
 
 const dashboardData = {
   users: 150,
@@ -86,11 +87,12 @@ const listings = [
   },
 ];
 
-function AdminDashboardScreen() {
+function AdminDashboardScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <TopNav
         image={require("../../assets/avatar-3.png")}
+        navigation={navigation}
         controls={<SearchBar />}
       />
       <ScrollView style={styles.mainScreen}>
@@ -122,6 +124,7 @@ function AdminDashboardScreen() {
                     title="visit"
                     backgroundColor={colors.white}
                     width={100}
+                    onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
                   />
                 }
               />

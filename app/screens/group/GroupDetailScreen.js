@@ -135,7 +135,7 @@ const messages = [
   },
 ];
 
-function GroupDetailScreen() {
+function GroupDetailScreen({ navigation }) {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -153,6 +153,7 @@ function GroupDetailScreen() {
             containerStyles={{
               position: "absolute",
               top: 175,
+              left: 10,
               width: "100%",
               alignItems: "center",
               justifyContent: "center",
@@ -285,6 +286,7 @@ const styles = StyleSheet.create({
   },
   mainScreen: {
     flex: 1,
+    backgroundColor: colors.white,
   },
 });
 

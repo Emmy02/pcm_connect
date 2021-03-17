@@ -1,5 +1,10 @@
 import React from "react";
-import { View, StyleSheet, Image } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 
 import Text from "../Text";
 import { colors, defaultStyles } from "../../config";
@@ -32,7 +37,7 @@ function HorizontalCard({
         <Text style={styles.title} numberOfLines={1}>
           {title}
         </Text>
-        <Text style={styles.description} numberOfLines={3}>
+        <Text style={styles.description} numberOfLines={2}>
           {description}
         </Text>
         <View style={styles.controls}>{controls}</View>

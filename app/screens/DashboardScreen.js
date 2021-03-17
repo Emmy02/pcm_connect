@@ -15,6 +15,7 @@ import SegmentControl from "./../components/SegmentControl";
 import { useState } from "react/cjs/react.development";
 
 import WelcomeBox from "./../components/WelcomeBox";
+import routes from "../navigation/routes";
 
 const listings = [
   {
@@ -84,7 +85,7 @@ const listings = [
 ];
 
 const isAMember = true;
-function DashboardScreen() {
+function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);
 
   return (
@@ -92,9 +93,15 @@ function DashboardScreen() {
       <TopNav
         image={require("../assets/avatar-3.png")}
         controls={<SearchBar />}
+        navigation={navigation}
       />
       <ScrollView style={styles.mainScreen}>
-        {isAMember && <WelcomeBox fullName="Enmanuel Alejandro De Oleo" />}
+        {isAMember && (
+          <WelcomeBox
+            fullName="Enmanuel Alejandro De Oleo"
+            onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
+          />
+        )}
         <View style={styles.closeGroups}>
           <Title controls={<OutLineButton title="Create a Group" />}>
             Groups close to you
@@ -111,6 +118,7 @@ function DashboardScreen() {
                 members={item.members}
                 image={item.image}
                 key={index}
+                onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
                 controls={
                   <UniversityPointer
                     university={{ name: "University Pointer" }}
@@ -136,6 +144,14 @@ function DashboardScreen() {
             keyExtractor={(listing) => listing.id.toString()}
             renderItem={({ item, index }) => (
               <HorizontalCard
+                controls={
+                  <OutLineButton
+                    title="visit"
+                    backgroundColor={colors.white}
+                    width={100}
+                    onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
+                  />
+                }
                 title={item.title}
                 description={item.decription}
                 members={item.members}

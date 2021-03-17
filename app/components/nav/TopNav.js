@@ -7,8 +7,9 @@ import { colors, defaultStyles } from "./../../config";
 import SvgUri from "react-native-svg-uri";
 
 import Menu from "./Menu";
+import routes from "../../navigation/routes";
 
-function TopNav({ image, role, controls }) {
+function TopNav({ image, role, controls, navigation }) {
   const [showMenu, setShowMenu] = useState(false);
 
   return (
@@ -24,12 +25,12 @@ function TopNav({ image, role, controls }) {
             />
           </View>
         </TouchableOpacity>
-        {showMenu && <Menu />}
+        {showMenu && <Menu navigation={navigation} role={role} />}
       </View>
 
       {controls && <View style={styles.controls}>{controls}</View>}
 
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate(routes.PROFILE)}>
         <Image style={styles.image} source={image} />
       </TouchableOpacity>
     </View>

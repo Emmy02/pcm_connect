@@ -10,10 +10,13 @@ import { TopNav } from "./../../components/nav";
 import { color } from "react-native-reanimated";
 import Title from "../../components/Title";
 
-function ContactScreen() {
+function ContactScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/avatar-3.png")} />
+      <TopNav
+        image={require("../../assets/avatar-3.png")}
+        navigation={navigation}
+      />
       <ScrollView style={styles.scrollView}>
         <View style={styles.logoContainer}>
           <Image

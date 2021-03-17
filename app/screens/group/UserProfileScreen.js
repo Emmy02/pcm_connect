@@ -28,7 +28,7 @@ const member = {
     "Contrary to popular belief, Lorem Ipsum is not simply random text. t has roots. Contrary to popular belief Contrary to popular belief, Lorem Ipsum is not simply random text. t has roots. Contrary to popular belief",
 };
 
-function UserProfileScreen() {
+function UserProfileScreen({ navigation }) {
   return (
     <View style={styles.mainScreen}>
       <Image source={member.groupImage} style={styles.image} blurRadius={10} />

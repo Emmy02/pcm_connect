@@ -18,10 +18,13 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(4).label("Password"),
 });
 
-function NoticeFormScreen() {
+function NoticeFormScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/avatar-3.png")} />
+      <TopNav
+        image={require("../../assets/avatar-3.png")}
+        navigation={navigation}
+      />
       <ScrollView style={styles.mainScreen}>
         <Title>Create Territory's Event</Title>
         <View style={styles.formContainer}>

@@ -1,6 +1,11 @@
 import React from "react";
-import UserProfileScreen from "./app/screens/group/UserProfileScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
-  return <UserProfileScreen />;
+  return (
+    <NavigationContainer>
+      <AppNavigator />
+    </NavigationContainer>
+  );
 }

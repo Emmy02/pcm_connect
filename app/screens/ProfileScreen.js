@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
   cover: Yup.string().required().label("About Me"),
 });
 
-function ProfileScreen() {
+function ProfileScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.imageContainer}>

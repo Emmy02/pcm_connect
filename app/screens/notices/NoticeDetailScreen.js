@@ -29,7 +29,7 @@ const notice = {
   onPress: () => {},
 };
 
-function NoticeDetailScreen() {
+function NoticeDetailScreen({ navigation }) {
   return (
     <View style={styles.mainScreen}>
       <Image source={notice.image} style={styles.image} />

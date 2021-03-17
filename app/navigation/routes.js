@@ -1,0 +1,16 @@
+export default Object.freeze({
+  GROUP_DETAILS: "GroupDetails",
+  USER_PROFILE_GROUP: "UserProfileGroup",
+  ADMIN_DASHBOARD: "AdminDashboard",
+  GROUPS_VALIDATION: "GroupsValidation",
+  NOTICE_FORM: "NoticeForm",
+  AUTH_FORM: "AutForm",
+  NOTICE_DETAILS: "NoticeDetails",
+  NOTICES: "Notices",
+  CONTACT: "Contact",
+  PRIVACY_AND_TERMS_OF_USE: "PrivacyAndTermsOfUse",
+  SUPPORT_FORM: "SupportForm",
+  SUPPORT_TICKETS: "SupportTickets",
+  DASHBOARD: "Dashboard",
+  PROFILE: "Profile",
+});

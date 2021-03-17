@@ -10,6 +10,7 @@ import Seed from "./../../components/Seed";
 import { OutLineButton } from "./../../components/button";
 
 import { TopNav } from "./../../components/nav";
+import routes from "../../navigation/routes";
 
 const presenters = [
   {
@@ -44,10 +45,13 @@ const seeds = [
   { id: 3, title: "Northen Adventist Association" },
 ];
 
-function NoticesScreen() {
+function NoticesScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/avatar-3.png")} />
+      <TopNav
+        image={require("../../assets/avatar-3.png")}
+        navigation={navigation}
+      />
       <ScrollView style={styles.scrollView}>
         <View style={styles.filterList}>
           <Title>Notices</Title>
@@ -71,7 +75,10 @@ function NoticesScreen() {
                 {...item}
                 key={"notice-presenter-" + index}
                 controls={
-                  <OutLineButton title="See Details" onPress={item.onPress} />
+                  <OutLineButton
+                    title="See Details"
+                    onPress={() => navigation.navigate(routes.NOTICE_DETAILS)}
+                  />
                 }
               />
             )}
