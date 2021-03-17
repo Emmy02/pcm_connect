@@ -4,9 +4,9 @@ import { LinearGradient } from "expo-linear-gradient";
 
 import { colors, defaultStyles } from "../config";
 
-function Seed({ title, active, onPress }) {
+function Seed({ id, title, active, activeFilter, setActiveFilter }) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={() => setActiveFilter(id)}>
       {active && (
         <LinearGradient
           start={{ x: 1.7, y: 0.1 }}

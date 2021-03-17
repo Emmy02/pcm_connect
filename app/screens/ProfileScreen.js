@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     padding: 10,
     overflow: "visible",
     flex: 1,
+    backgroundColor: colors.white,
   },
   imageContainer: {
     width: "100%",

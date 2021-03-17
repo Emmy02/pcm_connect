@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, StyleSheet, View, ScrollView } from "react-native";
 
 import colors from "../../config/colors";
@@ -40,12 +40,13 @@ const presenters = [
 ];
 
 const seeds = [
-  { id: 1, title: "DIA", active: true },
+  { id: 1, title: "DIA" },
   { id: 2, title: "North Mexican Conference" },
   { id: 3, title: "Northen Adventist Association" },
 ];
 
 function NoticesScreen({ navigation }) {
+  const [activeFilter, setActiveFilter] = useState(1);
   return (
     <Screen style={styles.screen}>
       <TopNav
@@ -61,7 +62,13 @@ function NoticesScreen({ navigation }) {
             horizontal
             keyExtractor={(listing) => listing.id.toString()}
             renderItem={({ item, index }) => (
-              <Seed {...item} key={"notice-seed-" + index} />
+              <Seed
+                activeFilter={activeFilter}
+                setActiveFilter={setActiveFilter}
+                active={activeFilter === item.id}
+                {...item}
+                key={"notice-seed-" + index}
+              />
             )}
           />
         </View>

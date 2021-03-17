@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -22,7 +22,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../config/colors";
 
 import { EventCard } from "./../../components/card";
-import { useState } from "react/cjs/react.development";
 
 const group = {
   id: 1,
@@ -212,7 +211,9 @@ function GroupDetailScreen({ navigation }) {
               </ScrollView>
             )}
 
-            {activeTab === 1 && <Members list={members} />}
+            {activeTab === 1 && (
+              <Members navigation={navigation} list={members} />
+            )}
             {activeTab === 3 && (
               <GroupForm address={{ lat: 1, long: 2, street: "1232132" }} />
             )}

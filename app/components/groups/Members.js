@@ -2,8 +2,9 @@ import React from "react";
 import { StyleSheet, FlatList, ScrollView } from "react-native";
 
 import Member from "./Member";
+import routes from "./../../navigation/routes";
 
-function Members({ list }) {
+function Members({ list, navigation }) {
   return (
     <ScrollView style={styles.membersContainer}>
       <FlatList
@@ -15,7 +16,7 @@ function Members({ list }) {
             name={item.name}
             email={item.email}
             image={item.image}
-            onPress={() => {}}
+            onPress={() => navigation.navigate(routes.USER_PROFILE_GROUP)}
             key={"group-member-" + index}
           />
         )}
