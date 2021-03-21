@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View, ScrollView } from "react-native";
 
 import colors from "../../config/colors";
@@ -12,41 +12,25 @@ import { OutLineButton } from "./../../components/button";
 import { TopNav } from "./../../components/nav";
 import routes from "../../navigation/routes";
 
-const presenters = [
-  {
-    id: 1,
-    title: "PCM Virtual Congress 2021",
-    description:
-      "Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots.",
-    image: require("../../assets/2.jpg"),
-    onPress: () => {},
-  },
-  {
-    id: 2,
-    title: "PCM Virtual Congress 2021",
-    description:
-      "Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots.",
-    image: require("../../assets/1.jpg"),
-    onPress: () => {},
-  },
-  {
-    id: 3,
-    title: "PCM Virtual Congress 2021",
-    description:
-      "Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots.",
-    image: require("../../assets/3.jpg"),
-    onPress: () => {},
-  },
-];
-
 const seeds = [
   { id: 1, title: "DIA" },
   { id: 2, title: "North Mexican Conference" },
   { id: 3, title: "Northen Adventist Association" },
 ];
 
+import noticesApi from "./../../api/notices";
+
+import useApi from "./../../hooks/useApi";
+
 function NoticesScreen({ navigation }) {
   const [activeFilter, setActiveFilter] = useState(1);
+
+  const getNoticesApi = useApi(noticesApi.getNotices);
+
+  useEffect(() => {
+    getNoticesApi.request();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
       <TopNav
@@ -54,6 +38,12 @@ function NoticesScreen({ navigation }) {
         navigation={navigation}
       />
       <ScrollView style={styles.scrollView}>
+        {getNoticesApi.error && (
+          <>
+            <Text> Couldn't retrieve the groups.</Text>
+            <OutLineButton title="Retry" onPress={getNoticesApi.request} />
+          </>
+        )}
         <View style={styles.filterList}>
           <Title>Notices</Title>
           <FlatList
@@ -74,7 +64,7 @@ function NoticesScreen({ navigation }) {
         </View>
         <View style={styles.noticesList}>
           <FlatList
-            data={presenters}
+            data={getNoticesApi.data}
             keyExtractor={(listing) => listing.id.toString()}
             renderItem={({ item, index }) => (
               <Presenter

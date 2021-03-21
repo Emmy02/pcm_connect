@@ -15,7 +15,7 @@ import {
   LoginForm,
   PasswordRecoveryForm,
   AuthFooter,
-} from "./../../components/auth";
+} from "../../components/auth";
 
 function AuthScreen({ navigation }) {
   const [activeFrom, setActiveFrom] = useState("login"); // login, register, passwordRecovery

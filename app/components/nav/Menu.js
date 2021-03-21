@@ -1,6 +1,7 @@
 import React from "react";
 
 import routes from "./../../navigation/routes";
+import useAuth from "./../../auth/useAuth";
 
 import {
   StyleSheet,
@@ -37,6 +38,8 @@ const menuList = [
 ];
 
 function Menu({ navigation }) {
+  const { logOut } = useAuth();
+
   return (
     <View style={styles.menuContainer}>
       <FlatList
@@ -52,6 +55,9 @@ function Menu({ navigation }) {
           </TouchableOpacity>
         )}
       />
+      <TouchableOpacity onPress={logOut}>
+        <Text style={styles.danger}>Log out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -72,6 +78,9 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
     fontSize: 16,
     zIndex: 1,
+  },
+  danger: {
+    color: colors.danger,
   },
 });
 

@@ -11,16 +11,28 @@ import MemberCount from "../MemberCount";
 
 import { colors, defaultStyles } from "../../config";
 
-function VerticalCard({ title, description, image, members, controls }) {
+function VerticalCard({
+  name,
+  description,
+  image,
+  members,
+  lat,
+  lng,
+  address,
+  members_count,
+  university,
+  user,
+  controls,
+}) {
   return (
     <View style={styles.card}>
       <Image style={styles.image} source={image} />
-      <MemberCount {...members} />
+      {members && <MemberCount {...members} />}
       <View style={styles.detailsContainer}>
         <Text style={styles.title} numberOfLines={1}>
-          {title}
+          {name}
         </Text>
-        <Text style={styles.description} numberOfLines={3}>
+        <Text style={styles.description} numberOfLines={1}>
           {description}
         </Text>
         <View style={styles.controls}>{controls}</View>
@@ -34,8 +46,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 20,
     marginRight: 20,
-    maxWidth: 220,
-    maxHeight: 320,
+    width: 250,
+    maxHeight: 300,
     marginHorizontal: 10,
     ...defaultStyles.shadows,
   },

@@ -1,27 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
 import * as Yup from "yup";
 
-import { Form, FormField, SubmitButton } from "./../forms";
+import { Form, FormField, SubmitButton, ErrorMessage } from "./../forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  password: Yup.string().required().min(8).label("Password"),
 });
 
+import authApi from "./../../api/auth";
+import useAuth from "./../../auth/useAuth";
+
 function LoginForm() {
+  const auth = useAuth();
+  const [loginFailed, setLoginFailed] = useState(false);
+
+  const handleSubmit = async ({ email, password }) => {
+    const result = await authApi.login(email, password);
+    if (!result.ok) return setLoginFailed(true);
+    setLoginFailed(false);
+    auth.logIn(result.data);
+  };
+
   return (
     <View style={styles.formContainer}>
       <Form
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
+        <ErrorMessage
+          error="Invalid email and/or password."
+          visible={loginFailed}
+        />
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
-          icon="email"
           keyboardType="email-address"
           name="email"
           placeholder="Email"
@@ -30,7 +46,6 @@ function LoginForm() {
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
-          icon="lock"
           name="password"
           placeholder="Password"
           secureTextEntry

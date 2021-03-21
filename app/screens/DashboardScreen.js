@@ -1,5 +1,5 @@
-import React from "react";
-import { FlatList, StyleSheet, View, ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import { VerticalCard, HorizontalCard } from "../components/card";
 import colors from "../config/colors";
@@ -12,90 +12,43 @@ import { TopNav, SearchBar } from "../components/nav";
 import { OutLineButton } from "./../components/button";
 
 import SegmentControl from "./../components/SegmentControl";
-import { useState } from "react/cjs/react.development";
 
 import WelcomeBox from "./../components/WelcomeBox";
 import routes from "../navigation/routes";
 
-const listings = [
-  {
-    id: 1,
-    title: "Red jacket for sale",
-    university: { name: "Tecnologico de Monterrey" },
-    decription:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    members: {
-      count: 24,
-      avatars: [
-        require("../assets/1.jpg"),
-        require("../assets/2.jpg"),
-        require("../assets/3.jpg"),
-      ],
-    },
-    image: require("../assets/1.jpg"),
-  },
-  {
-    id: 2,
-    title: "Couch in great condition",
-    university: { name: "Universidad Autonoma de Nuevo Leon" },
-    decription:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    members: {
-      count: 12,
-      avatars: [
-        require("../assets/1.jpg"),
-        require("../assets/2.jpg"),
-        require("../assets/3.jpg"),
-      ],
-    },
-    image: require("../assets/2.jpg"),
-  },
-  {
-    id: 3,
-    title: "Couch in great condition",
-    university: { name: "Universidad Autonoma de Nuevo Leon" },
-    decription:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    members: {
-      count: 12,
-      avatars: [
-        require("../assets/1.jpg"),
-        require("../assets/2.jpg"),
-        require("../assets/3.jpg"),
-      ],
-    },
-    image: require("../assets/2.jpg"),
-  },
-  {
-    id: 4,
-    title: "Couch in great condition",
-    university: { name: "Universidad Autonoma de Nuevo Leon" },
-    decription:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    members: {
-      count: 12,
-      avatars: [
-        require("../assets/1.jpg"),
-        require("../assets/2.jpg"),
-        require("../assets/3.jpg"),
-      ],
-    },
-    image: require("../assets/2.jpg"),
-  },
-];
+import groupsApi from "./../api/groups";
+
+import useApi from "./../hooks/useApi";
+import useLocation from "./../hooks/useLocation";
+
+import ActivityIndicator from "./../components/ActivityIndicator";
 
 const isAMember = true;
 function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);
+  const getGroupsByLocationApi = useApi(groupsApi.getGroupsByLocation);
+
+  const getGroupsApi = useApi(groupsApi.getGroups);
+
+  useEffect(() => {
+    getGroupsApi.request();
+  }, []);
 
   return (
     <Screen style={styles.screen}>
+      <ActivityIndicator visible={getGroupsApi.loading} />
       <TopNav
         image={require("../assets/avatar-3.png")}
         controls={<SearchBar />}
         navigation={navigation}
       />
       <ScrollView style={styles.mainScreen}>
+        {getGroupsApi.error && (
+          <>
+            <Text> Couldn't retrieve the groups.</Text>
+            <OutLineButton title="Retry" onPress={getGroupsApi.request} />
+          </>
+        )}
         {isAMember && (
           <WelcomeBox
             fullName="Enmanuel Alejandro De Oleo"
@@ -109,19 +62,17 @@ function DashboardScreen({ navigation }) {
           <FlatList
             horizontal
             style={{ overflow: "visible" }}
-            data={listings}
-            keyExtractor={(listing) => listing.id.toString()}
-            renderItem={({ item, index }) => (
+            data={getGroupsByLocationApi.data}
+            keyExtractor={(g) => g.id.toString()}
+            renderItem={({ item }) => (
               <VerticalCard
-                title={item.title}
-                description={item.decription}
-                members={item.members}
-                image={item.image}
-                key={index}
+                {...item}
+                image={require("../assets/1.jpg")}
+                key={item.index}
                 onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
                 controls={
                   <UniversityPointer
-                    university={{ name: "University Pointer" }}
+                    university={{ name: item.university.name }}
                   />
                 }
               />
@@ -140,8 +91,8 @@ function DashboardScreen({ navigation }) {
           />
           <FlatList
             style={{ overflow: "visible" }}
-            data={listings}
-            keyExtractor={(listing) => listing.id.toString()}
+            data={getGroupsApi.data}
+            keyExtractor={(group) => group.id.toString()}
             renderItem={({ item, index }) => (
               <HorizontalCard
                 controls={
@@ -152,10 +103,8 @@ function DashboardScreen({ navigation }) {
                     onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
                   />
                 }
-                title={item.title}
-                description={item.decription}
-                members={item.members}
-                image={item.image}
+                {...item}
+                image={require("../assets/4.jpg")}
                 key={index}
                 reverse={index % 2}
               />

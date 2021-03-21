@@ -10,7 +10,7 @@ import Text from "../Text";
 import { colors, defaultStyles } from "../../config";
 
 function HorizontalCard({
-  title,
+  name,
   description,
   image,
   members,
@@ -35,7 +35,7 @@ function HorizontalCard({
       />
       <View style={styles.detailsContainer}>
         <Text style={styles.title} numberOfLines={1}>
-          {title}
+          {name}
         </Text>
         <Text style={styles.description} numberOfLines={2}>
           {description}

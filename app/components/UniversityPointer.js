@@ -21,7 +21,9 @@ function UniversityPointer({ university }) {
           color={colors.white}
           style={styles.icon}
         />
-        <Text style={styles.text}>{name} </Text>
+        <Text numberOfLines={1} style={styles.text}>
+          {name.substring(0, 20) + "..."}
+        </Text>
       </LinearGradient>
     </View>
   );
@@ -33,6 +35,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 10,
     flexDirection: "row",
+    overflow: "hidden",
   },
   background: {
     borderRadius: 20,
