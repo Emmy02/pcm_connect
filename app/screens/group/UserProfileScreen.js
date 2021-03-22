@@ -1,7 +1,9 @@
-import React from "react";
-import { StyleSheet, SafeAreaView, View, Image, Text } from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, View, Image, Text } from "react-native";
 
 import Screen from "./../../components/Screen";
+
+import dayjs from "dayjs";
 
 import { TopNavBar } from "../../components/groups";
 import colors from "../../config/colors";
@@ -13,25 +15,33 @@ import SvgUri from "react-native-svg-uri";
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
 
-const member = {
-  groupImage: require("../../assets/3.jpg"),
-  avatar: require("../../assets/avatar-1.png"),
-  fullName: "Nahomi Rivas",
-  date: "Tuesday 23rd , March 2021",
-  email: "nahomi@pcm.com",
-  cover:
-    "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots. Contrary to popular belief",
-  age: 24,
-  adventist: true,
-  career: "Computer Engeenering Student",
-  message:
-    "Contrary to popular belief, Lorem Ipsum is not simply random text. t has roots. Contrary to popular belief Contrary to popular belief, Lorem Ipsum is not simply random text. t has roots. Contrary to popular belief",
-};
+function UserProfileScreen({ navigation, route }) {
+  const baseUrl = "https://pcm-api.herokuapp.com";
+  console.log(route.params);
 
-function UserProfileScreen({ navigation }) {
+  const {
+    email,
+    avatar,
+    id,
+    user_profile: {
+      age,
+      career_name,
+      cover,
+      gender,
+      first_name,
+      last_name,
+      is_adventist,
+      created_at,
+    },
+  } = route.params;
+
   return (
     <View style={styles.mainScreen}>
-      <Image source={member.groupImage} style={styles.image} blurRadius={10} />
+      <Image
+        source={require("../../assets/3.jpg")}
+        style={styles.image}
+        blurRadius={10}
+      />
 
       <Screen style={styles.screen}>
         <View style={styles.card}>
@@ -45,36 +55,39 @@ function UserProfileScreen({ navigation }) {
             <View style={styles.userInfoContainer}>
               <View style={styles.dateContainer}>
                 <View style={styles.dateWraper}>
-                  <Text style={styles.date}>{member.date}</Text>
+                  <Text style={styles.date}>
+                    {dayjs(created_at).format("ddd, MMM D, YYYY h:mm A")}
+                  </Text>
                 </View>
               </View>
               <View style={styles.primaryInfoContainer}>
-                <Image style={styles.avatar} source={member.avatar} />
+                <Image
+                  style={styles.avatar}
+                  source={{ uri: baseUrl + avatar }}
+                />
                 <View style={styles.primaryInfo}>
                   <Text style={[styles.fullName, styles.text]}>
-                    {member.fullName}
+                    {first_name} {last_name}
                   </Text>
-                  <Text style={[styles.email, styles.text]}>
-                    {member.email}
-                  </Text>
+                  <Text style={[styles.email, styles.text]}>{email}</Text>
                   <Text numberOfLines={3} style={[styles.cover, styles.text]}>
-                    {member.cover}
+                    {cover}
                   </Text>
                 </View>
               </View>
               <View style={styles.secondaryInfo}>
                 <View style={[styles.centered, styles.ageContainer]}>
-                  <Text style={[styles.age, styles.text]}>{member.age}</Text>
+                  <Text style={[styles.age, styles.text]}>{age}</Text>
                   <Text style={styles.text}>Years Old</Text>
                 </View>
                 <View style={[styles.centered, styles.adventistContainer]}>
                   <Text style={[styles.adventist, styles.text]}>
-                    {member.adventist ? "adventist" : "non-adventist"}
+                    {is_adventist ? "adventist" : "non-adventist"}
                   </Text>
                 </View>
                 <View style={[styles.centered, styles.careerContainer]}>
                   <Text style={[styles.career, styles.text]}>
-                    {member.career}
+                    {career_name}
                   </Text>
                 </View>
               </View>
@@ -90,7 +103,7 @@ function UserProfileScreen({ navigation }) {
               source={require("./../../assets/quotes.svg")}
             />
             <View>
-              <Text style={styles.message}>{member.message}</Text>
+              <Text style={styles.message}>{""}</Text>
             </View>
           </View>
           <View style={styles.actionsContainer}>
@@ -232,6 +245,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   message: {
+    height: 100,
     textAlign: "center",
   },
 });

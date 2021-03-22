@@ -5,7 +5,19 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../../config/colors";
 
-function Message({ name, content, image, date, me, onPress }) {
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+function Message({
+  user_first_name,
+  content,
+  avatar,
+  created_at,
+  me,
+  onPress,
+}) {
+  const baseUrl = "https://pcm-api.herokuapp.com";
+  dayjs.extend(relativeTime);
   return (
     <View
       style={[
@@ -13,7 +25,7 @@ function Message({ name, content, image, date, me, onPress }) {
         { flexDirection: me ? "row-reverse" : "row" },
       ]}
     >
-      <Image source={image} style={styles.image} />
+      <Image source={{ uri: baseUrl + avatar }} style={styles.image} />
       <View
         style={[
           styles.bubble,
@@ -26,8 +38,8 @@ function Message({ name, content, image, date, me, onPress }) {
             { flexDirection: me ? "row-reverse" : "row" },
           ]}
         >
-          <Text style={styles.name}>{name}</Text>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.name}>{user_first_name}</Text>
+          <Text style={styles.date}>{dayjs(created_at).fromNow()}</Text>
         </View>
         <View style={styles.contentContainer}>
           <Text style={[styles.content, { textAlign: me ? "right" : "left" }]}>

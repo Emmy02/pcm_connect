@@ -3,10 +3,10 @@ import { Text, View, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function GroupInfo({ title, description, address, university, ...otherProps }) {
+function GroupInfo({ name, description, address, university }) {
   return (
-    <View style={styles.container} {...otherProps}>
-      <Text style={styles.title}>{title}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{name}</Text>
       <Text style={styles.description}>{description}</Text>
       <View style={styles.list}>
         <MaterialCommunityIcons
@@ -24,7 +24,7 @@ function GroupInfo({ title, description, address, university, ...otherProps }) {
           color={colors.medium}
           style={styles.icon}
         />
-        <Text style={styles.text}>{university}</Text>
+        <Text style={styles.text}>{university?.name}</Text>
       </View>
     </View>
   );

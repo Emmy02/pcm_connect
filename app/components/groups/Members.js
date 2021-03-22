@@ -13,10 +13,14 @@ function Members({ list, navigation }) {
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (
           <Member
-            name={item.name}
-            email={item.email}
-            image={item.image}
-            onPress={() => navigation.navigate(routes.USER_PROFILE_GROUP)}
+            {...item.user}
+            avatar={item.avatar}
+            onPress={() =>
+              navigation.navigate(routes.USER_PROFILE_GROUP, {
+                ...item.user,
+                avatar: item.avatar,
+              })
+            }
             key={"group-member-" + index}
           />
         )}

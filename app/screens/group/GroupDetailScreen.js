@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   SafeAreaView,
@@ -24,117 +24,35 @@ import colors from "../../config/colors";
 import { EventCard } from "./../../components/card";
 
 const group = {
-  id: 1,
-  title: "Red jacket for sale",
-  university: { name: "Tecnologico de Monterrey" },
-  description:
-    "Contrary to popular belief, Lorem Ipsum  aklsjflasd jfklads jfklajsd flkadjs lkfj adlskis not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-  members: {
-    count: 24,
-    avatars: [
-      require("../../assets/1.jpg"),
-      require("../../assets/2.jpg"),
-      require("../../assets/3.jpg"),
-    ],
-  },
   image: require("../../assets/3.jpg"),
 };
 
-const members = [
-  {
-    id: 1,
-    name: "Nahomi Rivas",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-2.png"),
-  },
-  {
-    id: 2,
-    name: "Karla Vega",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-3.png"),
-  },
-  {
-    id: 3,
-    name: "Johana Silva",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-4.png"),
-  },
-  {
-    id: 5,
-    name: "Nahomi Rivas",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-2.png"),
-  },
-  {
-    id: 6,
-    name: "Karla Vega",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-3.png"),
-  },
-  {
-    id: 7,
-    name: "Johana Silva",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-4.png"),
-  },
-  {
-    id: 8,
-    name: "Nahomi Rivas",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-2.png"),
-  },
-  {
-    id: 9,
-    name: "Karla Vega",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-3.png"),
-  },
-  {
-    id: 10,
-    name: "Johana Silva",
-    email: "nahomi@pcm.com",
-    image: require("../../assets/avatar-4.png"),
-  },
-];
+import groupsApi from "./../../api/groups";
+import eventsApi from "./../../api/events";
+import messagesApi from "../../api/messages";
+import membersApi from "./../../api/members";
+import requestsApi from "./../../api/requests";
 
-const messages = [
-  {
-    id: 1,
-    name: "Karla Vegas",
-    image: require("../../assets/avatar-3.png"),
-    date: "2 hours ago",
-    content:
-      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.Contrary to popular belief, Lorem Ipsum is not simply random text.",
-  },
-  {
-    id: 2,
-    name: "Johana Silva",
-    image: require("../../assets/avatar-4.png"),
-    me: true,
-    date: "1 hour ago",
-    content:
-      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.",
-  },
-  {
-    id: 3,
-    name: "Karla Vegas",
-    image: require("../../assets/avatar-3.png"),
-    date: "2 hours ago",
-    content:
-      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.Contrary to popular belief, Lorem Ipsum is not simply random text.",
-  },
-  {
-    id: 4,
-    name: "Johana Silva",
-    image: require("../../assets/avatar-4.png"),
-    me: true,
-    date: "1 hour ago",
-    content:
-      "It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.",
-  },
-];
+import useApi from "./../../hooks/useApi";
+import ActivityIndicator from "../../components/ActivityIndicator";
 
-function GroupDetailScreen({ navigation }) {
+function GroupDetailScreen({ navigation, route }) {
+  const { id } = route.params;
+
+  const getGroupApi = useApi(groupsApi.getGroup);
+  const getEventsApi = useApi(eventsApi.getEvents);
+  const getMembersApi = useApi(membersApi.getMembers);
+  const getMessagesApi = useApi(messagesApi.getMessages);
+  const getRequestsApi = useApi(requestsApi.getRequests);
+
+  useEffect(() => {
+    getGroupApi.request(id);
+    getEventsApi.request(id);
+    getMembersApi.request(id);
+    getMessagesApi.request(id);
+    getRequestsApi.request(id);
+  }, []);
+
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -182,12 +100,7 @@ function GroupDetailScreen({ navigation }) {
             )}
             {activeTab === 0 && (
               <ScrollView>
-                <Info
-                  title={group.title}
-                  description={group.description}
-                  address="Contrary to popular belief, Lorem Ipsum is not simply ran asd sdf asd fasdfdom text. It has roots. Contrary to popular belief."
-                  university="Montemorelos University"
-                />
+                <Info {...getGroupApi.data} />
                 <EventCard
                   title="¡Follow Me!"
                   subtitle="The hard way"
@@ -212,7 +125,7 @@ function GroupDetailScreen({ navigation }) {
             )}
 
             {activeTab === 1 && (
-              <Members navigation={navigation} list={members} />
+              <Members navigation={navigation} list={getMembersApi.data} />
             )}
             {activeTab === 3 && (
               <GroupForm address={{ lat: 1, long: 2, street: "1232132" }} />
@@ -221,7 +134,7 @@ function GroupDetailScreen({ navigation }) {
         )}
         {activeTab === 2 && (
           <View style={{ width: "100%", height: "100%", position: "absolute" }}>
-            <Chat messages={messages} />
+            <Chat messages={getMessagesApi.data} />
             <GroupNav
               containerStyles={styles.bottomNav}
               index={activeTab}

@@ -71,7 +71,7 @@ function DashboardScreen({ navigation }) {
                 {...item}
                 image={require("../assets/1.jpg")}
                 key={item.index}
-                onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
+                onPress={() => navigation.navigate(routes.GROUP_DETAILS, item)}
                 controls={
                   <UniversityPointer
                     university={{ name: item.university.name }}
@@ -102,7 +102,9 @@ function DashboardScreen({ navigation }) {
                     title="visit"
                     backgroundColor={colors.white}
                     width={100}
-                    onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
+                    onPress={() =>
+                      navigation.navigate(routes.GROUP_DETAILS, { ...item })
+                    }
                   />
                 }
                 {...item}

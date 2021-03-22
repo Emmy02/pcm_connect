@@ -5,25 +5,32 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../../config/colors";
 
-function Member({ name, email, image, onPress }) {
+function Member({
+  id,
+  avatar,
+  user_profile: { first_name, last_name },
+  email,
+  onPress,
+}) {
+  const baseUrl = "https://pcm-api.herokuapp.com";
   return (
-    <View>
-      <TouchableOpacity style={styles.memberContainer} onPress={onPress}>
-        <View style={styles.data}>
-          <Image source={image} style={styles.image} />
-          <View style={styles.text}>
-            <Text style={styles.name}>{name}</Text>
-            <Text style={styles.email}>{email}</Text>
-          </View>
+    <TouchableOpacity style={styles.memberContainer} onPress={onPress}>
+      <View style={styles.data}>
+        <Image source={{ uri: baseUrl + avatar }} style={styles.image} />
+        <View style={styles.text}>
+          <Text style={styles.name}>
+            {first_name} {last_name}
+          </Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
-        <MaterialCommunityIcons
-          name={"chevron-right"}
-          size={24}
-          color={"#000"}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-    </View>
+      </View>
+      <MaterialCommunityIcons
+        name={"chevron-right"}
+        size={24}
+        color={"#000"}
+        style={styles.icon}
+      />
+    </TouchableOpacity>
   );
 }
 

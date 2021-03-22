@@ -22,10 +22,14 @@ const updateMessage = (
   { user_id, group_id, content, status = 0, flagged = false }
 ) =>
   client.update(
-    endpoints.GROUPS + "/" + groupId + endpoints.MESSAGES + "/" + messageId, { user_id, group_id, content, status = 0, flagged = false }
+    endpoints.GROUPS + "/" + groupId + endpoints.MESSAGES + "/" + messageId,
+    { user_id, group_id, content, status, flagged }
   );
 
-const destroyMessage = (groupId, messageId) => client.delete(endpoints.GROUPS + '/' + groupId + endpoints.MESSAGES + '/' + messageId);
+const destroyMessage = (groupId, messageId) =>
+  client.delete(
+    endpoints.GROUPS + "/" + groupId + endpoints.MESSAGES + "/" + messageId
+  );
 
 export default {
   getMessages,
