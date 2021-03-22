@@ -22,4 +22,5 @@ export default Object.freeze({
   ADVENTIST_DIVISIONS: "/adventist_divisions",
   DIRECTOR_GROUPS: "/director_groups",
   DIRECTOR_DASHBOARD: "/director_dashboard",
+  ROOT_DASHBOARD: "/root_dashboard",
 });

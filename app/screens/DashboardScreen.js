@@ -23,6 +23,8 @@ import useLocation from "./../hooks/useLocation";
 
 import ActivityIndicator from "./../components/ActivityIndicator";
 
+import { IMLocalized, init } from "./../config/IMLocalized";
+
 const isAMember = true;
 function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);

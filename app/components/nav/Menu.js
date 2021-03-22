@@ -32,7 +32,7 @@ const menuList = [
   },
   {
     id: 4,
-    title: "Stats",
+    title: "Admin",
     route: routes.ADMIN_DASHBOARD,
   },
 ];

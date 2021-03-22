@@ -90,7 +90,7 @@ function GroupRequestCard({
           <FormField
             autoCapitalize="none"
             autoCorrect={true}
-            keyboardType="nonea"
+            keyboardType="none"
             name="adventistAssociation"
             placeholder="Select Adventist Association"
             textContentType="none"

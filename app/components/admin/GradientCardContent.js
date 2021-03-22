@@ -3,14 +3,21 @@ import { View, StyleSheet, Text } from "react-native";
 
 import { colors } from "../../config";
 
-function GradientCardContent({ users, females, males, groups, universities }) {
+function GradientCardContent({
+  count,
+  females,
+  males,
+  groups,
+  newusers,
+  universities,
+}) {
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.statsNumber}>Stats</Text>
       <View style={styles.contentContainer}>
         <View style={styles.statsRowContainer}>
           <View style={styles.statsContainer}>
-            <Text style={styles.statsNumber}>{users}</Text>
+            <Text style={styles.statsNumber}>{count}</Text>
             <Text style={styles.statsText}>Users</Text>
           </View>
           <View style={styles.statsContainer}>
@@ -30,6 +37,10 @@ function GradientCardContent({ users, females, males, groups, universities }) {
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{universities}</Text>
             <Text style={styles.statsText}>Universities</Text>
+          </View>
+          <View style={styles.statsContainer}>
+            <Text style={styles.statsNumber}>{newusers}</Text>
+            <Text style={styles.statsText}>Users w/o Group</Text>
           </View>
         </View>
       </View>
