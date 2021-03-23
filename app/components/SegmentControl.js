@@ -32,8 +32,9 @@ function SegmentControl({ segments, active, onPress }) {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.segmentContainer}>
-        {segments.map((segment) => (
+        {segments.map((segment, index) => (
           <Segment
+            key={index}
             {...segment}
             onPress={onPress}
             active={active === segment.id}

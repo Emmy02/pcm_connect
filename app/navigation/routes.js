@@ -13,4 +13,5 @@ export default Object.freeze({
   SUPPORT_TICKETS: "SupportTickets",
   DASHBOARD: "Dashboard",
   PROFILE: "Profile",
+  CREATE_GROUP: "CreateGroup",
 });

@@ -16,8 +16,8 @@ function Message({
   me,
   onPress,
 }) {
-  const baseUrl = "https://pcm-api.herokuapp.com";
   dayjs.extend(relativeTime);
+
   return (
     <View
       style={[
@@ -25,7 +25,7 @@ function Message({
         { flexDirection: me ? "row-reverse" : "row" },
       ]}
     >
-      <Image source={{ uri: baseUrl + avatar }} style={styles.image} />
+      <Image source={avatar} style={styles.image} />
       <View
         style={[
           styles.bubble,
@@ -73,15 +73,15 @@ const styles = StyleSheet.create({
   name: {
     fontWeight: "bold",
     fontSize: 14,
-    marginHorizontal: 10,
   },
   contentContainer: {},
   content: {
-    color: colors.medium,
+    color: colors.black,
   },
   date: {
     color: colors.medium,
     fontSize: 12,
+    marginHorizontal: 10,
   },
 });
 

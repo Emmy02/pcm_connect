@@ -12,11 +12,10 @@ function Member({
   email,
   onPress,
 }) {
-  const baseUrl = "https://pcm-api.herokuapp.com";
   return (
     <TouchableOpacity style={styles.memberContainer} onPress={onPress}>
       <View style={styles.data}>
-        <Image source={{ uri: baseUrl + avatar }} style={styles.image} />
+        <Image source={avatar} style={styles.image} />
         <View style={styles.text}>
           <Text style={styles.name}>
             {first_name} {last_name}

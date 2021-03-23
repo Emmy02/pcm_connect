@@ -25,10 +25,7 @@ function ProfileScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image
-          style={styles.image}
-          source={require("./../assets/avatar-3.png")}
-        />
+        <Image style={styles.image} source={require("./../assets/1.jpg")} />
       </View>
       <View style={styles.formContainer}>
         <Form

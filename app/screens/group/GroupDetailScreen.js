@@ -87,7 +87,7 @@ function GroupDetailScreen({ navigation, route }) {
               <View style={styles.leaderContainer}>
                 <Image
                   style={styles.avatar}
-                  source={require("../../assets/avatar-1.png")}
+                  source={require("../../assets/1.jpg")}
                 />
                 <Text style={styles.text}> Enmanuel Alejandro De Oleo</Text>
                 <MaterialCommunityIcons

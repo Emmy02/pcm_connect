@@ -23,21 +23,24 @@ function VerticalCard({
   university,
   user,
   controls,
+  onPress,
 }) {
   return (
-    <View style={styles.card}>
-      <Image style={styles.image} source={image} />
-      {members && <MemberCount {...members} />}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title} numberOfLines={1}>
-          {name}
-        </Text>
-        <Text style={styles.description} numberOfLines={1}>
-          {description}
-        </Text>
-        <View style={styles.controls}>{controls}</View>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={styles.card}>
+        <Image style={styles.image} source={image} />
+        {members && <MemberCount {...members} />}
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title} numberOfLines={1}>
+            {name}
+          </Text>
+          <Text style={styles.description} numberOfLines={1}>
+            {description}
+          </Text>
+          <View style={styles.controls}>{controls}</View>
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 

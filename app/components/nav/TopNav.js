@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
-import { colors, defaultStyles } from "./../../config";
+import { defaultStyles } from "./../../config";
 
 import SvgUri from "react-native-svg-uri";
 
 import Menu from "./Menu";
 import routes from "../../navigation/routes";
 
-function TopNav({ image, role, controls, navigation }) {
-  const [showMenu, setShowMenu] = useState(false);
+import accountApi from "./../../api/account";
+import useApi from "./../../hooks/useApi";
 
+function TopNav({ role, controls, navigation }) {
+  const getProfileApi = useApi(accountApi.getProfile);
+
+  useEffect(() => {
+    getProfileApi.request();
+  }, []);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const baseUrl = "https://pcm-api.herokuapp.com";
   return (
     <View style={styles.navContainer}>
       <View>
@@ -31,7 +40,18 @@ function TopNav({ image, role, controls, navigation }) {
       {controls && <View style={styles.controls}>{controls}</View>}
 
       <TouchableOpacity onPress={() => navigation.navigate(routes.PROFILE)}>
-        <Image style={styles.image} source={image} />
+        {getProfileApi.data.avatar && (
+          <Image
+            style={styles.image}
+            source={{ uri: baseUrl + getProfileApi.data.avatar }}
+          />
+        )}
+        {!getProfileApi.data.avatar && (
+          <Image
+            style={styles.image}
+            source={require("./../../assets/user.png")}
+          />
+        )}
       </TouchableOpacity>
     </View>
   );

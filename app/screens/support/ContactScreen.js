@@ -13,10 +13,7 @@ import Title from "../../components/Title";
 function ContactScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav
-        image={require("../../assets/avatar-3.png")}
-        navigation={navigation}
-      />
+      <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.logoContainer}>
           <Image

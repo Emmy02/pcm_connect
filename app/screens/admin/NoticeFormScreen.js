@@ -21,10 +21,7 @@ const validationSchema = Yup.object().shape({
 function NoticeFormScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav
-        image={require("../../assets/avatar-3.png")}
-        navigation={navigation}
-      />
+      <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
       <ScrollView style={styles.mainScreen}>
         <Title>Create Territory's Event</Title>
         <View style={styles.formContainer}>

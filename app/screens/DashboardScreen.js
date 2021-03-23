@@ -28,10 +28,16 @@ import { IMLocalized, init } from "./../config/IMLocalized";
 const isAMember = true;
 function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);
+  const [locationLoaded, setLocationLoaded] = useState(null);
+  const location = useLocation();
   const getGroupsByLocationApi = useApi(groupsApi.getGroupsByLocation);
 
-  const getGroupsApi = useApi(groupsApi.getGroups);
+  if (location && !locationLoaded) {
+    getGroupsByLocationApi.request(location.latitude, location.longitude);
+    setLocationLoaded(1);
+  }
 
+  const getGroupsApi = useApi(groupsApi.getGroups);
   useEffect(() => {
     getGroupsApi.request();
   }, []);
@@ -39,11 +45,7 @@ function DashboardScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <ActivityIndicator visible={getGroupsApi.loading} />
-      <TopNav
-        image={require("../assets/avatar-3.png")}
-        controls={<SearchBar />}
-        navigation={navigation}
-      />
+      <TopNav controls={<SearchBar />} navigation={navigation} />
       <ScrollView style={styles.mainScreen}>
         {getGroupsApi.error && (
           <>
@@ -58,7 +60,14 @@ function DashboardScreen({ navigation }) {
           />
         )}
         <View style={styles.closeGroups}>
-          <Title controls={<OutLineButton title="Create a Group" />}>
+          <Title
+            controls={
+              <OutLineButton
+                title="Create a Group"
+                onPress={() => navigation.navigate(routes.CREATE_GROUP)}
+              />
+            }
+          >
             Groups close to you
           </Title>
           <FlatList

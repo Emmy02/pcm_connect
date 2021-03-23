@@ -27,16 +27,10 @@
     "visitButton": "Visit",
     "welcomeBack": "Welcome back",
     "goToMyGroup": "Go to my Group",
-
-    // menu
-
     "notices": "Notices",
     "aboutPCMConnect": "About pcm Connect",
     "stats": "Stats",
     "groupsValidation": "Groups Validation",
-
-    // group
-
     "joinGroup": "Join Group",
     "leaveGroup": "Leave group",
     "events": "Events",

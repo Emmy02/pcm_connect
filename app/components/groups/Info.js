@@ -19,7 +19,7 @@ function GroupInfo({ name, description, address, university }) {
       </View>
       <View style={styles.list}>
         <MaterialCommunityIcons
-          name={"home"}
+          name={"school-outline"}
           size={24}
           color={colors.medium}
           style={styles.icon}

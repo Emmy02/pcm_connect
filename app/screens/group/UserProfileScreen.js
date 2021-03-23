@@ -16,12 +16,9 @@ import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
 
 function UserProfileScreen({ navigation, route }) {
-  const baseUrl = "https://pcm-api.herokuapp.com";
-  console.log(route.params);
-
   const {
-    email,
     avatar,
+    email,
     id,
     user_profile: {
       age,
@@ -61,10 +58,7 @@ function UserProfileScreen({ navigation, route }) {
                 </View>
               </View>
               <View style={styles.primaryInfoContainer}>
-                <Image
-                  style={styles.avatar}
-                  source={{ uri: baseUrl + avatar }}
-                />
+                <Image style={styles.avatar} source={avatar} />
                 <View style={styles.primaryInfo}>
                   <Text style={[styles.fullName, styles.text]}>
                     {first_name} {last_name}

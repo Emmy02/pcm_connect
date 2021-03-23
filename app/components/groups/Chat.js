@@ -17,6 +17,8 @@ const validationSchema = Yup.object().shape({
 });
 
 function Chat({ messages }) {
+  const defautImage = require("./../../assets/user.png");
+  const baseUrl = "https://pcm-api.herokuapp.com";
   return (
     <View style={styles.chatContainer}>
       <View style={styles.chatHeader}></View>
@@ -25,7 +27,12 @@ function Chat({ messages }) {
         data={messages}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (
-          <Message {...item} onPress={() => {}} key={"group-chat-" + index} />
+          <Message
+            {...item}
+            avatar={item.avatar ? { uri: baseUrl + item.avatar } : defautImage}
+            onPress={() => {}}
+            key={"group-chat-" + index}
+          />
         )}
       />
       <View style={styles.chatFooter}>
