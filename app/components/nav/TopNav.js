@@ -12,7 +12,7 @@ import routes from "../../navigation/routes";
 import accountApi from "./../../api/account";
 import useApi from "./../../hooks/useApi";
 
-function TopNav({ role, controls, navigation }) {
+function TopNav({ controls, navigation }) {
   const getProfileApi = useApi(accountApi.getProfile);
 
   useEffect(() => {
@@ -34,7 +34,9 @@ function TopNav({ role, controls, navigation }) {
             />
           </View>
         </TouchableOpacity>
-        {showMenu && <Menu navigation={navigation} role={role} />}
+        {showMenu && (
+          <Menu navigation={navigation} roles={getProfileApi.data.roles} />
+        )}
       </View>
 
       {controls && <View style={styles.controls}>{controls}</View>}

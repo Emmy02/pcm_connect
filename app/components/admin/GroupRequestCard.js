@@ -27,15 +27,20 @@ const validationSchema = Yup.object().shape({
 function GroupRequestCard({
   name,
   university,
-  address: { street, lat, lng },
+  address,
+  lat,
+  long,
   description,
-  createdBy,
+  user,
 }) {
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardHeader}>
         <View style={styles.mapContainer}>
-          <MapView style={styles.map} />
+          <MapView
+            style={styles.map}
+            region={{ latitude: lat, longitude: long }}
+          />
         </View>
         <View style={styles.basicContainer}>
           <Text style={styles.name}>{name}</Text>
@@ -52,7 +57,7 @@ function GroupRequestCard({
             color={colors.medium}
             style={styles.icon}
           />
-          <Text style={styles.text}>{street}</Text>
+          <Text style={styles.text}>{address}</Text>
         </View>
         <View style={styles.list}>
           <MaterialCommunityIcons
@@ -70,7 +75,9 @@ function GroupRequestCard({
             color={colors.medium}
             style={styles.icon}
           />
-          <Text style={styles.text}>{createdBy.name}</Text>
+          <Text style={styles.text}>
+            {user.first_name} {user.last_name}
+          </Text>
         </View>
       </View>
       <View style={styles.selectorsContainer}>

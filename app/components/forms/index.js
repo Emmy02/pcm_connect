@@ -4,3 +4,4 @@ export { default as ErrorMessage } from "./ErrorMessage";
 export { default as SubmitButton } from "./SubmitButton";
 export { default as FormPicker } from "./FormPicker";
 export { default as FormGoogleInput } from "./FormGoogleInput";
+export { default as FormToggle } from "./FormToggle";

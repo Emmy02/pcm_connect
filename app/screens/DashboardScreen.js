@@ -17,18 +17,14 @@ import WelcomeBox from "./../components/WelcomeBox";
 import routes from "../navigation/routes";
 
 import groupsApi from "./../api/groups";
-
 import useApi from "./../hooks/useApi";
 import useLocation from "./../hooks/useLocation";
 
 import ActivityIndicator from "./../components/ActivityIndicator";
-
-import { IMLocalized, init } from "./../config/IMLocalized";
-
-const isAMember = true;
 function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);
   const [locationLoaded, setLocationLoaded] = useState(null);
+
   const location = useLocation();
   const getGroupsByLocationApi = useApi(groupsApi.getGroupsByLocation);
 
@@ -36,8 +32,8 @@ function DashboardScreen({ navigation }) {
     getGroupsByLocationApi.request(location.latitude, location.longitude);
     setLocationLoaded(1);
   }
-
   const getGroupsApi = useApi(groupsApi.getGroups);
+
   useEffect(() => {
     getGroupsApi.request();
   }, []);
@@ -53,7 +49,7 @@ function DashboardScreen({ navigation }) {
             <OutLineButton title="Retry" onPress={getGroupsApi.request} />
           </>
         )}
-        {isAMember && (
+        {false && (
           <WelcomeBox
             fullName="Enmanuel Alejandro De Oleo"
             onPress={() => navigation.navigate(routes.GROUP_DETAILS)}

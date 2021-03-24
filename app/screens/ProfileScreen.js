@@ -1,5 +1,12 @@
 import React from "react";
-import { FlatList, StyleSheet, View, ScrollView, Image } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+  Text,
+} from "react-native";
 
 import { colors } from "../config";
 import Screen from "../components/Screen";
@@ -7,7 +14,8 @@ import Screen from "../components/Screen";
 import { TopNav } from "./../components/nav";
 
 import * as Yup from "yup";
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton, FormToggle } from "../components/forms";
+import { color } from "react-native-reanimated";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required().label("First Name"),
@@ -25,7 +33,10 @@ function ProfileScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require("./../assets/1.jpg")} />
+        <Image style={styles.image} source={require("./../assets/user.png")} />
+        <Text style={styles.pictureIndication}>
+          Tab image to replace it with new one
+        </Text>
       </View>
       <View style={styles.formContainer}>
         <Form
@@ -37,44 +48,58 @@ function ProfileScreen({ navigation }) {
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="email-address"
-            name="fullNmae"
-            placeholder="Type your full name"
+            name="first_name"
+            placeholder="First Name"
             textContentType="name"
           />
           <FormField
             autoCapitalize="none"
             autoCorrect={false}
-            name="password"
-            placeholder="Password"
-            secureTextEntry
-            textContentType="password"
+            keyboardType="email-address"
+            name="last_name"
+            placeholder="Last Name"
+            textContentType="name"
           />
-          <View>
+          <View style={styles.profileControls}>
             <FormField
               autoCapitalize="none"
               autoCorrect={false}
-              keyboardType="email-address"
-              name="fullNmae"
-              placeholder="Type your full name"
-              textContentType="name"
+              keyboardType="number-pad"
+              name="age"
+              placeholder="Age"
+              textContentType="none"
+              width="30%"
             />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-              textContentType="password"
+            <FormToggle
+              options={[{ text: "F" }, { text: "M" }]}
+              name="gender"
+              width="30%"
             />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              name="password"
-              placeholder="Password"
-              secureTextEntry
-              textContentType="password"
+            <FormToggle
+              options={[{ text: "SDA" }, { text: "NON-SDA" }]}
+              name="gender"
+              width="30%"
             />
           </View>
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="default"
+            name="career_name"
+            placeholder="Career Name"
+            textContentType="none"
+          />
+
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={true}
+            name="cover"
+            placeholder="About Me"
+            numberOfLines={3}
+            multiline
+            maxLength={255}
+          />
+
           <SubmitButton title="Update" color="primary" />
         </Form>
       </View>
@@ -98,7 +123,19 @@ const styles = StyleSheet.create({
   image: {
     height: 150,
     width: 150,
-    borderRadius: 20,
+    borderRadius: 30,
+  },
+  profileControls: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  pictureIndication: {
+    fontSize: 14,
+    color: colors.medium,
+    fontWeight: "300",
+    marginVertical: 10,
   },
 });
 

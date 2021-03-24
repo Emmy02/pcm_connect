@@ -44,7 +44,7 @@ function Chat({ messages }) {
           <FormField
             autoCapitalize="none"
             autoCorrect={true}
-            keyboardType="message"
+            keyboardType="default"
             name="message"
             placeholder="Type your message"
             textContentType="none"

@@ -6,7 +6,7 @@ import colors from "../../config/colors";
 import Screen from "../../components/Screen";
 
 import Title from "./../../components/Title";
-import { TopNav, SearchBar } from "../../components/nav";
+import { TopNav } from "../../components/nav";
 
 import { OutLineButton } from "./../../components/button";
 import GradientCardContent from "../../components/admin/GradientCardContent";
@@ -14,13 +14,16 @@ import GroupsByCountry from "./../../components/admin/GroupsByCountry";
 import routes from "../../navigation/routes";
 
 import adminApi from "./../../api/admin";
+import groupsApi from "./../../api/groups";
 import useApi from "./../../hooks/useApi";
 
 function AdminDashboardScreen({ navigation }) {
   const getDashboardApi = useApi(adminApi.getRootDashboard);
+  const getGroupsApi = useApi(groupsApi.getPendingGroups);
 
   useEffect(() => {
     getDashboardApi.request();
+    getGroupsApi.request();
   }, []);
 
   return (
@@ -34,7 +37,16 @@ function AdminDashboardScreen({ navigation }) {
           </>
         )}
         <View style={styles.buttonContainer}>
-          <OutLineButton title="Create Terrytory's Event" />
+          <OutLineButton
+            width="48%"
+            title="Create Event"
+            onPress={() => navigation.navigate(routes.NOTICE_FORM)}
+          />
+          <OutLineButton
+            onPress={() => navigation.navigate(routes.GROUPS_VALIDATION)}
+            width="48%"
+            title={"Validate Groups(" + getGroupsApi.data.length + ")"}
+          />
         </View>
         <View style={styles.statsCardContainer}>
           <GradientCard>
@@ -87,7 +99,8 @@ const styles = StyleSheet.create({
     zIndex: -1,
   },
   buttonContainer: {
-    width: "70%",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

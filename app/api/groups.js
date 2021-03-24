@@ -2,7 +2,7 @@ import client from "./client";
 import endpoints from "./endpoints";
 
 const getGroups = () => client.get(endpoints.GROUPS);
-const getInactiveGroups = () => client.get(endpoints.INACTIVE_GROUPS);
+const getPendingGroups = () => client.get(endpoints.INACTIVE_GROUPS);
 const getGroupsByLocation = (lat, lng) =>
   client.post(endpoints.GROUPS_BY_LOCATION, { lat, lng, distance: 20 });
 const getGroupsByUniversity = () => client.get(endpoints.GROUPS_BY_UNIVERSITY);
@@ -63,7 +63,7 @@ const addGroup = (group, onUploadProgress) => {
 
 export default {
   getGroups,
-  getInactiveGroups,
+  getPendingGroups,
   getGroupsByLocation,
   getGroupsByUniversity,
   getGroupsByName,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import colors from "../../config/colors";
@@ -9,25 +9,16 @@ import { TopNav } from "../../components/nav";
 
 import GroupRequestCard from "../../components/admin/GroupRequestCard";
 
-const listings = [
-  {
-    id: 1,
-    name: "Red jacket for sale",
-    university: { name: "Tecnologico de Monterrey" },
-    description:
-      "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    address: {
-      lat: 1,
-      lng: 2,
-      street: "Monterrey, N.L. Mexico",
-    },
-    createdBy: {
-      name: "Enmanuel Alejandro De Oleo",
-    },
-  },
-];
+import groupsApi from "./../../api/groups";
+import useApi from "./../../hooks/useApi";
 
 function GroupsValidationScreen({ navigation }) {
+  const getGroupsApi = useApi(groupsApi.getPendingGroups);
+
+  useEffect(() => {
+    getGroupsApi.request();
+  }, []);
+
   return (
     <Screen style={styles.screen}>
       <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
@@ -35,7 +26,7 @@ function GroupsValidationScreen({ navigation }) {
       <ScrollView style={styles.mainScreen}>
         <FlatList
           style={{ flex: 1, overflow: "visible" }}
-          data={listings}
+          data={getGroupsApi.data}
           keyExtractor={(listing) => listing.id.toString()}
           renderItem={({ item, index }) => <GroupRequestCard {...item} />}
         />
@@ -49,6 +40,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: colors.light,
     overflow: "visible",
+    zIndex: -1,
   },
   mainScreen: {
     flex: 1,
