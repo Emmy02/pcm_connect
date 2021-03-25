@@ -8,6 +8,8 @@ import * as Yup from "yup";
 
 import Title from "./../../components/Title";
 
+import { NavBack } from "./../../components/nav";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .min(2, "Too Short")
@@ -25,6 +27,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 function SupportFormScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
+      <NavBack onPress={() => navigation.goBack()} />
       <Title>{IMLocalized("reportAnIssueButton")}</Title>
       <View style={styles.formContainer}>
         <Form

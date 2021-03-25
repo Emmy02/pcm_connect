@@ -9,6 +9,7 @@ import { NoGradientButton } from "./../../components/button";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { IMLocalized } from "./../../config/IMLocalized";
+import { NavBack } from "./../../components/nav";
 
 const notice = {
   id: 1,
@@ -28,6 +29,7 @@ function NoticeDetailScreen({ navigation }) {
     <View style={styles.mainScreen}>
       <Image source={notice.image} style={styles.image} />
       <Screen style={styles.screen}>
+        <NavBack onPress={() => navigation.goBack()} />
         <Title>{notice.title}</Title>
         <Text style={styles.description} numberOfLines={4}>
           {notice.description}

@@ -64,7 +64,7 @@ function GroupDetailScreen({ navigation, route }) {
       />
 
       <Screen style={styles.screen}>
-        <TopNavBar />
+        <TopNavBar onBack={() => navigation.goBack()} />
         {activeTab !== 2 && (
           <GroupNav
             containerStyles={{

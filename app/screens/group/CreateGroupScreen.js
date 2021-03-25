@@ -13,6 +13,8 @@ import MapView from "react-native-maps";
 
 import { mapStyles } from "./../../config";
 
+import { NavBack } from "./../../components/nav";
+
 import {
   SubmitButton,
   FormField,
@@ -54,6 +56,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 function GroupDetailScreen({ navigation }) {
   return (
     <Screen style={styles.mainScreen}>
+      <NavBack onPress={() => navigation.goBack()} />
       <Title> {IMLocalized("createGroupButton")}</Title>
       <Form
         initialValues={{

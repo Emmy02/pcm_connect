@@ -1,10 +1,9 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import colors from "../../config/colors";
+import { StyleSheet, TouchableOpacity, View } from "react-native";
 
 import SvgUri from "react-native-svg-uri";
 
-function GroupNav({ index, containerStyles, onPress }) {
+function GroupNav({ containerStyles, onPress }) {
   return (
     <View style={containerStyles}>
       <View style={styles.menuContainer}>

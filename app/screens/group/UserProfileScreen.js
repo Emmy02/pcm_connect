@@ -5,7 +5,8 @@ import Screen from "./../../components/Screen";
 
 import dayjs from "dayjs";
 
-import { TopNavBar } from "../../components/groups";
+import { NavBack } from "./../../components/nav";
+
 import colors from "../../config/colors";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -43,6 +44,9 @@ function UserProfileScreen({ navigation, route }) {
       />
 
       <Screen style={styles.screen}>
+        <View style={styles.backButtonContainer}>
+          <NavBack onPress={() => navigation.goBack()} />
+        </View>
         <View style={styles.card}>
           <LinearGradient
             start={{ x: 0, y: 1 }}
@@ -249,6 +253,9 @@ const styles = StyleSheet.create({
   message: {
     height: 100,
     textAlign: "center",
+  },
+  backButtonContainer: {
+    padding: 10,
   },
 });
 

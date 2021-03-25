@@ -14,6 +14,8 @@ import useApi from "./../../hooks/useApi";
 
 import { IMLocalized } from "./../../config/IMLocalized";
 
+import { NavBack } from "./../../components/nav";
+
 function GroupsValidationScreen({ navigation }) {
   const getGroupsApi = useApi(groupsApi.getPendingGroups);
 
@@ -23,7 +25,7 @@ function GroupsValidationScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
+      <NavBack onPress={() => navigation.goBack()} />
       <Title>{IMLocalized("groupsValidation")}</Title>
       <ScrollView style={styles.mainScreen}>
         <FlatList

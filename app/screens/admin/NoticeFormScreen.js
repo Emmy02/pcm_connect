@@ -5,13 +5,12 @@ import colors from "../../config/colors";
 import Screen from "../../components/Screen";
 
 import Title from "./../../components/Title";
-import { TopNav } from "../../components/nav";
-
 import { NoGradientButton } from "./../../components/button";
 
 import { Form, FormField, SubmitButton } from "./../../components/forms";
-
 import { IMLocalized } from "./../../config/IMLocalized";
+
+import { NavBack } from "./../../components/nav";
 
 import * as Yup from "yup";
 
@@ -23,7 +22,7 @@ const validationSchema = Yup.object().shape({
 function NoticeFormScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
-      <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
+      <NavBack onPress={() => navigation.goBack()} />
       <ScrollView style={styles.mainScreen}>
         <Title>{IMLocalized("createTerritoryEvent")}</Title>
         <View style={styles.formContainer}>

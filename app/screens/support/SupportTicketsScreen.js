@@ -13,6 +13,8 @@ import useApi from "./../../hooks/useApi";
 import { TicketCard } from "./../../components/card";
 import routes from "../../navigation/routes";
 
+import { NavBack } from "./../../components/nav";
+
 function SupportTicketsScreen({ navigation }) {
   const getMyTicketsApi = useApi(ticketsApi.getMyTickets);
   useEffect(() => {
@@ -21,6 +23,7 @@ function SupportTicketsScreen({ navigation }) {
 
   return (
     <Screen style={styles.screen}>
+      <NavBack onPress={() => navigation.goBack()} />
       <OutLineButton
         width="50%"
         title={IMLocalized("reportAnIssueButton")}
