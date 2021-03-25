@@ -13,16 +13,17 @@ import {
 } from "react-native";
 
 import { colors, defaultStyles } from "./../../config";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 const menuList = [
   {
     id: 1,
-    title: "Dashboard",
+    title: IMLocalized("home"),
     route: routes.DASHBOARD,
   },
   {
     id: 2,
-    title: "Notices",
+    title: IMLocalized("notices"),
     route: routes.NOTICES,
   },
   {
@@ -32,7 +33,7 @@ const menuList = [
   },
   {
     id: 4,
-    title: "Admin",
+    title: IMLocalized("Admin"),
     route: routes.ADMIN_DASHBOARD,
   },
 ];
@@ -56,7 +57,7 @@ function Menu({ navigation }) {
         )}
       />
       <TouchableOpacity onPress={logOut}>
-        <Text style={styles.danger}>Log out</Text>
+        <Text style={styles.danger}>{IMLocalized("logOut")}</Text>
       </TouchableOpacity>
     </View>
   );

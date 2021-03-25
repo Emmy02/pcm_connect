@@ -3,14 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 
 import colors from "../config/colors";
 
-function Presenter({
-  image,
-  title,
-  description,
-  controls,
-  reverse,
-  ...otherProps
-}) {
+function Presenter({ image, title, description, controls, reverse }) {
   return (
     <View
       style={[

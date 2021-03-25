@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 
 import { colors } from "../../config";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function GradientCardContent({
   count,
@@ -18,29 +19,29 @@ function GradientCardContent({
         <View style={styles.statsRowContainer}>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{count}</Text>
-            <Text style={styles.statsText}>Users</Text>
+            <Text style={styles.statsText}>{IMLocalized("users")}</Text>
           </View>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{females}</Text>
-            <Text style={styles.statsText}>Females</Text>
+            <Text style={styles.statsText}>{IMLocalized("females")}</Text>
           </View>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{males}</Text>
-            <Text style={styles.statsText}>Males</Text>
+            <Text style={styles.statsText}>{IMLocalized("males")}</Text>
           </View>
         </View>
         <View style={styles.statsRowContainer}>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{groups}</Text>
-            <Text style={styles.statsText}>Groups</Text>
+            <Text style={styles.statsText}>{IMLocalized("groups")}</Text>
           </View>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{universities}</Text>
-            <Text style={styles.statsText}>Universities</Text>
+            <Text style={styles.statsText}>{IMLocalized("universities")}</Text>
           </View>
           <View style={styles.statsContainer}>
             <Text style={styles.statsNumber}>{newusers}</Text>
-            <Text style={styles.statsText}>Users w/o Group</Text>
+            <Text style={styles.statsText}>{IMLocalized("users")}</Text>
           </View>
         </View>
       </View>

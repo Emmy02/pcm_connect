@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  ScrollView,
-  Image,
-  Text,
-} from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 
 import colors from "../../config/colors";
 import Screen from "../../components/Screen";
 
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
-
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+import { IMLocalized } from "./../../config/IMLocalized";
 
 const notice = {
   id: 1,
@@ -76,11 +70,13 @@ function NoticeDetailScreen({ navigation }) {
             color={colors.medium}
             style={styles.icon}
           />
-          <Text>{notice.peopleGoing} people participating</Text>
+          <Text>
+            {notice.peopleGoing} {IMLocalized("peopleGoing")}
+          </Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <NoGradientButton title="participate" />
+          <NoGradientButton title={IMLocalized("participate")} />
         </View>
       </Screen>
     </View>

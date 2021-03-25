@@ -1,9 +1,10 @@
 import React from "react";
 
 import { StyleSheet, View, TextInput } from "react-native";
-import { colors, defaultStyles } from "./../../config";
+import { colors } from "./../../config";
 
 import SvgUri from "react-native-svg-uri";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function SearchBar() {
   return (
@@ -14,7 +15,7 @@ function SearchBar() {
         style={styles.svg}
         source={require("./../../assets/search.svg")}
       />
-      <TextInput placeholder="Find a Group by name"></TextInput>
+      <TextInput placeholder={IMLocalized("findGroupsLabel")}></TextInput>
     </View>
   );
 }

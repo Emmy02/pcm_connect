@@ -9,6 +9,8 @@ import { NoGradientButton } from "./../button";
 import authApi from "./../../api/auth";
 import useAuth from "../../auth/useAuth";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   confirmEmail: Yup.string()
@@ -44,7 +46,7 @@ function RegisterForm() {
           autoCorrect={false}
           keyboardType="email-address"
           name="email"
-          placeholder="Email"
+          placeholder={IMLocalized("typeYourEmail")}
           textContentType="emailAddress"
         />
         <FormField
@@ -52,18 +54,18 @@ function RegisterForm() {
           autoCorrect={false}
           keyboardType="email-address"
           name="confirmEmail"
-          placeholder="Confirm Email"
+          placeholder={IMLocalized("typeYourEmail")}
           textContentType="emailAddress"
         />
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
           name="password"
-          placeholder="Password"
+          placeholder={IMLocalized("password")}
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="Register" color="primary" />
+        <SubmitButton title={IMLocalized("register")} color="primary" />
       </Form>
     </View>
   );

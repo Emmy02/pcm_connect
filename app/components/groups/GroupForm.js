@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import colors from "../../config/colors";
 import { SubmitButton, FormField, Form } from "./../forms";
 
 import * as Yup from "yup";
@@ -21,6 +20,7 @@ const validationSchema = Yup.object().shape({
     .required()
     .label("Address"),
 });
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function GroupForm({ id, name, description, address: { lat, long, street } }) {
   return (
@@ -34,7 +34,7 @@ function GroupForm({ id, name, description, address: { lat, long, street } }) {
           autoCapitalize="none"
           autoCorrect={false}
           name="name"
-          placeholder="Type in name"
+          placeholder={IMLocalized("name")}
           textContentType="none"
         />
 
@@ -42,7 +42,7 @@ function GroupForm({ id, name, description, address: { lat, long, street } }) {
           autoCapitalize="none"
           autoCorrect={true}
           name="description"
-          placeholder="Description"
+          placeholder={IMLocalized("description")}
           numberOfLines={3}
           multiline
           maxLength={255}
@@ -51,10 +51,10 @@ function GroupForm({ id, name, description, address: { lat, long, street } }) {
           autoCapitalize="none"
           autoCorrect={true}
           name="address"
-          placeholder="Type in Address"
+          placeholder={IMLocalized("address")}
           textContentType="none"
         />
-        <SubmitButton title="Update" color="primary" />
+        <SubmitButton title={IMLocalized("update")} color="primary" />
       </Form>
     </View>
   );

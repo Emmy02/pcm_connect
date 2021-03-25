@@ -15,6 +15,8 @@ import SvgUri from "react-native-svg-uri";
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 function UserProfileScreen({ navigation, route }) {
   const {
     avatar,
@@ -72,7 +74,7 @@ function UserProfileScreen({ navigation, route }) {
               <View style={styles.secondaryInfo}>
                 <View style={[styles.centered, styles.ageContainer]}>
                   <Text style={[styles.age, styles.text]}>{age}</Text>
-                  <Text style={styles.text}>Years Old</Text>
+                  <Text style={styles.text}>{IMLocalized("yearsOld")}</Text>
                 </View>
                 <View style={[styles.centered, styles.adventistContainer]}>
                   <Text style={[styles.adventist, styles.text]}>
@@ -101,17 +103,23 @@ function UserProfileScreen({ navigation, route }) {
             </View>
           </View>
           <View style={styles.actionsContainer}>
-            <Title>Admin Actions</Title>
+            <Title>{IMLocalized("adminActions")}</Title>
             <View style={styles.firstRow}>
               <View style={{ width: "48%" }}>
-                <NoGradientButton title="remove" color="danger" />
+                <NoGradientButton
+                  title={IMLocalized("remove")}
+                  color="danger"
+                />
               </View>
               <View style={{ width: "48%" }}>
-                <NoGradientButton title="report" color="clear" />
+                <NoGradientButton title={IMLocalized("report")} color="clear" />
               </View>
             </View>
             <View style={styles.lastRow}>
-              <NoGradientButton title="Make Admin" color="primary" />
+              <NoGradientButton
+                title={IMLocalized("makeAdmin")}
+                color="primary"
+              />
             </View>
           </View>
         </View>

@@ -2,6 +2,8 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import colors from "./../../config/colors";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 function AuthFooter({ activeFrom, setActiveFrom }) {
   return (
     <View style={styles.footerContainer}>
@@ -11,13 +13,15 @@ function AuthFooter({ activeFrom, setActiveFrom }) {
             style={styles.buttons}
             onPress={() => setActiveFrom("register")}
           >
-            <Text style={styles.firstOption}>Sign Up</Text>
+            <Text style={styles.firstOption}>{IMLocalized("signUp")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttons}
             onPress={() => setActiveFrom("passwordRecovery")}
           >
-            <Text style={styles.secondOption}>Password Recovery</Text>
+            <Text style={styles.secondOption}>
+              {IMLocalized("passwordRecovery")}
+            </Text>
           </TouchableOpacity>
         </View>
       )}
@@ -27,13 +31,13 @@ function AuthFooter({ activeFrom, setActiveFrom }) {
             style={styles.buttons}
             onPress={() => setActiveFrom("register")}
           >
-            <Text style={styles.firstOption}>Sign Up</Text>
+            <Text style={styles.firstOption}>{IMLocalized("signUp")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttons}
             onPress={() => setActiveFrom("login")}
           >
-            <Text style={styles.secondOption}>Log In</Text>
+            <Text style={styles.secondOption}>{IMLocalized("logIn")}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -43,13 +47,15 @@ function AuthFooter({ activeFrom, setActiveFrom }) {
             style={styles.buttons}
             onPress={() => setActiveFrom("passwordRecovery")}
           >
-            <Text style={styles.firstOption}>Password Recovery</Text>
+            <Text style={styles.firstOption}>
+              {IMLocalized("passwordRecovery")}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.buttons}
             onPress={() => setActiveFrom("login")}
           >
-            <Text style={styles.secondOption}>Log In</Text>
+            <Text style={styles.secondOption}>{IMLocalized("logIn")}</Text>
           </TouchableOpacity>
         </View>
       )}

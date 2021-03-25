@@ -11,6 +11,8 @@ import { NoGradientButton } from "./../../components/button";
 
 import { Form, FormField, SubmitButton } from "./../../components/forms";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
@@ -23,7 +25,7 @@ function NoticeFormScreen({ navigation }) {
     <Screen style={styles.screen}>
       <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
       <ScrollView style={styles.mainScreen}>
-        <Title>Create Territory's Event</Title>
+        <Title>{IMLocalized("createTerritoryEvent")}</Title>
         <View style={styles.formContainer}>
           <Form
             initialValues={{ email: "", password: "" }}
@@ -34,14 +36,14 @@ function NoticeFormScreen({ navigation }) {
               autoCapitalize="none"
               autoCorrect={false}
               name="title"
-              placeholder="Title"
+              placeholder={IMLocalized("title")}
               textContentType="none"
             />
             <FormField
               autoCapitalize="none"
               autoCorrect={true}
               name="subtitle"
-              placeholder="SubTitle"
+              placeholder={IMLocalized("subtitle")}
               textContentType="none"
             />
 
@@ -49,7 +51,7 @@ function NoticeFormScreen({ navigation }) {
               autoCapitalize="none"
               autoCorrect={true}
               name="description"
-              placeholder="Description"
+              placeholder={IMLocalized("description")}
               numberOfLines={3}
               multiline
               maxLength={255}
@@ -58,17 +60,17 @@ function NoticeFormScreen({ navigation }) {
               autoCapitalize="none"
               autoCorrect={true}
               name="date"
-              placeholder="Date"
+              placeholder={IMLocalized("date")}
               textContentType="none"
             />
             <FormField
               autoCapitalize="none"
               autoCorrect={true}
               name="meeting-link"
-              placeholder="Meeting Link"
+              placeholder={IMLocalized("meetingLink")}
               textContentType="none"
             />
-            <SubmitButton title="Save" color="primary" />
+            <SubmitButton title={IMLocalized("save")} color="primary" />
           </Form>
         </View>
         <NoGradientButton title="Cancel" color="danger" />

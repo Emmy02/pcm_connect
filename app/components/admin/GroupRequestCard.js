@@ -2,13 +2,14 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import MapView from "react-native-maps";
 
-import { colors, defaultStyles } from "../../config";
+import { colors } from "../../config";
 
 import { NoGradientButton } from "./../../components/button";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { SubmitButton, FormField, Form } from "./../forms";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -91,7 +92,7 @@ function GroupRequestCard({
             autoCorrect={true}
             keyboardType="none"
             name="adventistUnion"
-            placeholder="Select Adventist Union"
+            placeholder={IMLocalized("selectUnion")}
             textContentType="none"
           />
           <FormField
@@ -99,17 +100,17 @@ function GroupRequestCard({
             autoCorrect={true}
             keyboardType="none"
             name="adventistAssociation"
-            placeholder="Select Adventist Association"
+            placeholder={IMLocalized("selectConference")}
             textContentType="none"
           />
         </Form>
       </View>
       <View style={styles.controlsContainer}>
         <View style={styles.buttonContainer}>
-          <NoGradientButton title="Accept" color="clear" />
+          <NoGradientButton title={IMLocalized("accept")} color="clear" />
         </View>
         <View style={styles.buttonContainer}>
-          <NoGradientButton title="Reject" color="danger" />
+          <NoGradientButton title={IMLocalized("reject")} color="danger" />
         </View>
       </View>
     </View>

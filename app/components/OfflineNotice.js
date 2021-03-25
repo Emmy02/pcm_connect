@@ -5,6 +5,7 @@ import { useNetInfo } from "@react-native-community/netinfo";
 
 import Text from "./Text";
 import colors from "../config/colors";
+import { IMLocalized } from "./../config/IMLocalized";
 
 function OfflineNotice() {
   const netInfo = useNetInfo();
@@ -12,7 +13,7 @@ function OfflineNotice() {
   if (netInfo.type !== "unknown" && netInfo.isInternetReachable === false)
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>No Internet Connection</Text>
+        <Text style={styles.text}>{IMLocalized("noInternetConnection")}</Text>
       </View>
     );
 

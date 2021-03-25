@@ -17,9 +17,12 @@ import AccountContext from "./app/account/context";
 import { navigationRef } from "./app/navigation/rootNavigation";
 import logger from "./app/utility/logger";
 
+import { init } from "./app/config/IMLocalized";
+
 logger.start();
 
 export default function App() {
+  init();
   const [user, setUser] = useState();
   const [profile, setProfile] = useState();
 

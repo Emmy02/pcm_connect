@@ -4,6 +4,7 @@ import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import { Form, FormField, SubmitButton, ErrorMessage } from "./../forms";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -40,18 +41,18 @@ function LoginForm() {
           autoCorrect={false}
           keyboardType="email-address"
           name="email"
-          placeholder="Email"
+          placeholder={IMLocalized("typeYourEmail")}
           textContentType="emailAddress"
         />
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
           name="password"
-          placeholder="Password"
+          placeholder={IMLocalized("typeYourPassword")}
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="Login" color="primary" />
+        <SubmitButton title={IMLocalized("logIn")} color="primary" />
       </Form>
     </View>
   );

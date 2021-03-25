@@ -16,6 +16,7 @@ import routes from "../../navigation/routes";
 import adminApi from "./../../api/admin";
 import groupsApi from "./../../api/groups";
 import useApi from "./../../hooks/useApi";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function AdminDashboardScreen({ navigation }) {
   const getDashboardApi = useApi(adminApi.getRootDashboard);
@@ -58,7 +59,7 @@ function AdminDashboardScreen({ navigation }) {
 
         {false && (
           <View style={styles.mostPopularGroups}>
-            <Title>Groups in Territory</Title>
+            <Title>{IMLocalized("groupsInTerritory")}</Title>
             <FlatList
               style={{ overflow: "visible" }}
               data={[]}
@@ -73,7 +74,7 @@ function AdminDashboardScreen({ navigation }) {
                   reverse={index % 2}
                   controls={
                     <OutLineButton
-                      title="visit"
+                      title={IMLocalized("visitButton")}
                       backgroundColor={colors.white}
                       width={100}
                       onPress={() => navigation.navigate(routes.GROUP_DETAILS)}

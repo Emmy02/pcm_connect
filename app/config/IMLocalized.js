@@ -2,10 +2,11 @@ import memoize from "lodash.memoize"; // Use for caching/memoize for better perf
 import i18n from "i18n-js";
 import * as Localization from "expo-localization";
 import { I18nManager } from "react-native";
+
 export const translationGetters = {
-  "es-US": () => require("./../assets/i18n/es.json"),
-  "en-US": () => require("./../assets/i18n/en.json"),
-  "fr-FR": () => require("./../assets/i18n/fr.json"),
+  es: () => require("./../assets/i18n/es.json"),
+  en: () => require("./../assets/i18n/en.json"),
+  fr: () => require("./../assets/i18n/fr.json"),
 };
 export const IMLocalized = memoize(
   (key, config) =>
@@ -16,6 +17,7 @@ export const init = () => {
   let localeLanguageTag = Localization.locale;
 
   console.log("localeLanguageTag", localeLanguageTag);
+
   let isRTL = Localization.isRTL;
   IMLocalized.cache.clear();
   // update layout direction

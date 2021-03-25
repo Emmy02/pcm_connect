@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Image,
-  Text,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import Screen from "./../../components/Screen";
 import colors from "../../config/colors";
@@ -56,10 +49,12 @@ const validationSchema = Yup.object().shape({
     .label("University"),
 });
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 function GroupDetailScreen({ navigation }) {
   return (
     <Screen style={styles.mainScreen}>
-      <Title>Create New Group</Title>
+      <Title> {IMLocalized("createGroupButton")}</Title>
       <Form
         initialValues={{
           description: "",
@@ -75,7 +70,7 @@ function GroupDetailScreen({ navigation }) {
           autoCapitalize="none"
           autoCorrect={false}
           name="name"
-          placeholder="Type in name"
+          placeholder={IMLocalized("name")}
           textContentType="none"
         />
 
@@ -83,7 +78,7 @@ function GroupDetailScreen({ navigation }) {
           autoCapitalize="none"
           autoCorrect={true}
           name="description"
-          placeholder="Description"
+          placeholder={IMLocalized("description")}
           numberOfLines={3}
           multiline
           maxLength={255}
@@ -92,14 +87,14 @@ function GroupDetailScreen({ navigation }) {
           autoCapitalize="none"
           autoCorrect={true}
           name="country"
-          placeholder="Type in Country"
+          placeholder={IMLocalized("country")}
           textContentType="none"
         />
         <FormField
           autoCapitalize="none"
           autoCorrect={true}
           name="university"
-          placeholder="Type in University"
+          placeholder={IMLocalized("university")}
           textContentType="none"
         />
         <FormGoogleInput
@@ -110,7 +105,7 @@ function GroupDetailScreen({ navigation }) {
         <View style={styles.mapContainer}>
           <MapView style={styles.map} customMapStyle={mapStyles} />
         </View>
-        <SubmitButton title="Create" color="primary" />
+        <SubmitButton title={IMLocalized("create")} color="primary" />
       </Form>
     </Screen>
   );

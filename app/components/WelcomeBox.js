@@ -6,14 +6,16 @@ import colors from "../config/colors";
 
 import SvgUri from "react-native-svg-uri";
 
+import { IMLocalized } from "./../config/IMLocalized";
+
 import { GradientCard } from "./../components/card";
 function WelcomeBox({ fullName, onPress }) {
   return (
     <TouchableOpacity style={{ zIndex: -1 }} onPress={onPress}>
       <GradientCard>
-        <Text style={styles.text}>Welcome back </Text>
+        <Text style={styles.text}>{IMLocalized("welcomeBack")}</Text>
         <Text style={styles.group}>{fullName}</Text>
-        <Text style={styles.group}>Go to your Group</Text>
+        <Text style={styles.group}>{IMLocalized("goToMyGroup")}</Text>
         <SvgUri
           width="34"
           height="34"

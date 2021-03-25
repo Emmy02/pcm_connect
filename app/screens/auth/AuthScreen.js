@@ -17,6 +17,8 @@ import {
   AuthFooter,
 } from "../../components/auth";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 function AuthScreen({ navigation }) {
   const [activeFrom, setActiveFrom] = useState("login"); // login, register, passwordRecovery
 
@@ -36,7 +38,9 @@ function AuthScreen({ navigation }) {
               <Text style={styles.title}>PCM Connect</Text>
             )}
             {activeFrom !== "passwordRecovery" && (
-              <Text style={styles.subtitle}>Welcome to the Family</Text>
+              <Text style={styles.subtitle}>
+                {IMLocalized("welcomeToTheFamily")}
+              </Text>
             )}
             {activeFrom === "register" && <RegisterForm />}
             {activeFrom === "login" && <LoginForm />}

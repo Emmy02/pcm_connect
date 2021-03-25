@@ -7,8 +7,9 @@ import Screen from "../../components/Screen";
 import { NoGradientButton } from "./../../components/button";
 
 import { TopNav } from "./../../components/nav";
-import { color } from "react-native-reanimated";
-import Title from "../../components/Title";
+
+import { IMLocalized } from "./../../config/IMLocalized";
+import routes from "../../navigation/routes";
 
 function ContactScreen({ navigation }) {
   return (
@@ -18,41 +19,41 @@ function ContactScreen({ navigation }) {
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
-            source={require("./../../assets/logo.png")}
+            source={require("./../../assets/pcm-logo.png")}
           />
-          <Title>About PCM</Title>
+          <Text style={{ textAlign: "center" }}>
+            {IMLocalized("public_campus_ministries")}
+            {IMLocalized("contact_header")}
+          </Text>
         </View>
+        <Text style={styles.title}>{IMLocalized("group_not_activated")}</Text>
         <Text style={styles.text}>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots. Contrary to popular belief, Lorem Ipsum is not simply
-          random text It has roots.Contrary to popular belief, Lorem Ipsum is
-          not simply random text. It has roots. Contrary to popular belief,
-          Lorem Ipsum is not simply random text It has roots.
+          {IMLocalized("group_not_activated_text")}
+        </Text>
+        <Text style={styles.title}>
+          {IMLocalized("app_not_showing_new_features")}
         </Text>
         <Text style={styles.text}>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots. Contrary to popular belief, Lorem Ipsum is not simply
-          random text It has roots.Contrary to popular belief, Lorem Ipsum is
-          not simply random text. It has roots. Contrary to popular belief,
-          Lorem Ipsum is not simply random text It has roots.
+          {IMLocalized("app_not_showing_new_features_text")}
+        </Text>
+        <Text style={styles.title}>
+          {IMLocalized("issues_uploading_profile")}
         </Text>
         <Text style={styles.text}>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots. Contrary to popular belief, Lorem Ipsum is not simply
-          random text It has roots.Contrary to popular belief, Lorem Ipsum is
-          not simply random text. It has roots. Contrary to popular belief,
-          Lorem Ipsum is not simply random text It has roots.
+          {IMLocalized("issues_uploading_profile_text")}
+        </Text>
+        <Text style={styles.title}>
+          {IMLocalized("not_receiving_notifications")}
         </Text>
         <Text style={styles.text}>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots. Contrary to popular belief, Lorem Ipsum is not simply
-          random text It has roots.Contrary to popular belief, Lorem Ipsum is
-          not simply random text. It has roots. Contrary to popular belief,
-          Lorem Ipsum is not simply random text It has roots.
+          {IMLocalized("not_receiving_notifications_text")}
         </Text>
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <NoGradientButton title="Contact us" />
+        <NoGradientButton
+          title={IMLocalized("contactUsButton")}
+          onPress={() => navigation.navigate(routes.SUPPORT_TICKETS)}
+        />
       </View>
     </Screen>
   );
@@ -65,8 +66,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
   },
   logo: {
-    width: 96,
-    height: 68,
+    width: 100,
+    height: 100,
   },
   logoContainer: {
     width: "100%",
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   text: {
-    marginVertical: 10,
+    marginBottom: 20,
     color: colors.medium,
   },
   scrollView: {
@@ -82,6 +83,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     paddingTop: 10,
+  },
+  title: {
+    fontWeight: "bold",
   },
 });
 

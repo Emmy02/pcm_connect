@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import { Form, FormField, SubmitButton } from "./../forms";
 import { NoGradientButton } from "./../button";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
@@ -24,7 +26,7 @@ function PasswordRecoveryForm() {
           autoCorrect={false}
           keyboardType="email-address"
           name="email"
-          placeholder=""
+          placeholder={IMLocalized("typeYourEmail")}
           textContentType="emailAddress"
         />
         <View style={styles.resetCode}>
@@ -34,19 +36,19 @@ function PasswordRecoveryForm() {
               autoCorrect={false}
               keyboardType="number-pad"
               name="secret-code"
-              placeholder="Tyoe your Secret Code"
+              placeholder={IMLocalized("typeYourSecretCode")}
               textContentType="postalCode"
             />
           </View>
           <View style={styles.noGradientButton}>
-            <NoGradientButton color="clear" title="Resend code" />
+            <NoGradientButton color="clear" title={IMLocalized("resendCode")} />
           </View>
         </View>
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
           name="new-password"
-          placeholder="New Password"
+          placeholder={IMLocalized("typeNewPassword")}
           secureTextEntry
           textContentType="password"
         />
@@ -54,11 +56,11 @@ function PasswordRecoveryForm() {
           autoCapitalize="none"
           autoCorrect={false}
           name="new-password"
-          placeholder="Confirm new Password"
+          placeholder={IMLocalized("confirmNewPassword")}
           secureTextEntry
           textContentType="password"
         />
-        <SubmitButton title="Log In" color="primary" />
+        <SubmitButton title={IMLocalized("logIn")} color="primary" />
       </Form>
     </View>
   );

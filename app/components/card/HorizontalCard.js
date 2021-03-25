@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Image,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 
 import Text from "../Text";
 import { colors, defaultStyles } from "../../config";

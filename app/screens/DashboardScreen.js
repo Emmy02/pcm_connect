@@ -19,8 +19,10 @@ import routes from "../navigation/routes";
 import groupsApi from "./../api/groups";
 import useApi from "./../hooks/useApi";
 import useLocation from "./../hooks/useLocation";
-
 import ActivityIndicator from "./../components/ActivityIndicator";
+
+import { IMLocalized } from "./../config/IMLocalized";
+
 function DashboardScreen({ navigation }) {
   const [actveTab, setActiveTab] = useState(1);
   const [locationLoaded, setLocationLoaded] = useState(null);
@@ -45,8 +47,11 @@ function DashboardScreen({ navigation }) {
       <ScrollView style={styles.mainScreen}>
         {getGroupsApi.error && (
           <>
-            <Text> Couldn't retrieve the groups.</Text>
-            <OutLineButton title="Retry" onPress={getGroupsApi.request} />
+            <Text>{IMLocalized("groupsApiError")}</Text>
+            <OutLineButton
+              title={IMLocalized("retry")}
+              onPress={getGroupsApi.request}
+            />
           </>
         )}
         {false && (
@@ -59,12 +64,12 @@ function DashboardScreen({ navigation }) {
           <Title
             controls={
               <OutLineButton
-                title="Create a Group"
+                title={IMLocalized("createGroupButton")}
                 onPress={() => navigation.navigate(routes.CREATE_GROUP)}
               />
             }
           >
-            Groups close to you
+            {IMLocalized("groupsCloseToYou")}
           </Title>
           <FlatList
             horizontal
@@ -87,11 +92,11 @@ function DashboardScreen({ navigation }) {
           />
         </View>
         <View style={styles.mostPopularGroups}>
-          <Title>Most Popular Groups</Title>
+          <Title>{IMLocalized("mostPopularGroups")}</Title>
           <SegmentControl
             segments={[
-              { id: 1, title: "Your Country" },
-              { id: 2, title: "Around the world" },
+              { id: 1, title: IMLocalized("yourCountry") },
+              { id: 2, title: IMLocalized("aroundTheWorld") },
             ]}
             onPress={(id) => setActiveTab(id)}
             active={actveTab}
@@ -104,7 +109,7 @@ function DashboardScreen({ navigation }) {
               <HorizontalCard
                 controls={
                   <OutLineButton
-                    title="visit"
+                    title={IMLocalized("visitButton")}
                     backgroundColor={colors.white}
                     width={100}
                     onPress={() =>

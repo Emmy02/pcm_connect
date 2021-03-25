@@ -1,4 +1,4 @@
-const mapStyles = [
+export default [
   {
     elementType: "geometry",
     stylers: [
@@ -182,5 +182,3 @@ const mapStyles = [
     ],
   },
 ];
-
-export default { mapStyles };

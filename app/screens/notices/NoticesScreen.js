@@ -19,8 +19,9 @@ const seeds = [
 ];
 
 import noticesApi from "./../../api/notices";
-
 import useApi from "./../../hooks/useApi";
+
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function NoticesScreen({ navigation }) {
   const [activeFilter, setActiveFilter] = useState(1);
@@ -42,7 +43,7 @@ function NoticesScreen({ navigation }) {
           </>
         )}
         <View style={styles.filterList}>
-          <Title>Notices</Title>
+          <Title>{IMLocalized("notices")}</Title>
           <FlatList
             style={{ overflow: "visible" }}
             data={seeds}
@@ -70,7 +71,7 @@ function NoticesScreen({ navigation }) {
                 key={"notice-presenter-" + index}
                 controls={
                   <OutLineButton
-                    title="See Details"
+                    title={IMLocalized("seeDetailsButton")}
                     onPress={() => navigation.navigate(routes.NOTICE_DETAILS)}
                   />
                 }

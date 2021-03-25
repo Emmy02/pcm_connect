@@ -12,6 +12,8 @@ import GroupRequestCard from "../../components/admin/GroupRequestCard";
 import groupsApi from "./../../api/groups";
 import useApi from "./../../hooks/useApi";
 
+import { IMLocalized } from "./../../config/IMLocalized";
+
 function GroupsValidationScreen({ navigation }) {
   const getGroupsApi = useApi(groupsApi.getPendingGroups);
 
@@ -22,7 +24,7 @@ function GroupsValidationScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
-      <Title>Validate Groups</Title>
+      <Title>{IMLocalized("groupsValidation")}</Title>
       <ScrollView style={styles.mainScreen}>
         <FlatList
           style={{ flex: 1, overflow: "visible" }}

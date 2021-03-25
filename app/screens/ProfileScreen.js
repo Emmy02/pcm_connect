@@ -1,32 +1,24 @@
 import React from "react";
-import {
-  FlatList,
-  StyleSheet,
-  View,
-  ScrollView,
-  Image,
-  Text,
-} from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 
 import { colors } from "../config";
 import Screen from "../components/Screen";
-
-import { TopNav } from "./../components/nav";
-
 import * as Yup from "yup";
 import { Form, FormField, SubmitButton, FormToggle } from "../components/forms";
-import { color } from "react-native-reanimated";
+
+import { IMLocalized } from "./../config/IMLocalized";
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required().label("First Name"),
-  lastName: Yup.string().required().label("Last Name"),
-  age: Yup.string().required().label("Age"),
-  gender: Yup.string().required().label("Gender"),
-  adventist: Yup.string().required().label("Adventist"),
-  careerName: Yup.string().required().label("Career Name"),
-  careerCategory: Yup.string().required().label("Career Category"),
-  language: Yup.string().required().label("Career Category"),
-  cover: Yup.string().required().label("About Me"),
+  firstName: Yup.string()
+    .required()
+    .label(IMLocalized(IMLocalized("first_name"))),
+  lastName: Yup.string().required().label(IMLocalized("last_name")),
+  age: Yup.string().required().label(IMLocalized("age")),
+  gender: Yup.string().required().label(IMLocalized("gender")),
+  adventist: Yup.string().required().label(IMLocalized("adventist")),
+  careerName: Yup.string().required().label(IMLocalized("career_name")),
+  careerCategory: Yup.string().required().label(IMLocalized("career_name")),
+  cover: Yup.string().required().label(IMLocalized("about_me")),
 });
 
 function ProfileScreen({ navigation }) {
@@ -35,7 +27,7 @@ function ProfileScreen({ navigation }) {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require("./../assets/user.png")} />
         <Text style={styles.pictureIndication}>
-          Tab image to replace it with new one
+          {IMLocalized("tabImageToReplace")}
         </Text>
       </View>
       <View style={styles.formContainer}>
@@ -49,7 +41,7 @@ function ProfileScreen({ navigation }) {
             autoCorrect={false}
             keyboardType="email-address"
             name="first_name"
-            placeholder="First Name"
+            placeholder={IMLocalized("first_name")}
             textContentType="name"
           />
           <FormField
@@ -57,7 +49,7 @@ function ProfileScreen({ navigation }) {
             autoCorrect={false}
             keyboardType="email-address"
             name="last_name"
-            placeholder="Last Name"
+            placeholder={IMLocalized("last_name")}
             textContentType="name"
           />
           <View style={styles.profileControls}>
@@ -66,7 +58,7 @@ function ProfileScreen({ navigation }) {
               autoCorrect={false}
               keyboardType="number-pad"
               name="age"
-              placeholder="Age"
+              placeholder={IMLocalized("age")}
               textContentType="none"
               width="30%"
             />
@@ -77,7 +69,7 @@ function ProfileScreen({ navigation }) {
             />
             <FormToggle
               options={[{ text: "SDA" }, { text: "NON-SDA" }]}
-              name="gender"
+              name="adventist"
               width="30%"
             />
           </View>
@@ -86,7 +78,7 @@ function ProfileScreen({ navigation }) {
             autoCorrect={false}
             keyboardType="default"
             name="career_name"
-            placeholder="Career Name"
+            placeholder={IMLocalized("career_name")}
             textContentType="none"
           />
 
@@ -94,13 +86,13 @@ function ProfileScreen({ navigation }) {
             autoCapitalize="none"
             autoCorrect={true}
             name="cover"
-            placeholder="About Me"
+            placeholder={IMLocalized("about_me")}
             numberOfLines={3}
             multiline
             maxLength={255}
           />
 
-          <SubmitButton title="Update" color="primary" />
+          <SubmitButton title={IMLocalized("update")} color="primary" />
         </Form>
       </View>
     </Screen>

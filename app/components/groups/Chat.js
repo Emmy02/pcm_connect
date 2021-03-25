@@ -6,6 +6,7 @@ import { colors, defaultStyles } from "../../config";
 
 import { SubmitButton, FormField, Form } from "./../forms";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -46,7 +47,7 @@ function Chat({ messages }) {
             autoCorrect={true}
             keyboardType="default"
             name="message"
-            placeholder="Type your message"
+            placeholder={IMLocalized("typeYourMessageHere")}
             textContentType="none"
           />
         </Form>

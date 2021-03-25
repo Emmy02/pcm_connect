@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { colors } from "../../config";
 import Title from "../Title";
+import { IMLocalized } from "./../../config/IMLocalized";
 
 function GroupsByCountry({ universities_by_country }) {
   if (!universities_by_country) return <View></View>;
@@ -14,7 +15,7 @@ function GroupsByCountry({ universities_by_country }) {
   });
   return (
     <View style={styles.groupsByCountryContainer}>
-      <Title>Groups by country</Title>
+      <Title>{IMLocalized("groupByCountry")}</Title>
       {content.map((countryRow, index) => (
         <View style={styles.textContainer} key={index}>
           <Text style={styles.count}>{countryRow.name}</Text>
