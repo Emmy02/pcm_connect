@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   screen: {
     padding: 10,
     overflow: "visible",
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   mainScreen: {
     zIndex: -1,

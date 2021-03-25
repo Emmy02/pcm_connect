@@ -42,7 +42,7 @@ function GroupsValidationScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: colors.light,
+    backgroundColor: colors.background,
     overflow: "visible",
     zIndex: -1,
   },

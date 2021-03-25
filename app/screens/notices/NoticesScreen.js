@@ -87,7 +87,7 @@ function NoticesScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: colors.light,
+    backgroundColor: colors.background,
   },
   scrollView: {
     zIndex: -1,

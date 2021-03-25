@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     overflow: "visible",
     borderRadius: 20,
     backgroundColor: "#fff",
-    height: "80%",
+    height: "100%",
     bottom: 70,
     left: 10,
     position: "absolute",

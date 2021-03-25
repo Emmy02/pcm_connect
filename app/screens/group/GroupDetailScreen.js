@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
-  SafeAreaView,
   View,
   Image,
   Text,
   ScrollView,
+  FlatList,
 } from "react-native";
 
 import Screen from "./../../components/Screen";
@@ -23,10 +23,6 @@ import colors from "../../config/colors";
 
 import { EventCard } from "./../../components/card";
 
-const group = {
-  image: require("../../assets/3.jpg"),
-};
-
 import groupsApi from "./../../api/groups";
 import eventsApi from "./../../api/events";
 import messagesApi from "../../api/messages";
@@ -34,9 +30,9 @@ import membersApi from "./../../api/members";
 import requestsApi from "./../../api/requests";
 
 import useApi from "./../../hooks/useApi";
-import ActivityIndicator from "../../components/ActivityIndicator";
 
 function GroupDetailScreen({ navigation, route }) {
+  const defaultImage = require("../../assets/1.jpg");
   const { id } = route.params;
 
   const getGroupApi = useApi(groupsApi.getGroup);
@@ -58,18 +54,21 @@ function GroupDetailScreen({ navigation, route }) {
   return (
     <View style={styles.mainScreen}>
       <Image
-        source={group.image}
+        source={
+          getGroupApi.data.image
+            ? { uri: getGroupApi.data.image }
+            : defaultImage
+        }
         style={styles.image}
         blurRadius={activeTab === 2 ? 10 : 0}
       />
-
+      <TopNavBar onBack={() => navigation.goBack()} />
       <Screen style={styles.screen}>
-        <TopNavBar onBack={() => navigation.goBack()} />
         {activeTab !== 2 && (
           <GroupNav
             containerStyles={{
               position: "absolute",
-              top: 175,
+              top: -30,
               left: 10,
               width: "100%",
               alignItems: "center",
@@ -89,7 +88,12 @@ function GroupDetailScreen({ navigation, route }) {
                   style={styles.avatar}
                   source={require("../../assets/1.jpg")}
                 />
-                <Text style={styles.text}> Enmanuel Alejandro De Oleo</Text>
+                <Text style={styles.text}>
+                  {" "}
+                  {getGroupApi.data.user.first_name +
+                    " " +
+                    getGroupApi.data.user.last_name}
+                </Text>
                 <MaterialCommunityIcons
                   name={"dots-horizontal"}
                   size={24}
@@ -101,25 +105,11 @@ function GroupDetailScreen({ navigation, route }) {
             {activeTab === 0 && (
               <ScrollView>
                 <Info {...getGroupApi.data} />
-                <EventCard
-                  title="¡Follow Me!"
-                  subtitle="The hard way"
-                  description="Contrary to popular belief, Lorem Ipsum is not simply random text."
-                  link="Zoom 193 -123 - 4564 Pwd: 123432"
-                  peopleGoing="23"
-                  date="23rd March"
-                  dateTime="3:00 pm"
-                  type="Public"
-                />
-                <EventCard
-                  title="¡Follow Me!"
-                  subtitle="The hard way"
-                  description="Contrary to popular belief, Lorem Ipsum is not simply random text."
-                  link="Zoom 193 -123 - 4564 Pwd: 123432"
-                  peopleGoing="23"
-                  date="23rd March"
-                  dateTime="3:00 pm"
-                  type="Private"
+                <FlatList
+                  style={{ flex: 1 }}
+                  data={getEventsApi.data}
+                  keyExtractor={(event) => event.id.toString()}
+                  renderItem={({ item, index }) => <EventCard {...item} />}
                 />
               </ScrollView>
             )}
@@ -165,11 +155,11 @@ const styles = StyleSheet.create({
   },
   screen: {
     paddingHorizontal: 10,
+    backgroundColor: colors.background,
   },
   image: {
     width: "100%",
     height: 230,
-    position: "absolute",
   },
   leaderContainer: {
     backgroundColor: "rgba(130, 77, 144, 0.8)",
@@ -187,7 +177,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   tabs: {
-    paddingTop: 230,
+    marginTop: 40,
     overflow: "visible",
     zIndex: -1,
   },

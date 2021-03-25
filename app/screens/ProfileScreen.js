@@ -8,6 +8,8 @@ import { Form, FormField, SubmitButton, FormToggle } from "../components/forms";
 
 import { IMLocalized } from "./../config/IMLocalized";
 
+import { TopNav } from "../components/nav";
+
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
     .required()
@@ -24,6 +26,7 @@ const validationSchema = Yup.object().shape({
 function ProfileScreen({ navigation }) {
   return (
     <Screen style={styles.screen}>
+      <TopNav navigation={navigation} />
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require("./../assets/user.png")} />
         <Text style={styles.pictureIndication}>
@@ -104,18 +107,20 @@ const styles = StyleSheet.create({
     padding: 10,
     overflow: "visible",
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   imageContainer: {
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
     marginVertical: 15,
+    zIndex: -1,
   },
   image: {
     height: 150,
     width: 150,
     borderRadius: 30,
+    zIndex: -1,
   },
   profileControls: {
     flexDirection: "row",

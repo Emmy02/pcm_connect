@@ -87,7 +87,7 @@ function NoticeDetailScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   mainScreen: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.background,
     flex: 1,
   },
   screen: {

@@ -5,16 +5,16 @@ import Text from "../Text";
 import { colors, defaultStyles } from "../../config";
 
 import { LinearGradient } from "expo-linear-gradient";
+import dayjs from "dayjs";
 
 function EventCard({
   title,
   subtitle,
-  dateTime,
-  date,
+  expiration_date,
   type,
-  peopleGoing,
+  attendants,
   description,
-  link,
+  place,
   controls,
 }) {
   return (
@@ -27,20 +27,21 @@ function EventCard({
           colors={[colors.primary, colors.secondary]}
           style={styles.gradient}
         >
-          <Text style={[styles.dateTime, styles.dateText]}>{dateTime}</Text>
-          <Text style={[styles.date, styles.dateText]}>{date}</Text>
+          <Text style={[styles.dateTime, styles.dateText]}>
+            {dayjs(expiration_date).format("ddd, MMM D, YYYY h:mm A")}
+          </Text>
           <Text style={[styles.peopleGoing, styles.dateText]}>
-            {peopleGoing + " people going"}
+            {attendants.length + " people going"}
           </Text>
         </LinearGradient>
       </View>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
-        <Text style={styles.description} numberOfLines={2}>
+        <Text style={styles.description} numberOfLines={3}>
           {description}
         </Text>
-        <Text style={styles.link}>{link}</Text>
+        <Text style={styles.link}>{place}</Text>
         {controls}
       </View>
       <View style={styles.typeContainer}>
@@ -99,12 +100,10 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   dateTime: {
-    textTransform: "uppercase",
+    textTransform: "capitalize",
     fontWeight: "bold",
-  },
-  date: {
     fontSize: 14,
-    paddingBottom: 10,
+    textAlign: "center",
   },
   gradient: {
     width: "100%",

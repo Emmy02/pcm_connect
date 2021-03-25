@@ -117,7 +117,7 @@ function GroupDetailScreen({ navigation }) {
 const styles = StyleSheet.create({
   mainScreen: {
     flex: 1,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     padding: 10,
   },
   mapContainer: {

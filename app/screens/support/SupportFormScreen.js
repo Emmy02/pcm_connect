@@ -60,7 +60,7 @@ function SupportFormScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { zIndex: -1, padding: 10, backgroundColor: colors.white },
+  screen: { zIndex: -1, padding: 10, backgroundColor: colors.background },
 });
 
 export default SupportFormScreen;

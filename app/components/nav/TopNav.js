@@ -9,16 +9,10 @@ import SvgUri from "react-native-svg-uri";
 import Menu from "./Menu";
 import routes from "../../navigation/routes";
 
-import accountApi from "./../../api/account";
-import useApi from "./../../hooks/useApi";
+import useAccount from "./../../account/useAccount";
 
 function TopNav({ controls, navigation }) {
-  const getProfileApi = useApi(accountApi.getProfile);
-
-  useEffect(() => {
-    getProfileApi.request();
-  }, []);
-
+  const { profile } = useAccount();
   const [showMenu, setShowMenu] = useState(false);
   const baseUrl = "https://pcm-api.herokuapp.com";
   return (
@@ -34,21 +28,19 @@ function TopNav({ controls, navigation }) {
             />
           </View>
         </TouchableOpacity>
-        {showMenu && (
-          <Menu navigation={navigation} roles={getProfileApi.data.roles} />
-        )}
+        {showMenu && <Menu navigation={navigation} roles={profile?.roles} />}
       </View>
 
       {controls && <View style={styles.controls}>{controls}</View>}
 
       <TouchableOpacity onPress={() => navigation.navigate(routes.PROFILE)}>
-        {getProfileApi.data.avatar && (
+        {profile?.avatar && (
           <Image
             style={styles.image}
-            source={{ uri: baseUrl + getProfileApi.data.avatar }}
+            source={{ uri: baseUrl + profile?.avatar }}
           />
         )}
-        {!getProfileApi.data.avatar && (
+        {!profile?.avatar && (
           <Image
             style={styles.image}
             source={require("./../../assets/user.png")}

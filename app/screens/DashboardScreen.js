@@ -12,18 +12,23 @@ import { TopNav, SearchBar } from "../components/nav";
 import { OutLineButton } from "./../components/button";
 
 import SegmentControl from "./../components/SegmentControl";
-
 import WelcomeBox from "./../components/WelcomeBox";
 import routes from "../navigation/routes";
 
+import accountApi from "./../api/account";
+import useAccount from "./../account/useAccount";
+
 import groupsApi from "./../api/groups";
 import useApi from "./../hooks/useApi";
+
 import useLocation from "./../hooks/useLocation";
 import ActivityIndicator from "./../components/ActivityIndicator";
-
 import { IMLocalized } from "./../config/IMLocalized";
 
 function DashboardScreen({ navigation }) {
+  const { setProfile, profile, getRoles } = useAccount();
+  const { roles, resources } = getRoles(profile?.roles);
+
   const [actveTab, setActiveTab] = useState(1);
   const [locationLoaded, setLocationLoaded] = useState(null);
 
@@ -36,7 +41,13 @@ function DashboardScreen({ navigation }) {
   }
   const getGroupsApi = useApi(groupsApi.getGroups);
 
+  const getProfile = async () => {
+    const result = await accountApi.getProfile();
+    if (result.ok) setProfile(result.data);
+  };
+
   useEffect(() => {
+    getProfile();
     getGroupsApi.request();
   }, []);
 
@@ -54,10 +65,18 @@ function DashboardScreen({ navigation }) {
             />
           </>
         )}
-        {false && (
+        {roles.isMember && (
           <WelcomeBox
-            fullName="Enmanuel Alejandro De Oleo"
-            onPress={() => navigation.navigate(routes.GROUP_DETAILS)}
+            fullName={
+              profile?.user_profile.first_name +
+              " " +
+              profile?.user_profile.last_name
+            }
+            onPress={() =>
+              navigation.navigate(routes.GROUP_DETAILS, {
+                id: resources.groupId,
+              })
+            }
           />
         )}
         <View style={styles.closeGroups}>
@@ -133,12 +152,12 @@ function DashboardScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     padding: 10,
-    backgroundColor: colors.light,
+    backgroundColor: colors.background,
     overflow: "visible",
   },
   closeGroups: {
     overflow: "visible",
-    height: 420,
+    height: 380,
   },
   mainScreen: {
     zIndex: -1,

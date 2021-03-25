@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   screen: {
     zIndex: -1,
     padding: 10,
-    backgroundColor: colors.light,
+    backgroundColor: colors.background,
   },
   logo: {
     width: 100,

@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from "react-native";
+
 import colors from "../../config/colors";
 
 import { NoGradientButton } from "./../button";
@@ -8,21 +15,31 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function TopNavBar({ isMember = false, onPress, onBack }) {
   return (
-    <View style={styles.topNavBarContainer}>
-      <View>
-        <TouchableOpacity onPress={onBack} style={styles.button}>
-          <MaterialCommunityIcons
-            name="chevron-left"
-            size={24}
-            color={colors.white}
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.topNavBarContainer}>
+      <View
+        style={{
+          padding: 10,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View>
+          <TouchableOpacity onPress={onBack} style={styles.button}>
+            <MaterialCommunityIcons
+              name="chevron-left"
+              size={24}
+              color={colors.white}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+        <View>
+          {!isMember && (
+            <NoGradientButton title="Join Group" onPress={onPress} />
+          )}
+        </View>
       </View>
-      <View>
-        {!isMember && <NoGradientButton title="Join Group" onPress={onPress} />}
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -30,9 +47,6 @@ const styles = StyleSheet.create({
   topNavBarContainer: {
     position: "absolute",
     width: "100%",
-    left: 10,
-    flexDirection: "row",
-    justifyContent: "space-between",
   },
   joinGroup: {
     backgroundColor: colors.secondary,
