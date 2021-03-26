@@ -5,7 +5,6 @@ import Message from "./Message";
 import { colors, defaultStyles } from "../../config";
 
 import { SubmitButton, FormField, Form } from "./../forms";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IMLocalized } from "./../../config/IMLocalized";
 
 import * as Yup from "yup";
@@ -17,7 +16,7 @@ const validationSchema = Yup.object().shape({
     .label("Message"),
 });
 
-function Chat({ messages }) {
+function Chat({ messages, groupId }) {
   const defautImage = require("./../../assets/user.png");
   const baseUrl = "https://pcm-api.herokuapp.com";
   return (
@@ -49,7 +48,11 @@ function Chat({ messages }) {
             name="message"
             placeholder={IMLocalized("typeYourMessageHere")}
             textContentType="none"
+            multiline
+            width="80%"
           />
+
+          <SubmitButton color="primary" title="Send" width="20%" />
         </Form>
       </View>
     </View>

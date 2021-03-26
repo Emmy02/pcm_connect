@@ -9,10 +9,9 @@ import {
 } from "react-native";
 
 import Screen from "./../../components/Screen";
-
 import {
   Info,
-  Members,
+  Users,
   Chat,
   TopNavBar,
   GroupNav,
@@ -22,7 +21,6 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../config/colors";
 
 import { EventCard } from "./../../components/card";
-
 import groupsApi from "./../../api/groups";
 import eventsApi from "./../../api/events";
 import messagesApi from "../../api/messages";
@@ -30,10 +28,27 @@ import membersApi from "./../../api/members";
 import requestsApi from "./../../api/requests";
 
 import useApi from "./../../hooks/useApi";
+import { IMLocalized } from "./../../config/IMLocalized";
+import Title from "./../../components/Title";
+
+import useAccount from "./../../account/useAccount";
+import { NoGradientButton, OutLineButton } from "../../components/button";
+
+import { getRecordId } from "./../../utility/utils";
+
+import routes from "./../../navigation/routes";
 
 function GroupDetailScreen({ navigation, route }) {
-  const defaultImage = require("../../assets/1.jpg");
   const { id } = route.params;
+
+  const { getRoles, profile } = useAccount();
+  const { roles, resources } = getRoles(profile.roles);
+
+  const isCurrentGroupMember = roles.isMember && resources.memberGroupId === id;
+  const isCurrentGroupOwner = roles.isOwner && resources.ownerGroupId === id;
+
+  const defaultImage = require("../../assets/1.jpg");
+  const baseUrl = "https://pcm-api.herokuapp.com";
 
   const getGroupApi = useApi(groupsApi.getGroup);
   const getEventsApi = useApi(eventsApi.getEvents);
@@ -51,6 +66,25 @@ function GroupDetailScreen({ navigation, route }) {
 
   const [activeTab, setActiveTab] = useState(0);
 
+  const participate = async (groupId, eventId, userId) => {
+    const params = {
+      status: 0,
+      user_id: userId,
+      activity_type: "Event",
+      activity_id: eventId,
+    };
+
+    const result = await eventsApi.addAttendant(params);
+
+    if (result.ok) getEventsApi.request(groupId);
+  };
+
+  const notParticipate = async (attendant) => {
+    const result = await eventsApi.destroyAttendant(attendant);
+
+    if (result.ok) getEventsApi.request(id);
+  };
+
   return (
     <View style={styles.mainScreen}>
       <Image
@@ -62,7 +96,7 @@ function GroupDetailScreen({ navigation, route }) {
         style={styles.image}
         blurRadius={activeTab === 2 ? 10 : 0}
       />
-      <TopNavBar onBack={() => navigation.goBack()} />
+      <TopNavBar isMember={roles.isMember} onBack={() => navigation.goBack()} />
       <Screen style={styles.screen}>
         {activeTab !== 2 && (
           <GroupNav
@@ -78,6 +112,14 @@ function GroupDetailScreen({ navigation, route }) {
             }}
             index={activeTab}
             onPress={(index) => setActiveTab(index)}
+            image={
+              profile.avatar
+                ? { uri: baseUrl + profile.avatar }
+                : require("./../../assets/user.png")
+            }
+            user={getGroupApi.data.user}
+            isGroupMember={isCurrentGroupMember}
+            isGroupOwner={isCurrentGroupOwner}
           />
         )}
         {activeTab !== 2 && (
@@ -105,17 +147,82 @@ function GroupDetailScreen({ navigation, route }) {
             {activeTab === 0 && (
               <ScrollView>
                 <Info {...getGroupApi.data} />
+                <Title
+                  controls={
+                    isCurrentGroupOwner && (
+                      <OutLineButton
+                        title={IMLocalized("createEventButton")}
+                        onPress={() =>
+                          navigation.navigate(routes.CREATE_GROUP_EVENT)
+                        }
+                      />
+                    )
+                  }
+                >
+                  {IMLocalized("events")}
+                </Title>
                 <FlatList
                   style={{ flex: 1 }}
                   data={getEventsApi.data}
                   keyExtractor={(event) => event.id.toString()}
-                  renderItem={({ item, index }) => <EventCard {...item} />}
+                  renderItem={({ item, index }) => (
+                    <EventCard
+                      {...item}
+                      controls={
+                        <View style={{ paddingTop: 5 }}>
+                          {!item.attendants.some(
+                            (attendant) => attendant.user_id === profile.id
+                          ) && (
+                            <NoGradientButton
+                              title={IMLocalized("participate")}
+                              color="primary"
+                              onPress={() =>
+                                participate(id, item.id, profile.id)
+                              }
+                            />
+                          )}
+                          {item.attendants.some(
+                            (attendant) => attendant.user_id === profile.id
+                          ) && (
+                            <NoGradientButton
+                              title={IMLocalized("notParticipate")}
+                              color="danger"
+                              onPress={() =>
+                                notParticipate(
+                                  getRecordId(
+                                    profile.id,
+                                    "user_id",
+                                    item.attendants
+                                  )
+                                )
+                              }
+                            />
+                          )}
+                        </View>
+                      }
+                    />
+                  )}
                 />
               </ScrollView>
             )}
 
             {activeTab === 1 && (
-              <Members navigation={navigation} list={getMembersApi.data} />
+              <View>
+                {getRequestsApi.data.length > 0 && (
+                  <Users
+                    title={IMLocalized("requests")}
+                    navigation={navigation}
+                    list={getRequestsApi.data}
+                    groupId={id}
+                  />
+                )}
+                <Users
+                  title={IMLocalized("members")}
+                  navigation={navigation}
+                  list={getMembersApi.data}
+                  groupId={id}
+                />
+              </View>
             )}
             {activeTab === 3 && (
               <GroupForm address={{ lat: 1, long: 2, street: "1232132" }} />
@@ -129,6 +236,8 @@ function GroupDetailScreen({ navigation, route }) {
               containerStyles={styles.bottomNav}
               index={activeTab}
               onPress={(index) => setActiveTab(index)}
+              isGroupMember={isCurrentGroupMember}
+              isGroupOwner={isCurrentGroupOwner}
             />
           </View>
         )}

@@ -74,7 +74,7 @@ function DashboardScreen({ navigation }) {
             }
             onPress={() =>
               navigation.navigate(routes.GROUP_DETAILS, {
-                id: resources.groupId,
+                id: resources.memberGroupId,
               })
             }
           />

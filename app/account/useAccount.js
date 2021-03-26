@@ -19,7 +19,8 @@ export default useAccount = () => {
 
     let resources = {
       requestedGroupId: null,
-      groupId: null,
+      ownerGroupId: null,
+      memberGroupId: null,
     };
 
     roles.map((r) => {
@@ -48,14 +49,14 @@ export default useAccount = () => {
         userRoles.isOwner = true;
         userRoles.isRequested = false;
         userRoles.isDefaultUser = false;
-        resources.groupId = r.resource_id;
+        resources.ownerGroupId = r.resource_id;
       }
 
       if (r.name === "member") {
         userRoles.isMember = true;
         userRoles.isRequested = false;
         userRoles.isDefaultUser = false;
-        resources.groupId = r.resource_id;
+        resources.memberGroupId = r.resource_id;
       }
 
       if (r.name === "director") {

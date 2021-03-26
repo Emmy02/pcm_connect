@@ -8,6 +8,7 @@ import ProfileScreen from "./../screens/ProfileScreen";
 import GroupDetailScreen from "../screens/group/GroupDetailScreen";
 import CreateGroupScreen from "./../screens/group/CreateGroupScreen";
 import UserProfileScreen from "../screens/group/UserProfileScreen";
+import CreateGroupEventScreen from "../screens/group/CreateGroupEventScreen";
 
 import NoticesNavigator from "./../navigation/NoticesNavigator";
 import SupportNavigator from "./../navigation/SupportNavigator";
@@ -24,6 +25,10 @@ const AppNavigator = () => (
     <Stack.Screen name={routes.ADMIN_DASHBOARD} component={AdminNavigator} />
     <Stack.Screen name={routes.GROUP_DETAILS} component={GroupDetailScreen} />
     <Stack.Screen name={routes.CREATE_GROUP} component={CreateGroupScreen} />
+    <Stack.Screen
+      name={routes.CREATE_GROUP_EVENT}
+      component={CreateGroupEventScreen}
+    />
     <Stack.Screen
       name={routes.USER_PROFILE_GROUP}
       component={UserProfileScreen}

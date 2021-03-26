@@ -1,25 +1,28 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
-
-import Screen from "./../../components/Screen";
-
-import dayjs from "dayjs";
-
+import React from "react";
+import { StyleSheet, View, Image, Text, Alert } from "react-native";
 import { NavBack } from "./../../components/nav";
-
-import colors from "../../config/colors";
-
-import { LinearGradient } from "expo-linear-gradient";
-
-import SvgUri from "react-native-svg-uri";
-
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
-
 import { IMLocalized } from "./../../config/IMLocalized";
+import { LinearGradient } from "expo-linear-gradient";
+
+import Screen from "./../../components/Screen";
+import dayjs from "dayjs";
+
+import colors from "../../config/colors";
+import SvgUri from "react-native-svg-uri";
+import memberApi from "./../../api/members";
+
+import useAccount from "./../../account/useAccount";
 
 function UserProfileScreen({ navigation, route }) {
+  const { getRoles, profile } = useAccount();
+  const { roles, resources } = getRoles(profile.roles);
+
   const {
+    isRequest,
+    message,
+    groupId,
     avatar,
     email,
     id,
@@ -27,13 +30,41 @@ function UserProfileScreen({ navigation, route }) {
       age,
       career_name,
       cover,
-      gender,
       first_name,
       last_name,
       is_adventist,
       created_at,
     },
   } = route.params;
+
+  const isCurrentGroupOwner =
+    roles.isOwner && resources.ownerGroupId === groupId;
+
+  const removeMember = async (groupId, memberId) => {
+    Alert.alert(
+      IMLocalized("confirmation"),
+      IMLocalized("areYouSure"),
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => destroyMember(groupId, memberId),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const destroyMember = async (groupId, memberId) => {
+    const result = await memberApi.destroyMember(groupId, memberId);
+
+    if (result.ok) {
+      navigation.goBack();
+    }
+  };
 
   return (
     <View style={styles.mainScreen}>
@@ -66,7 +97,10 @@ function UserProfileScreen({ navigation, route }) {
               <View style={styles.primaryInfoContainer}>
                 <Image style={styles.avatar} source={avatar} />
                 <View style={styles.primaryInfo}>
-                  <Text style={[styles.fullName, styles.text]}>
+                  <Text
+                    numberOfLines={1}
+                    style={[styles.fullName, styles.text]}
+                  >
                     {first_name} {last_name}
                   </Text>
                   <Text style={[styles.email, styles.text]}>{email}</Text>
@@ -103,29 +137,55 @@ function UserProfileScreen({ navigation, route }) {
               source={require("./../../assets/quotes.svg")}
             />
             <View>
-              <Text style={styles.message}>{""}</Text>
+              <Text style={styles.message}>{message}</Text>
             </View>
           </View>
-          <View style={styles.actionsContainer}>
-            <Title>{IMLocalized("adminActions")}</Title>
-            <View style={styles.firstRow}>
-              <View style={{ width: "48%" }}>
+          {isCurrentGroupOwner && !isRequest && (
+            <View style={styles.actionsContainer}>
+              <Title>{IMLocalized("adminActions")}</Title>
+              <View style={styles.firstRow}>
+                <View style={{ width: "48%" }}>
+                  <NoGradientButton
+                    title={IMLocalized("remove")}
+                    color="danger"
+                    onPress={() => removeMember(groupId, id)}
+                  />
+                </View>
+                <View style={{ width: "48%" }}>
+                  <NoGradientButton
+                    title={IMLocalized("report")}
+                    color="clear"
+                  />
+                </View>
+              </View>
+              <View style={styles.lastRow}>
                 <NoGradientButton
-                  title={IMLocalized("remove")}
-                  color="danger"
+                  title={IMLocalized("makeAdmin")}
+                  color="primary"
                 />
               </View>
-              <View style={{ width: "48%" }}>
-                <NoGradientButton title={IMLocalized("report")} color="clear" />
+            </View>
+          )}
+          {isCurrentGroupOwner && isRequest && (
+            <View style={styles.actionsContainer}>
+              <Title>{IMLocalized("adminActions")}</Title>
+              <View style={styles.firstRow}>
+                <View style={{ width: "48%" }}>
+                  <NoGradientButton
+                    title={IMLocalized("reject")}
+                    color="danger"
+                    onPress={() => removeMember(groupId, id)}
+                  />
+                </View>
+                <View style={{ width: "48%" }}>
+                  <NoGradientButton
+                    title={IMLocalized("accept")}
+                    color="primary"
+                  />
+                </View>
               </View>
             </View>
-            <View style={styles.lastRow}>
-              <NoGradientButton
-                title={IMLocalized("makeAdmin")}
-                color="primary"
-              />
-            </View>
-          </View>
+          )}
         </View>
       </Screen>
     </View>
@@ -179,6 +239,7 @@ const styles = StyleSheet.create({
   primaryInfoContainer: {
     flexDirection: "row",
     paddingTop: 10,
+    width: "75%",
   },
   avatar: {
     width: 100,

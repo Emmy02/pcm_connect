@@ -53,29 +53,13 @@ const getEvent = (groupId, id) =>
 const destroyEvent = (groupId, id) =>
   client.delete(endpoints.GROUPS + "/" + groupId + endpoints.EVENTS + "/" + id);
 
-const getAttendants = (groupId, eventId) =>
-  client.get(
-    endpoints.GROUPS +
-      "/" +
-      groupId +
-      endpoints.EVENTS +
-      "/" +
-      eventId +
-      endpoints.ATTENDANTS
-  );
-
-const addAttendant = (groupId, eventId, attendantId) =>
-  client.get(
-    endpoints.GROUPS +
-      "/" +
-      groupId +
-      endpoints.EVENTS +
-      "/" +
-      eventId +
-      endpoints.ATTENDANTS +
-      "/" +
-      attendantId
-  );
+const addAttendant = ({ status, user_id, activity_type, activity_id }) =>
+  client.post(endpoints.ATTENDANTS, {
+    status,
+    user_id,
+    activity_type,
+    activity_id,
+  });
 
 const updateAttendant = (groupId, eventId, attendantId) =>
   client.get(
@@ -91,18 +75,8 @@ const updateAttendant = (groupId, eventId, attendantId) =>
     {}
   );
 
-const destroyAttendant = (groupId, eventId, attendantId) =>
-  client.get(
-    endpoints.GROUPS +
-      "/" +
-      groupId +
-      endpoints.EVENTS +
-      "/" +
-      eventId +
-      endpoints.ATTENDANTS +
-      "/" +
-      attendantId
-  );
+const destroyAttendant = (attendantId) =>
+  client.delete(endpoints.ATTENDANTS + "/" + attendantId);
 
 export default {
   getEvents,
@@ -110,7 +84,6 @@ export default {
   addEvent,
   updateEvent,
   destroyEvent,
-  getAttendants,
   addAttendant,
   updateAttendant,
   destroyAttendant,

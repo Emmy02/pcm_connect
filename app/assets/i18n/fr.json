@@ -40,6 +40,7 @@
     "public": "Public",
     "private": "Private",
     "participate": "Partiper",
+    "notParticipate": "Nun Partiper",
     "requests":"demandes",
     "members":"Membres",
    "joinVideoCall": "Rejoindre l'appel vidéo",
@@ -85,7 +86,7 @@
     "noInternetConnection": "Pas de connexion Internet",
     "home": "Home",
     "groupByCountry": "Groupes par pays",
-        "usersWithOutGroups": "utilisateurs sans groupes",
+    "usersWithOutGroups": "utilisateurs sans groupes",
     "universities": "les universités",
     "males": "mâles",
     "females": "femelles",
@@ -106,5 +107,7 @@
     "open": "Ouvert",
     "in_progress": "En cours",
     "closed": "Fermé",
-    "assigned_to": "Assigné à"
+    "assigned_to": "Assigné à",
+    "confirmation": "Confirmer l'action",
+    "areYouSure": "¿êtes-vous sûr?"
 }

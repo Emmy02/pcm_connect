@@ -14,4 +14,5 @@ export default Object.freeze({
   DASHBOARD: "Dashboard",
   PROFILE: "Profile",
   CREATE_GROUP: "CreateGroup",
+  CREATE_GROUP_EVENT: "CreateGroupEvent",
 });

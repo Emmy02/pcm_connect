@@ -3,10 +3,15 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "../../config/colors";
 
-function NoGradientButton({ title, color = "primary", onPress }) {
+function NoGradientButton({
+  title,
+  color = "primary",
+  width = "100%",
+  onPress,
+}) {
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor: colors[color] }]}
+      style={[styles.button, { backgroundColor: colors[color], width }]}
       onPress={onPress}
     >
       <Text

@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 
 import Text from "../Text";
-import { colors, defaultStyles } from "../../config";
+import { colors } from "../../config";
 
 import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     backgroundColor: "#fff",
-    height: 220,
-    maxHeight: 250,
+    minHeight: 220,
+    maxHeight: 260,
     borderRadius: 10,
     borderColor: colors.clear,
     borderWidth: 1,

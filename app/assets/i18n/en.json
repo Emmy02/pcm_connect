@@ -40,6 +40,7 @@
     "public": "Public",
     "private": "Private",
     "participate": "Partipate",
+    "notParticipate": "Not Participate",
     "requests":"Requests",
     "members":"Members",
     "joinVideoCall": "Join Video Call",
@@ -106,5 +107,7 @@
     "open": "Open",
     "in_progress": "In progress",
     "closed": "Closed",
-    "assigned_to": "Assigned to"
+    "assigned_to": "Assigned to",
+    "confirmation": "Confirm Action",
+    "areYouSure": "Are you sure?"
 }

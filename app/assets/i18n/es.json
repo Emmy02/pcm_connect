@@ -40,6 +40,7 @@
     "public": "Publico",
     "private": "Privado",
     "participate": "Participar",
+    "notParticipate": "No Participar",
     "requests":"Socitudes",
     "members":"Miembros",
     "joinVideoCall": "Unirse a video llamada",
@@ -106,5 +107,7 @@
     "open": "Abierto",
     "in_progress": "En Progreso",
     "closed": "Cerrado",
-    "assigned_to": "Asignado a"
+    "assigned_to": "Asignado a",
+    "confirmation": "Confirme Acción",
+    "areYouSure": "¿Está seguro?"
 }
