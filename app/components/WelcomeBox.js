@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 import colors from "../config/colors";
 
@@ -9,7 +8,7 @@ import SvgUri from "react-native-svg-uri";
 import { IMLocalized } from "./../config/IMLocalized";
 
 import { GradientCard } from "./../components/card";
-function WelcomeBox({ fullName, onPress }) {
+function WelcomeBox({ fullName, onPress, pending = false }) {
   return (
     <TouchableOpacity style={{ zIndex: -1 }} onPress={onPress}>
       <GradientCard>
@@ -22,6 +21,11 @@ function WelcomeBox({ fullName, onPress }) {
           style={styles.icon}
           source={require("./../assets/arrow.svg")}
         />
+        {pending && (
+          <Text style={{ color: colors.white, paddingTop: 10 }}>
+            {IMLocalized("pending")}{" "}
+          </Text>
+        )}
       </GradientCard>
     </TouchableOpacity>
   );

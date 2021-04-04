@@ -4,15 +4,21 @@ import endpoints from "./endpoints";
 const getEvents = (groupId) =>
   client.get(endpoints.GROUPS + "/" + groupId + endpoints.EVENTS);
 
+const getPublicEvents = (groupId) =>
+  client.get(endpoints.GROUPS + "/" + groupId + endpoints.PUBLIC_EVENTS);
+
 const addEvent = (
   groupId,
-  title,
-  description,
-  expiration_date,
-  image,
-  subtitle,
-  place,
-  image_src
+  {
+    title,
+    description,
+    expiration_date,
+    image,
+    subtitle,
+    place,
+    audience,
+    created_by,
+  }
 ) =>
   client.post(endpoints.GROUPS + "/" + groupId + endpoints.EVENTS, {
     title,
@@ -21,7 +27,8 @@ const addEvent = (
     image,
     subtitle,
     place,
-    image_src,
+    audience,
+    created_by,
   });
 
 const updateEvent = (
@@ -33,7 +40,8 @@ const updateEvent = (
   image,
   subtitle,
   place,
-  image_src
+  image_src,
+  audience
 ) =>
   client.update(
     endpoints.GROUPS + "/" + groupId + endpoints.EVENTS + "/" + id,
@@ -45,11 +53,13 @@ const updateEvent = (
       subtitle,
       place,
       image_src,
+      audience,
     }
   );
 
 const getEvent = (groupId, id) =>
   client.get(endpoints.GROUPS + "/" + groupId + endpoints.EVENTS + "/" + id);
+
 const destroyEvent = (groupId, id) =>
   client.delete(endpoints.GROUPS + "/" + groupId + endpoints.EVENTS + "/" + id);
 
@@ -80,6 +90,7 @@ const destroyAttendant = (attendantId) =>
 
 export default {
   getEvents,
+  getPublicEvents,
   getEvent,
   addEvent,
   updateEvent,

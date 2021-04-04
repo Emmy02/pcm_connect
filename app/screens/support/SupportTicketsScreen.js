@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, FlatList, View, ScrollView } from "react-native";
 import { OutLineButton } from "../../components/button";
 
 import Screen from "../../components/Screen";
@@ -15,29 +15,36 @@ import routes from "../../navigation/routes";
 
 import { NavBack } from "./../../components/nav";
 
-function SupportTicketsScreen({ navigation }) {
+function SupportTicketsScreen({ navigation, route }) {
+  const [created, setCreated] = useState(false);
   const getMyTicketsApi = useApi(ticketsApi.getMyTickets);
+
   useEffect(() => {
     getMyTicketsApi.request();
-  }, []);
+  }, [created]);
 
   return (
     <Screen style={styles.screen}>
       <NavBack onPress={() => navigation.goBack()} />
-      <OutLineButton
-        width="50%"
-        title={IMLocalized("reportAnIssueButton")}
-        onPress={() => navigation.navigate(routes.SUPPORT_FORM)}
-      />
 
-      <View>
-        <FlatList
-          style={{ overflow: "visible" }}
-          data={getMyTicketsApi.data}
-          keyExtractor={(ticket) => ticket.id.toString()}
-          renderItem={({ item }) => <TicketCard {...item} key={item.id} />}
+      <ScrollView>
+        <OutLineButton
+          width="50%"
+          title={IMLocalized("reportAnIssueButton")}
+          onPress={() =>
+            navigation.navigate(routes.SUPPORT_FORM, { setCreated, created })
+          }
         />
-      </View>
+
+        <View>
+          <FlatList
+            style={{ overflow: "visible" }}
+            data={getMyTicketsApi.data}
+            keyExtractor={(ticket) => ticket.id.toString()}
+            renderItem={({ item }) => <TicketCard {...item} key={item.id} />}
+          />
+        </View>
+      </ScrollView>
     </Screen>
   );
 }

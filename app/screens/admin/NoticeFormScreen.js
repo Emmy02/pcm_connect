@@ -15,8 +15,19 @@ import { NavBack } from "./../../components/nav";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  title: Yup.string().required().min(10).max(30).label(IMLocalized("title")),
+  subtitle: Yup.string()
+    .required()
+    .min(10)
+    .max(30)
+    .label(IMLocalized("subtitle")),
+  description: Yup.string()
+    .required()
+    .min(20)
+    .max(300)
+    .label(IMLocalized("description")),
+  place: Yup.string().required().min(0).max(50).label(IMLocalized("place")),
+  expiration_date: Yup.string().required().label("event_date"),
 });
 
 function NoticeFormScreen({ navigation }) {
@@ -58,21 +69,20 @@ function NoticeFormScreen({ navigation }) {
             <FormField
               autoCapitalize="none"
               autoCorrect={true}
-              name="date"
+              name="expiration_date"
               placeholder={IMLocalized("date")}
               textContentType="none"
             />
             <FormField
               autoCapitalize="none"
               autoCorrect={true}
-              name="meeting-link"
+              name="place"
               placeholder={IMLocalized("meetingLink")}
               textContentType="none"
             />
             <SubmitButton title={IMLocalized("save")} color="primary" />
           </Form>
         </View>
-        <NoGradientButton title="Cancel" color="danger" />
       </ScrollView>
     </Screen>
   );

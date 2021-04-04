@@ -6,7 +6,7 @@ import { colors } from "./../../config";
 import SvgUri from "react-native-svg-uri";
 import { IMLocalized } from "./../../config/IMLocalized";
 
-function SearchBar() {
+function SearchBar({ onFocus, onChangeText }) {
   return (
     <View style={styles.searchBarContainer}>
       <SvgUri
@@ -15,7 +15,11 @@ function SearchBar() {
         style={styles.svg}
         source={require("./../../assets/search.svg")}
       />
-      <TextInput placeholder={IMLocalized("findGroupsLabel")}></TextInput>
+      <TextInput
+        onFocus={onFocus}
+        onChangeText={onChangeText}
+        placeholder={IMLocalized("findGroupsLabel")}
+      ></TextInput>
     </View>
   );
 }

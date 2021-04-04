@@ -6,6 +6,7 @@ import {
   Text,
   ScrollView,
   FlatList,
+  Alert,
 } from "react-native";
 
 import Screen from "./../../components/Screen";
@@ -17,7 +18,6 @@ import {
   GroupNav,
   GroupForm,
 } from "./../../components/groups";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../config/colors";
 
 import { EventCard } from "./../../components/card";
@@ -26,6 +26,8 @@ import eventsApi from "./../../api/events";
 import messagesApi from "../../api/messages";
 import membersApi from "./../../api/members";
 import requestsApi from "./../../api/requests";
+import groupsSubscriptionApi from "./../../api/groupSubscriptions";
+import accountApi from "./../../api/account";
 
 import useApi from "./../../hooks/useApi";
 import { IMLocalized } from "./../../config/IMLocalized";
@@ -39,30 +41,57 @@ import { getRecordId } from "./../../utility/utils";
 import routes from "./../../navigation/routes";
 
 function GroupDetailScreen({ navigation, route }) {
+  const [updated, setUpdated] = useState(null);
+
   const { id } = route.params;
 
-  const { getRoles, profile } = useAccount();
+  const { getRoles, profile, setProfile } = useAccount();
   const { roles, resources } = getRoles(profile.roles);
 
   const isCurrentGroupMember = roles.isMember && resources.memberGroupId === id;
   const isCurrentGroupOwner = roles.isOwner && resources.ownerGroupId === id;
+  const isCurrentGroupRequested =
+    roles.isRequested && resources.requestedGroupId === id;
+  const isDefaultUser = roles.isDefaultUser;
+
+  let subscriptionId = null;
+  let isSubscribed = false;
+
+  if (profile.subscriptions)
+    profile.subscriptions.map((sub) => {
+      if (sub.group_id === id) {
+        isSubscribed = true;
+        subscriptionId = sub.id;
+      }
+    });
 
   const defaultImage = require("../../assets/1.jpg");
   const baseUrl = "https://pcm-api.herokuapp.com";
 
   const getGroupApi = useApi(groupsApi.getGroup);
   const getEventsApi = useApi(eventsApi.getEvents);
+  const getPublicEventsApi = useApi(eventsApi.getPublicEvents);
   const getMembersApi = useApi(membersApi.getMembers);
   const getMessagesApi = useApi(messagesApi.getMessages);
   const getRequestsApi = useApi(requestsApi.getRequests);
 
+  const getProfile = async () => {
+    const result = await accountApi.getProfile();
+    if (result.ok) setProfile(result.data);
+  };
+
   useEffect(() => {
     getGroupApi.request(id);
-    getEventsApi.request(id);
-    getMembersApi.request(id);
-    getMessagesApi.request(id);
-    getRequestsApi.request(id);
-  }, []);
+
+    if (isDefaultUser) {
+      getPublicEventsApi.request(id);
+    } else {
+      getEventsApi.request(id);
+      getMembersApi.request(id);
+      getMessagesApi.request(id);
+      getRequestsApi.request(id);
+    }
+  }, [updated]);
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -85,6 +114,110 @@ function GroupDetailScreen({ navigation, route }) {
     if (result.ok) getEventsApi.request(id);
   };
 
+  const onSubscribe = async (groupId) => {
+    Alert.alert(
+      IMLocalized("subscription"),
+      IMLocalized("subscription_details"),
+      [
+        {
+          text: IMLocalized("cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: IMLocalized("accept"),
+          onPress: async () => {
+            const result = await groupsSubscriptionApi.addGroupSubscription(
+              groupId
+            );
+            if (result.ok) getProfile();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const onUnSubscribe = async (subscriptionId) => {
+    Alert.alert(
+      IMLocalized("Alert"),
+      IMLocalized("areYouSure"),
+      [
+        {
+          text: IMLocalized("cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: IMLocalized("accept"),
+          onPress: async () => {
+            const result = await groupsSubscriptionApi.destroyGroupSubscription(
+              subscriptionId
+            );
+            if (result.ok) getProfile();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const onCancelJoin = async () => {
+    Alert.alert(
+      IMLocalized("Alert"),
+      IMLocalized("areYouSure"),
+      [
+        {
+          text: IMLocalized("cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: IMLocalized("accept"),
+          onPress: async () => {
+            const result = await accountApi.cancelRequest({ status: 2 });
+            if (result.ok) getProfile();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const onLeave = async () => {
+    let memberId = null;
+
+    getMembersApi.data.map((m) => {
+      if (m.user.id === profile.id) memberId = m.id;
+    });
+
+    if (memberId) {
+      Alert.alert(
+        IMLocalized("Alert"),
+        IMLocalized("areYouSure"),
+        [
+          {
+            text: IMLocalized("cancel"),
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: IMLocalized("accept"),
+            onPress: async () => {
+              const result = await membersApi.destroyMember(id, memberId);
+
+              if (result.ok) {
+                setUpdated(!updated);
+                getProfile();
+              }
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    }
+  };
+
   return (
     <View style={styles.mainScreen}>
       <Image
@@ -96,25 +229,37 @@ function GroupDetailScreen({ navigation, route }) {
         style={styles.image}
         blurRadius={activeTab === 2 ? 10 : 0}
       />
-      <TopNavBar isMember={roles.isMember} onBack={() => navigation.goBack()} />
+      <TopNavBar
+        showJoin={!roles.isMember && !roles.isRequested}
+        canCancelJoin={isCurrentGroupRequested}
+        cancelJoin={() => onCancelJoin(id)}
+        canSubscribe={
+          !isCurrentGroupMember && !isCurrentGroupOwner && !isSubscribed
+        }
+        onPress={() => navigation.navigate(routes.CREATE_JOIN_REQUEST, { id })}
+        onSubscribe={() => onSubscribe(id)}
+        onBack={() => navigation.goBack()}
+        canUnSubscribe={isSubscribed}
+        onUnSubscribe={() => onUnSubscribe(subscriptionId)}
+        canLeave={isCurrentGroupMember && !isCurrentGroupOwner}
+        onLeave={() => onLeave(id)}
+      />
       <Screen style={styles.screen}>
         {activeTab !== 2 && (
           <GroupNav
             containerStyles={{
-              position: "absolute",
-              top: -30,
-              left: 10,
               width: "100%",
               alignItems: "center",
               justifyContent: "center",
               alignContent: "center",
               borderRadius: 10,
+              zIndex: 99999,
             }}
             index={activeTab}
             onPress={(index) => setActiveTab(index)}
             image={
-              profile.avatar
-                ? { uri: baseUrl + profile.avatar }
+              getGroupApi.data.user?.avatar
+                ? { uri: baseUrl + getGroupApi.data.user.avatar }
                 : require("./../../assets/user.png")
             }
             user={getGroupApi.data.user}
@@ -124,26 +269,6 @@ function GroupDetailScreen({ navigation, route }) {
         )}
         {activeTab !== 2 && (
           <View style={styles.tabs}>
-            {false && (
-              <View style={styles.leaderContainer}>
-                <Image
-                  style={styles.avatar}
-                  source={require("../../assets/1.jpg")}
-                />
-                <Text style={styles.text}>
-                  {" "}
-                  {getGroupApi.data.user.first_name +
-                    " " +
-                    getGroupApi.data.user.last_name}
-                </Text>
-                <MaterialCommunityIcons
-                  name={"dots-horizontal"}
-                  size={24}
-                  color={"#fff"}
-                  style={styles.icon}
-                />
-              </View>
-            )}
             {activeTab === 0 && (
               <ScrollView>
                 <Info {...getGroupApi.data} />
@@ -153,7 +278,12 @@ function GroupDetailScreen({ navigation, route }) {
                       <OutLineButton
                         title={IMLocalized("createEventButton")}
                         onPress={() =>
-                          navigation.navigate(routes.CREATE_GROUP_EVENT)
+                          navigation.navigate(routes.CREATE_GROUP_EVENT, {
+                            updated,
+                            setUpdated,
+                            groupId: id,
+                            userId: profile.id,
+                          })
                         }
                       />
                     )
@@ -163,7 +293,11 @@ function GroupDetailScreen({ navigation, route }) {
                 </Title>
                 <FlatList
                   style={{ flex: 1 }}
-                  data={getEventsApi.data}
+                  data={
+                    !isCurrentGroupOwner && !isCurrentGroupMember
+                      ? getPublicEventsApi.data
+                      : getEventsApi.data
+                  }
                   keyExtractor={(event) => event.id.toString()}
                   renderItem={({ item, index }) => (
                     <EventCard
@@ -200,6 +334,7 @@ function GroupDetailScreen({ navigation, route }) {
                           )}
                         </View>
                       }
+                      setUpdated={() => setUpdated(!updated)}
                     />
                   )}
                 />
@@ -214,6 +349,8 @@ function GroupDetailScreen({ navigation, route }) {
                     navigation={navigation}
                     list={getRequestsApi.data}
                     groupId={id}
+                    setUpdated={() => setUpdated(!updated)}
+                    isRequest={true}
                   />
                 )}
                 <Users
@@ -221,17 +358,30 @@ function GroupDetailScreen({ navigation, route }) {
                   navigation={navigation}
                   list={getMembersApi.data}
                   groupId={id}
+                  isRequest={false}
+                  setUpdated={() => setUpdated(!updated)}
                 />
               </View>
             )}
             {activeTab === 3 && (
-              <GroupForm address={{ lat: 1, long: 2, street: "1232132" }} />
+              <GroupForm
+                address={{
+                  lat: getGroupApi.data.lat,
+                  long: getGroupApi.data.lng,
+                  street: "1232132",
+                }}
+                setUpdated={() => setUpdated(!updated)}
+              />
             )}
           </View>
         )}
         {activeTab === 2 && (
           <View style={{ width: "100%", height: "100%", position: "absolute" }}>
-            <Chat messages={getMessagesApi.data} />
+            <Chat
+              messages={getMessagesApi.data}
+              groupId={id}
+              userId={profile.id}
+            />
             <GroupNav
               containerStyles={styles.bottomNav}
               index={activeTab}
@@ -286,7 +436,6 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   tabs: {
-    marginTop: 40,
     overflow: "visible",
     zIndex: -1,
   },

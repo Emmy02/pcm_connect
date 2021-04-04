@@ -6,7 +6,15 @@ import routes from "../../navigation/routes";
 
 import Title from "./../Title";
 
-function Users({ list, navigation, groupId, title }) {
+function Users({
+  list,
+  navigation,
+  groupId,
+  title,
+  isRequest,
+  updated,
+  setUpdated,
+}) {
   const baseUrl = "https://pcm-api.herokuapp.com";
   const defautImage = require("./../../assets/user.png");
 
@@ -19,15 +27,18 @@ function Users({ list, navigation, groupId, title }) {
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (
           <Member
-            {...item.user}
+            user={item.user}
             avatar={item.avatar ? { uri: baseUrl + item.avatar } : defautImage}
             onPress={() =>
               navigation.navigate(routes.USER_PROFILE_GROUP, {
-                ...item.user,
+                ...item,
                 avatar: item.avatar
                   ? { uri: baseUrl + item.avatar }
                   : defautImage,
                 groupId: groupId,
+                isRequest,
+                updated,
+                setUpdated,
               })
             }
             key={"group-member-" + index}

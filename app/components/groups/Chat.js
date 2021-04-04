@@ -1,11 +1,24 @@
-import React from "react";
-import { StyleSheet, FlatList, View, Text } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import {
+  StyleSheet,
+  FlatList,
+  View,
+  Text,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+  ScrollView,
+} from "react-native";
+
+import { ActionCable, Cable } from "@kesha-antonov/react-native-action-cable";
 
 import Message from "./Message";
 import { colors, defaultStyles } from "../../config";
 
 import { SubmitButton, FormField, Form } from "./../forms";
 import { IMLocalized } from "./../../config/IMLocalized";
+
+import messagesApi from "./../../api/messages";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -16,45 +29,119 @@ const validationSchema = Yup.object().shape({
     .label("Message"),
 });
 
-function Chat({ messages, groupId }) {
+function Chat({ messages, groupId, userId }) {
+  const [didKeyboardShow, setKeyboardShow] = useState(false);
+  const scrollView = useRef();
+
+  const [mgs, setMgs] = useState(messages);
+
   const defautImage = require("./../../assets/user.png");
   const baseUrl = "https://pcm-api.herokuapp.com";
+
+  const onReceived = (data) => {
+    let newMessages = mgs;
+
+    newMessages = newMessages.concat([data]);
+    setMgs(newMessages);
+  };
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    const actionCable = ActionCable.createConsumer("ws://localhost:3000/cable");
+    const cable = new Cable({});
+
+    const channel = cable.setChannel(
+      `group_chat_${groupId}_channel`,
+      actionCable.subscriptions.create({
+        channel: "GroupChatChannel",
+        group_id: groupId,
+      })
+    );
+
+    channel.on("received", onReceived);
+
+    return () => {
+      Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+      const channelName = `group_chat_${groupId}_channel`;
+      const channel = cable.channel(channelName);
+
+      if (channel) {
+        channel.removeListener("received", onReceived);
+        channel.unsubscribe();
+        delete cable.channels[channelName];
+      }
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setKeyboardShow(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardShow(false);
+  };
+  const handleSubmit = async ({ message }, { resetForm }) => {
+    const params = {
+      content: message,
+      type: 0,
+      user_id: userId,
+    };
+
+    const results = await messagesApi.addMessage(groupId, params);
+    if (results.ok) resetForm();
+  };
+
   return (
     <View style={styles.chatContainer}>
       <View style={styles.chatHeader}></View>
-      <FlatList
-        style={{ flex: 1 }}
-        data={messages}
-        keyExtractor={(listing) => listing.id.toString()}
-        renderItem={({ item, index }) => (
-          <Message
-            {...item}
-            avatar={item.avatar ? { uri: baseUrl + item.avatar } : defautImage}
-            onPress={() => {}}
-            key={"group-chat-" + index}
-          />
-        )}
-      />
-      <View style={styles.chatFooter}>
-        <Form
-          initialValues={{ message: "" }}
-          onSubmit={(values) => console.log(values)}
-          validationSchema={validationSchema}
+      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <ScrollView
+          style={{ flex: 1 }}
+          ref={scrollView}
+          onContentSizeChange={() => scrollView.current.scrollToEnd()}
         >
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={true}
-            keyboardType="default"
-            name="message"
-            placeholder={IMLocalized("typeYourMessageHere")}
-            textContentType="none"
-            multiline
-            width="80%"
-          />
+          {mgs.map((message, index) => (
+            <Message
+              {...message}
+              avatar={
+                message.avatar ? { uri: baseUrl + message.avatar } : defautImage
+              }
+              onPress={() => {}}
+              key={"group-chat-" + index}
+              me={message.user_id === userId}
+            />
+          ))}
+        </ScrollView>
 
-          <SubmitButton color="primary" title="Send" width="20%" />
-        </Form>
-      </View>
+        <View
+          style={[
+            styles.chatFooter,
+            { paddingBottom: didKeyboardShow ? 90 : 0 },
+          ]}
+        >
+          <Form
+            initialValues={{ message: "" }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <FormField
+              autoCapitalize="none"
+              autoCorrect={true}
+              keyboardType="default"
+              name="message"
+              placeholder={IMLocalized("typeYourMessageHere")}
+              textContentType="none"
+              width="80%"
+            />
+
+            <SubmitButton color="primary" title="Send" width="20%" />
+          </Form>
+        </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -64,10 +151,11 @@ const styles = StyleSheet.create({
     overflow: "visible",
     borderRadius: 20,
     backgroundColor: "#fff",
-    height: "100%",
+    height: "115%",
     bottom: 70,
     left: 10,
     position: "absolute",
+    width: "100%",
     padding: 10,
     ...defaultStyles.shadows,
   },
@@ -84,6 +172,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
+    marginBottom: 0,
   },
 });
 

@@ -6,10 +6,11 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "../../config/colors";
 
 function Member({
-  id,
   avatar,
-  user_profile: { first_name, last_name },
-  email,
+  user: {
+    email,
+    user_profile: { first_name, last_name },
+  },
   onPress,
 }) {
   return (

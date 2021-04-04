@@ -4,7 +4,7 @@ import { StyleSheet, View, Image } from "react-native";
 import colors from "../config/colors";
 import Text from "./Text";
 
-function MemberCount({ count, avatars }) {
+function MemberCount({ count, avatars = [] }) {
   return (
     <View style={styles.container}>
       {avatars.map((avatar, index) => (
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 5,
     top: 10,
-    width: 80,
+    minWidth: 30,
+    maxWidth: 80,
   },
   text: {
     color: colors.white,

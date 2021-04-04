@@ -15,7 +15,7 @@ function VerticalCard({
   name,
   description,
   image,
-  members,
+  avatars,
   lat,
   lng,
   address,
@@ -29,7 +29,7 @@ function VerticalCard({
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.card}>
         <Image style={styles.image} source={image} />
-        {members && <MemberCount {...members} />}
+        <MemberCount count={members_count} avatars={avatars} />
         <View style={styles.detailsContainer}>
           <Text style={styles.title} numberOfLines={1}>
             {name}

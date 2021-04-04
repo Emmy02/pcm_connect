@@ -57,6 +57,7 @@
     "adminActions": "Admin Actions",
     "remove": "Remove",
     "makeAdmin": "Make Admin",
+    "makeMember": "Revenir à membre",
     "admin": "Admin",
     "report": "Signaler",
     "createEvent": "Créer un événement",
@@ -109,5 +110,19 @@
     "closed": "Fermé",
     "assigned_to": "Assigné à",
     "confirmation": "Confirmer l'action",
-    "areYouSure": "¿êtes-vous sûr?"
+    "areYouSure": "¿êtes-vous sûr?",
+    "architecture_and_design": "Architecture et design",
+    "social_sciences_and_government": "Sciences sociales et gouvernementales",
+    "humanities_and_education": "Sciences humaines et éducation  ",
+    "bioengineering_and_chemical_processes": "Bioingénierie et procédés chimiques",
+    "applied_science": "Sciences appliquées",
+    "computer_science_and_information_technology": "Informatique et technologie de l'information",
+    "innovation_and_transformation": "Innovation et transformation",
+    "medicine_and_health_sciences": "Médecine et sciences de la santé",
+    "business_school": "École de commerce",
+    "join_group": "Rejoindre",
+    "subscribe": "S'abonner",
+    "write_message_to_group_admin": "Rédigez un message pour l'administrateur",
+    "subscription_details": "En acceptant, vous pourrez accéder aux événements publics de ce groupe.",
+    "subscription": "Subscription"
 }

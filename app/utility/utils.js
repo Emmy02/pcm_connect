@@ -8,4 +8,78 @@ const getRecordId = (id, attribute, arr) => {
   return response;
 };
 
-export { getRecordId };
+const getCareerCategories = () => {
+  return [
+    {
+      backgroundColor: "#26de81",
+      label: "architecture_and_design",
+      icon: "ruler-square",
+      value: 1,
+    },
+    {
+      backgroundColor: "#2bcbba",
+      label: "social_sciences_and_government",
+      icon: "social-distance-2-meters",
+      value: 2,
+    },
+    {
+      backgroundColor: "#45aaf2",
+      label: "humanities_and_education",
+      icon: "book-education-outline",
+      value: 3,
+    },
+    {
+      backgroundColor: "#2bcbba",
+      label: "bioengineering_and_chemical_processes",
+      icon: "test-tube",
+      value: 4,
+    },
+    {
+      backgroundColor: "#45aaf2",
+      label: "applied_science",
+      icon: "microscope",
+      value: 5,
+    },
+    {
+      backgroundColor: "#4b7bec",
+      label: "computer_science_and_information_technology",
+      icon: "laptop",
+      value: 6,
+    },
+    {
+      backgroundColor: "#a55eea",
+      label: "innovation_and_transformation",
+      icon: "train-car",
+      value: 7,
+    },
+    {
+      backgroundColor: "#fc5c65",
+      label: "medicine_and_health_sciences",
+      icon: "needle",
+      value: 8,
+    },
+    {
+      backgroundColor: "#778ca3",
+      label: "business_school",
+      icon: "card-account-details-outline",
+      value: 9,
+    },
+  ];
+};
+
+const urlToBlob = (url) => {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onerror = reject;
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        resolve(xhr.response);
+      }
+    };
+    xhr.open("GET", url);
+    xhr.responseType = "blob"; // convert type
+    xhr.send();
+  });
+};
+
+export { getRecordId, getCareerCategories, urlToBlob };

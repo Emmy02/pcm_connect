@@ -15,4 +15,6 @@ export default Object.freeze({
   PROFILE: "Profile",
   CREATE_GROUP: "CreateGroup",
   CREATE_GROUP_EVENT: "CreateGroupEvent",
+  CREATE_JOIN_REQUEST: "CreateJoinRequest",
+  GROUP_CHAT: "GroupChat",
 });

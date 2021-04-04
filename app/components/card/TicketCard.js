@@ -38,14 +38,16 @@ function TicketCard({
         <Text style={styles.description} numberOfLines={5}>
           {description}
         </Text>
-        <View style={styles.supportContainer}>
-          <Text style={styles.description} numberOfLines={5}>
-            {comment}
-          </Text>
-          <Text style={styles.assigned_to} numberOfLines={5}>
-            - {assigned_to.first_name} {assigned_to.last_name}
-          </Text>
-        </View>
+        {assigned_to && (
+          <View style={styles.supportContainer}>
+            <Text style={styles.description} numberOfLines={5}>
+              {comment}
+            </Text>
+            <Text style={styles.assigned_to} numberOfLines={1}>
+              - {assigned_to?.first_name} {assigned_to?.last_name}
+            </Text>
+          </View>
+        )}
       </View>
       <View style={styles.typeContainer}>
         {status === "closed" && (
@@ -89,6 +91,7 @@ const styles = StyleSheet.create({
     borderColor: colors.clear,
     borderWidth: 1,
     overflow: "visible",
+    maxHeight: 220,
   },
   dateContainer: {
     height: "100%",
@@ -163,6 +166,10 @@ const styles = StyleSheet.create({
   supportContainer: {
     backgroundColor: colors.light,
     padding: 10,
+  },
+  assigned_to: {
+    color: colors.black,
+    fontSize: 12,
   },
 });
 

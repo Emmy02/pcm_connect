@@ -14,15 +14,17 @@ function AppFormPicker({
 }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
 
+  let selectedItem = items.filter((i) => i.value == values[name]);
+
   return (
     <>
       <Picker
         items={items}
         numberOfColumns={numberOfColumns}
-        onSelectItem={(item) => setFieldValue(name, item)}
+        onSelectItem={(item) => setFieldValue(name, item.value)}
         PickerItemComponent={PickerItemComponent}
         placeholder={placeholder}
-        selectedItem={values[name]}
+        selectedItem={selectedItem[0]}
         width={width}
       />
       <ErrorMessage error={errors[name]} visible={touched[name]} />

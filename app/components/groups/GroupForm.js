@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SubmitButton, FormField, Form } from "./../forms";
 
+import Title from "./../Title";
+
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
   name: Yup.string()
@@ -25,6 +27,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 function GroupForm({ id, name, description, address: { lat, long, street } }) {
   return (
     <View style={styles.formContainer}>
+      <Title>{IMLocalized("groupUpdate")}</Title>
       <Form
         initialValues={{ description: "", name: "", address: "" }}
         onSubmit={(values) => console.log(values)}

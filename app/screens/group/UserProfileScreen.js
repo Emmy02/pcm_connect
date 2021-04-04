@@ -12,6 +12,8 @@ import dayjs from "dayjs";
 import colors from "../../config/colors";
 import SvgUri from "react-native-svg-uri";
 import memberApi from "./../../api/members";
+import requestApi from "./../../api/requests";
+import accountApi from "./../../api/account";
 
 import useAccount from "./../../account/useAccount";
 
@@ -20,25 +22,34 @@ function UserProfileScreen({ navigation, route }) {
   const { roles, resources } = getRoles(profile.roles);
 
   const {
+    updated,
+    setUpdated,
     isRequest,
     message,
     groupId,
     avatar,
-    email,
     id,
-    user_profile: {
-      age,
-      career_name,
-      cover,
-      first_name,
-      last_name,
-      is_adventist,
-      created_at,
+    is_owner,
+    user: {
+      email,
+      user_profile: {
+        age,
+        career_name,
+        cover,
+        first_name,
+        last_name,
+        is_adventist,
+        created_at,
+      },
     },
   } = route.params;
 
+  const user_id = route.params.user.id;
+
   const isCurrentGroupOwner =
     roles.isOwner && resources.ownerGroupId === groupId;
+
+  const itIsSelf = route.params.user.id === profile.id;
 
   const removeMember = async (groupId, memberId) => {
     Alert.alert(
@@ -62,6 +73,93 @@ function UserProfileScreen({ navigation, route }) {
     const result = await memberApi.destroyMember(groupId, memberId);
 
     if (result.ok) {
+      setUpdated(!updated);
+      navigation.goBack();
+    }
+  };
+
+  const rejectRequest = async (groupId, requestId) => {
+    const result = await requestApi.updateRequest(groupId, requestId, {
+      status: 2,
+      id: requestId,
+      user_id,
+    });
+
+    if (result.ok) {
+      setUpdated(!updated);
+      navigation.goBack();
+    }
+  };
+
+  const acceptRequest = async (groupId, requestId) => {
+    const result = await requestApi.updateRequest(groupId, requestId, {
+      status: 1,
+      id: requestId,
+      user_id,
+    });
+
+    if (result.ok) createMember(groupId, user_id);
+  };
+
+  const createMember = async (groupId, userId) => {
+    const result = await memberApi.addMember(groupId, {
+      group_id: groupId,
+      user_id: userId,
+    });
+
+    if (result.ok) {
+      setUpdated(!updated);
+      navigation.goBack();
+    }
+  };
+
+  const report = () => {
+    Alert.alert(
+      IMLocalized("confirmation"),
+      IMLocalized("areYouSure"),
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => createReport(),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  const createReport = async () => {
+    const params = {
+      created_by: profile.id,
+      status: 0,
+      user_id: route.params.user.id,
+    };
+    const results = await accountApi.addReport(params);
+    if (results.ok) {
+      setUpdated(!updated);
+      alert("Reported");
+    }
+  };
+
+  const setOwner = async () => {
+    const result = await memberApi.setOwnerRole(groupId, id);
+
+    if (result.ok) {
+      setUpdated(!updated);
+      alert("Complete");
+      navigation.goBack();
+    }
+  };
+
+  const setMember = async () => {
+    const result = await memberApi.setMemberRole(groupId, id);
+
+    if (result.ok) {
+      setUpdated(!updated);
+      alert("Completed");
       navigation.goBack();
     }
   };
@@ -140,7 +238,7 @@ function UserProfileScreen({ navigation, route }) {
               <Text style={styles.message}>{message}</Text>
             </View>
           </View>
-          {isCurrentGroupOwner && !isRequest && (
+          {isCurrentGroupOwner && !isRequest && !itIsSelf && (
             <View style={styles.actionsContainer}>
               <Title>{IMLocalized("adminActions")}</Title>
               <View style={styles.firstRow}>
@@ -155,14 +253,25 @@ function UserProfileScreen({ navigation, route }) {
                   <NoGradientButton
                     title={IMLocalized("report")}
                     color="clear"
+                    onPress={() => report()}
                   />
                 </View>
               </View>
               <View style={styles.lastRow}>
-                <NoGradientButton
-                  title={IMLocalized("makeAdmin")}
-                  color="primary"
-                />
+                {is_owner && (
+                  <NoGradientButton
+                    title={IMLocalized("makeMember")}
+                    color="medium"
+                    onPress={() => setMember()}
+                  />
+                )}
+                {!is_owner && (
+                  <NoGradientButton
+                    title={IMLocalized("makeAdmin")}
+                    color="primary"
+                    onPress={() => setOwner()}
+                  />
+                )}
               </View>
             </View>
           )}
@@ -174,18 +283,21 @@ function UserProfileScreen({ navigation, route }) {
                   <NoGradientButton
                     title={IMLocalized("reject")}
                     color="danger"
-                    onPress={() => removeMember(groupId, id)}
+                    onPress={() => rejectRequest(groupId, id)}
                   />
                 </View>
                 <View style={{ width: "48%" }}>
                   <NoGradientButton
                     title={IMLocalized("accept")}
                     color="primary"
+                    onPress={() => acceptRequest(groupId, id)}
                   />
                 </View>
               </View>
             </View>
           )}
+
+          {itIsSelf && <View style={styles.noActions}></View>}
         </View>
       </Screen>
     </View>
@@ -317,6 +429,9 @@ const styles = StyleSheet.create({
   },
   backButtonContainer: {
     padding: 10,
+  },
+  noActions: {
+    height: "10%",
   },
 });
 

@@ -11,7 +11,7 @@ import Title from "./../../components/Title";
 import { NavBack } from "./../../components/nav";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string()
+  title: Yup.string()
     .min(2, "Too Short")
     .max(500, "Too Long")
     .required()
@@ -20,11 +20,25 @@ const validationSchema = Yup.object().shape({
     .min(2, "Too Short")
     .max(500, "Too Long")
     .required()
-    .label(IMLocalized("Description")),
+    .label(IMLocalized("description")),
 });
 import { IMLocalized } from "./../../config/IMLocalized";
 
-function SupportFormScreen({ navigation }) {
+import ticketsApi from "./../../api/tickets";
+
+function SupportFormScreen({ navigation, route }) {
+  const { setCreated, created } = route.params;
+
+  const handleSubmit = async (ticket) => {
+    const result = await ticketsApi.addTicket(ticket);
+
+    if (!result.ok) return alert("Could not save the listing");
+    if (result.ok) {
+      setCreated(!created);
+      navigation.goBack();
+    }
+  };
+
   return (
     <Screen style={styles.screen}>
       <NavBack onPress={() => navigation.goBack()} />
@@ -32,7 +46,7 @@ function SupportFormScreen({ navigation }) {
       <View style={styles.formContainer}>
         <Form
           initialValues={{ description: "", title: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           <FormField
@@ -48,9 +62,9 @@ function SupportFormScreen({ navigation }) {
             autoCorrect={true}
             name="description"
             placeholder={IMLocalized("description")}
-            numberOfLines={3}
+            numberOfLines={6}
             multiline
-            maxLength={255}
+            maxLength={500}
           />
           <SubmitButton title={IMLocalized("save")} color="primary" />
         </Form>

@@ -14,6 +14,8 @@ import defaultStyles from "../config/styles";
 import PickerItem from "./PickerItem";
 import Screen from "./Screen";
 
+import { IMLocalized } from "./../config/IMLocalized";
+
 function AppPicker({
   icon,
   items,
@@ -39,7 +41,7 @@ function AppPicker({
             />
           )}
           {selectedItem ? (
-            <Text style={styles.text}>{selectedItem.label}</Text>
+            <Text style={styles.text}>{IMLocalized(selectedItem.label)}</Text>
           ) : (
             <Text style={styles.placeholder}>{placeholder}</Text>
           )}
@@ -78,7 +80,7 @@ function AppPicker({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: defaultStyles.colors.light,
-    borderRadius: 25,
+    borderRadius: 10,
     flexDirection: "row",
     padding: 15,
     marginVertical: 10,

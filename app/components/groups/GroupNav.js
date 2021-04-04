@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row",
     padding: 15,
+    height: 44,
     borderRadius: 10,
   },
   adminContainer: {
@@ -81,6 +82,7 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 10,
     alignItems: "center",
+    height: 44,
   },
   btn: {
     marginHorizontal: 20,

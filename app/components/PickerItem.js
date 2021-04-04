@@ -2,11 +2,12 @@ import React from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 
 import Text from "./Text";
+import { IMLocalized } from "./../config/IMLocalized";
 
 function PickerItem({ item, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Text style={styles.text}>{item.label}</Text>
+      <Text style={styles.text}>{IMLocalized(item.label)}</Text>
     </TouchableOpacity>
   );
 }

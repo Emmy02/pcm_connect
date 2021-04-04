@@ -1,23 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
 import { useFormikContext } from "formik";
 import { colors } from "../../config";
 
-function FormToggle({ options, width }) {
-  const { setFieldValue } = useFormikContext();
+import ErrorMessage from "./ErrorMessage";
+
+function FormToggle({ options, width, name }) {
+  const { setFieldValue, errors, touched, values } = useFormikContext();
 
   const [active, setActive] = useState(0);
+  const [clicked, setClicked] = useState(false);
 
   const onPress = () => {
     const option = active ? 0 : 1;
     setActive(option);
-    setFieldValue(option);
+
+    setFieldValue(name, option);
+    setClicked(true);
   };
+
+  const option = values[name] === "male" || values[name] === true ? 1 : 0;
+
+  if (option !== active && !clicked) setActive(option);
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={[styles.toogleContainer, { width }]} width={width}>
         <Text style={styles.text}>{options[active].text}</Text>
+        <ErrorMessage error={errors[name]} visible={touched[name]} />
       </View>
     </TouchableWithoutFeedback>
   );

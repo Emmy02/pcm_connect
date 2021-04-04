@@ -22,7 +22,7 @@ function UniversityPointer({ university }) {
           style={styles.icon}
         />
         <Text numberOfLines={1} style={styles.text}>
-          {name.substring(0, 20) + "..."}
+          {name.substring(0, 18) + "..."}
         </Text>
       </LinearGradient>
     </View>

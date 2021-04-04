@@ -11,8 +11,6 @@ function FormGoogleInput({ onPress }) {
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
-        GooglePlacesSearchQuery={{ fields: "geometry" }}
-        GooglePlacesDetailsQuery={{ fields: "geometry" }}
         placeholder="Type In Group's Address"
         style={{
           container: {
@@ -31,9 +29,11 @@ function FormGoogleInput({ onPress }) {
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: "en",
+          types: [],
         }}
         onPress={(data, details = null) => {
           console.log("details+++++++", details);
+          console.log("data", data);
         }}
         onFail={(error) => console.error(error)} // this in only required for use on the web. See https://git.io/JflFv more for details.
       />

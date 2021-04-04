@@ -2,11 +2,14 @@ import client from "./client";
 import endpoints from "./endpoints";
 
 const getGroups = () => client.get(endpoints.GROUPS);
+const getMostPopularGroups = () => client.get(endpoints.MOST_POPULAR_GROUPS);
+
 const getPendingGroups = () => client.get(endpoints.INACTIVE_GROUPS);
 const getGroupsByLocation = (lat, lng) =>
   client.post(endpoints.GROUPS_BY_LOCATION, { lat, lng, distance: 20 });
 const getGroupsByUniversity = () => client.get(endpoints.GROUPS_BY_UNIVERSITY);
-const getGroupsByName = () => client.get(endpoints.GROUPS_BY_NAME);
+const getGroupsByName = (name) =>
+  client.post(endpoints.GROUPS_BY_NAME, { name });
 
 const getGroup = (id) => client.get(endpoints.GROUPS + "/" + id);
 const destroyGroup = (id) => client.delete(endpoints.GROUPS + "/" + id);
@@ -63,6 +66,7 @@ const addGroup = (group, onUploadProgress) => {
 
 export default {
   getGroups,
+  getMostPopularGroups,
   getPendingGroups,
   getGroupsByLocation,
   getGroupsByUniversity,

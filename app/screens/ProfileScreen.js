@@ -1,42 +1,147 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
 
 import { colors } from "../config";
 import Screen from "../components/Screen";
 import * as Yup from "yup";
-import { Form, FormField, SubmitButton, FormToggle } from "../components/forms";
+import {
+  Form,
+  FormField,
+  SubmitButton,
+  FormToggle,
+  FormPicker as Picker,
+} from "../components/forms";
 
 import { IMLocalized } from "./../config/IMLocalized";
-
 import { TopNav } from "../components/nav";
 
+import { getCareerCategories } from "./../utility/utils";
+
+import CategoryPickerItem from "../components/CategoryPickerItem";
+import accountApi from "./../api/account";
+import { ScrollView } from "react-native-gesture-handler";
+
+import UploadScreen from "./UploadScreen";
+
+import UploadAvatar from "./../components/AvatarUpload";
+
+import useAccount from "./../account/useAccount";
+
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string()
+  first_name: Yup.string()
     .required()
     .label(IMLocalized(IMLocalized("first_name"))),
-  lastName: Yup.string().required().label(IMLocalized("last_name")),
-  age: Yup.string().required().label(IMLocalized("age")),
+  last_name: Yup.string().required().label(IMLocalized("last_name")),
+  age: Yup.number().required().label(IMLocalized("age")),
   gender: Yup.string().required().label(IMLocalized("gender")),
-  adventist: Yup.string().required().label(IMLocalized("adventist")),
-  careerName: Yup.string().required().label(IMLocalized("career_name")),
-  careerCategory: Yup.string().required().label(IMLocalized("career_name")),
+  is_adventist: Yup.boolean().required().label(IMLocalized("adventist")),
+  career_name: Yup.string().required().label(IMLocalized("career_name")),
+  career_category: Yup.string()
+    .required()
+    .label(IMLocalized("career_category")),
   cover: Yup.string().required().label(IMLocalized("about_me")),
 });
 
 function ProfileScreen({ navigation }) {
+  const [initialValues, setInitialValues] = useState({});
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  const { setProfile, profile, getRoles } = useAccount();
+
+  const getProfile = async () => {
+    const result = await accountApi.getProfile();
+    if (result.ok) {
+      let data = result.data.user_profile;
+
+      if (data.age) data.age = data.age.toString();
+
+      setInitialValues(data);
+      setProfile(result.data);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
+  const categories = getCareerCategories();
+
+  const handleSubmit = async ({
+    first_name,
+    last_name,
+    age,
+    gender,
+    is_adventist,
+    career_name,
+    career_category,
+    cover,
+  }) => {
+    const g = gender === "female" ? 0 : 1;
+    const a = is_adventist ? 1 : 0;
+
+    const results = accountApi.updateProfile({
+      first_name,
+      last_name,
+      age,
+      gender: g,
+      is_adventist: a,
+      career_name,
+      career_category,
+      cover,
+    });
+
+    if (results.ok) console.log("ok");
+  };
+
+  const loadImage = async (image) => {
+    setProgress(0);
+    setUploadVisible(true);
+
+    const data = new FormData();
+    data.append("avatar", image, `file-avatar.jpg`);
+
+    const result = await accountApi.uploadAvatar(data, (progress) =>
+      setProgress(progress)
+    );
+
+    if (!result.ok) {
+      setUploadVisible(false);
+      return alert("Could not save the listing");
+    }
+
+    if (result.ok) {
+      await getProfile();
+      setUploadVisible(false);
+    }
+  };
+
+  const baseUrl = "https://pcm-api.herokuapp.com";
+  const defaultImage = profile.avatar
+    ? { uri: baseUrl + profile.avatar }
+    : require("./../assets/user.png");
+
   return (
     <Screen style={styles.screen}>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
+      />
       <TopNav navigation={navigation} />
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={require("./../assets/user.png")} />
+        <UploadAvatar
+          imageUri={defaultImage}
+          onChangeImage={(image) => loadImage(image)}
+        />
         <Text style={styles.pictureIndication}>
           {IMLocalized("tabImageToReplace")}
         </Text>
       </View>
-      <View style={styles.formContainer}>
+      <ScrollView style={styles.formContainer}>
         <Form
-          initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           <FormField
@@ -57,22 +162,25 @@ function ProfileScreen({ navigation }) {
           />
           <View style={styles.profileControls}>
             <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
               keyboardType="number-pad"
               name="age"
               placeholder={IMLocalized("age")}
-              textContentType="none"
               width="30%"
             />
             <FormToggle
-              options={[{ text: "F" }, { text: "M" }]}
+              options={[
+                { text: "F", value: "female" },
+                { text: "M", value: "male" },
+              ]}
               name="gender"
               width="30%"
             />
             <FormToggle
-              options={[{ text: "SDA" }, { text: "NON-SDA" }]}
-              name="adventist"
+              options={[
+                { text: "NON-SDA", value: 0 },
+                { text: "SDA", value: 1 },
+              ]}
+              name="is_adventist"
               width="30%"
             />
           </View>
@@ -84,6 +192,14 @@ function ProfileScreen({ navigation }) {
             placeholder={IMLocalized("career_name")}
             textContentType="none"
           />
+          <Picker
+            items={categories}
+            name="career_category"
+            numberOfColumns={3}
+            PickerItemComponent={CategoryPickerItem}
+            placeholder={IMLocalized("career_category")}
+            width="100%"
+          />
 
           <FormField
             autoCapitalize="none"
@@ -92,12 +208,12 @@ function ProfileScreen({ navigation }) {
             placeholder={IMLocalized("about_me")}
             numberOfLines={3}
             multiline
-            maxLength={255}
+            maxLength={300}
           />
 
           <SubmitButton title={IMLocalized("update")} color="primary" />
         </Form>
-      </View>
+      </ScrollView>
     </Screen>
   );
 }
@@ -127,6 +243,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   pictureIndication: {
     fontSize: 14,

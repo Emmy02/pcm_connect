@@ -38,7 +38,7 @@ function Message({
             { flexDirection: me ? "row-reverse" : "row" },
           ]}
         >
-          <Text style={styles.name}>{user_first_name}</Text>
+          <Text style={styles.name}>{user_first_name.split(" ")[0]}</Text>
           <Text style={styles.date}>{dayjs(created_at).fromNow()}</Text>
         </View>
         <View style={styles.contentContainer}>

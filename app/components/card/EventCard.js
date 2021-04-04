@@ -11,7 +11,7 @@ function EventCard({
   title,
   subtitle,
   expiration_date,
-  type,
+  audience,
   attendants,
   description,
   place,
@@ -45,7 +45,7 @@ function EventCard({
         {controls}
       </View>
       <View style={styles.typeContainer}>
-        {type === "Public" && (
+        {audience === "everyone" && (
           <View style={styles.typeLabel}>
             <LinearGradient
               start={{ x: 0.2, y: 0 }}
@@ -54,12 +54,12 @@ function EventCard({
               colors={[colors.primary, colors.secondary]}
               style={styles.gradientType}
             >
-              <Text style={styles.typeText}>{type}</Text>
+              <Text style={styles.typeText}>{audience}</Text>
             </LinearGradient>
           </View>
         )}
 
-        {type === "Private" && (
+        {audience === "team" && (
           <View style={styles.typeLabel}>
             <LinearGradient
               start={{ x: 0.2, y: 0 }}
@@ -68,7 +68,7 @@ function EventCard({
               colors={[colors.secondary, colors.danger]}
               style={styles.gradientType}
             >
-              <Text style={styles.typeText}>{type}</Text>
+              <Text style={styles.typeText}>{audience}</Text>
             </LinearGradient>
           </View>
         )}
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     minHeight: 220,
-    maxHeight: 260,
+    maxHeight: 300,
     borderRadius: 10,
     borderColor: colors.clear,
     borderWidth: 1,

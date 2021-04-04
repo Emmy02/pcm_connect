@@ -15,7 +15,7 @@ import {
 import { colors, defaultStyles } from "./../../config";
 import { IMLocalized } from "./../../config/IMLocalized";
 
-const options = (roles) => {
+const options = (roles = []) => {
   const isAdmin = roles.some((role) => role.name === "admin");
   let menu = [
     {

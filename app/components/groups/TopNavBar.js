@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, TouchableOpacity, View, SafeAreaView } from "react-native";
 
 import colors from "../../config/colors";
 
@@ -13,7 +7,21 @@ import { NoGradientButton } from "./../button";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function TopNavBar({ isMember = false, onPress, onBack }) {
+import { IMLocalized } from "./../../config/IMLocalized";
+
+function TopNavBar({
+  canSubscribe,
+  showJoin,
+  onPress,
+  onBack,
+  onSubscribe,
+  onUnSubscribe,
+  canUnSubscribe,
+  canCancelJoin,
+  cancelJoin,
+  canLeave,
+  onLeave,
+}) {
   return (
     <SafeAreaView style={styles.topNavBarContainer}>
       <View
@@ -33,9 +41,47 @@ function TopNavBar({ isMember = false, onPress, onBack }) {
             />
           </TouchableOpacity>
         </View>
-        <View>
-          {!isMember && (
-            <NoGradientButton title="Join Group" onPress={onPress} />
+        <View style={styles.controlsContainer}>
+          {showJoin && (
+            <NoGradientButton
+              title={IMLocalized("join_group")}
+              onPress={onPress}
+              width="48%"
+            />
+          )}
+          {canCancelJoin && (
+            <NoGradientButton
+              title={IMLocalized("cancel") + " " + IMLocalized("join_group")}
+              onPress={cancelJoin}
+              width="48%"
+              color="danger"
+            />
+          )}
+
+          {canSubscribe && (
+            <NoGradientButton
+              title={IMLocalized("subscribe")}
+              onPress={onSubscribe}
+              color="secondary"
+              width="48%"
+            />
+          )}
+          {canUnSubscribe && (
+            <NoGradientButton
+              title={IMLocalized("unSubscribe")}
+              onPress={onUnSubscribe}
+              color="danger"
+              width="50%"
+            />
+          )}
+
+          {canLeave && (
+            <NoGradientButton
+              title={IMLocalized("leave")}
+              onPress={onLeave}
+              color="danger"
+              width="50%"
+            />
           )}
         </View>
       </View>
@@ -45,6 +91,7 @@ function TopNavBar({ isMember = false, onPress, onBack }) {
 
 const styles = StyleSheet.create({
   topNavBarContainer: {
+    marginTop: 30,
     position: "absolute",
     width: "100%",
   },
@@ -68,6 +115,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 44,
     height: 44,
+  },
+  controlsContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "70%",
   },
 });
 
