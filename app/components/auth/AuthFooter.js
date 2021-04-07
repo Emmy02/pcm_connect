@@ -66,7 +66,7 @@ function AuthFooter({ activeFrom, setActiveFrom }) {
 const styles = StyleSheet.create({
   footerContainer: {
     position: "absolute",
-    bottom: 40,
+    bottom: 20,
     paddingHorizontal: 20,
     width: "100%",
   },

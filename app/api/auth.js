@@ -12,7 +12,8 @@ const emailExits = (email) =>
 const sendInstructions = (email) =>
   client.post("/send_instructions", JSON.stringify({ email }));
 
-const updatePassword = () => client.post("/update_password", JSON.stringify());
+const updatePassword = ({ email, password, code_reset }) =>
+  client.post("/update_password", { email, password, code_reset });
 
 export default {
   login,

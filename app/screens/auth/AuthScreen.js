@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Text,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 
 import colors from "../../config/colors";
@@ -18,6 +19,7 @@ import {
 } from "../../components/auth";
 
 import { IMLocalized } from "./../../config/IMLocalized";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function AuthScreen({ navigation }) {
   const [activeFrom, setActiveFrom] = useState("login"); // login, register, passwordRecovery
@@ -29,23 +31,28 @@ function AuthScreen({ navigation }) {
         style={styles.background}
       >
         <SafeAreaView style={styles.safeAreaView}>
-          <View style={styles.contentContainer}>
-            <Image
-              style={styles.logo}
-              source={require("./../../assets/logo.png")}
-            />
-            {activeFrom !== "passwordRecovery" && (
-              <Text style={styles.title}>PCM Connect</Text>
-            )}
-            {activeFrom !== "passwordRecovery" && (
-              <Text style={styles.subtitle}>
-                {IMLocalized("welcomeToTheFamily")}
-              </Text>
-            )}
-            {activeFrom === "register" && <RegisterForm />}
-            {activeFrom === "login" && <LoginForm />}
-            {activeFrom === "passwordRecovery" && <PasswordRecoveryForm />}
-          </View>
+          <ScrollView style={styles.contentContainer}>
+            <KeyboardAwareScrollView>
+              <View style={{ alignItems: "center" }}>
+                <Image
+                  style={styles.logo}
+                  source={require("./../../assets/logo.png")}
+                />
+                {activeFrom !== "passwordRecovery" && (
+                  <Text style={styles.title}>PCM Connect</Text>
+                )}
+                {activeFrom !== "passwordRecovery" && (
+                  <Text style={styles.subtitle}>
+                    {IMLocalized("welcomeToTheFamily")}
+                  </Text>
+                )}
+              </View>
+
+              {activeFrom === "register" && <RegisterForm />}
+              {activeFrom === "login" && <LoginForm />}
+              {activeFrom === "passwordRecovery" && <PasswordRecoveryForm />}
+            </KeyboardAwareScrollView>
+          </ScrollView>
           <AuthFooter activeFrom={activeFrom} setActiveFrom={setActiveFrom} />
         </SafeAreaView>
       </ImageBackground>
@@ -63,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    alignItems: "center",
     width: "100%",
     height: "100%",
     paddingTop: "20%",

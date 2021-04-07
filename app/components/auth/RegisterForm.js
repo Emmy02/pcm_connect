@@ -4,7 +4,6 @@ import { View, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
 import { Form, FormField, SubmitButton, ErrorMessage } from "./../forms";
-import { NoGradientButton } from "./../button";
 
 import authApi from "./../../api/auth";
 import useAuth from "../../auth/useAuth";
@@ -31,7 +30,7 @@ function RegisterForm() {
   };
 
   return (
-    <View style={styles.formContainer}>
+    <View style={[styles.formContainer]}>
       <Form
         initialValues={{ email: "", confirmEmail: "", password: "" }}
         onSubmit={handleSubmit}

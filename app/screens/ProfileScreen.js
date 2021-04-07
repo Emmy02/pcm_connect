@@ -42,6 +42,8 @@ const validationSchema = Yup.object().shape({
   cover: Yup.string().required().label(IMLocalized("about_me")),
 });
 
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 function ProfileScreen({ navigation }) {
   const [initialValues, setInitialValues] = useState({});
   const [uploadVisible, setUploadVisible] = useState(false);
@@ -128,91 +130,97 @@ function ProfileScreen({ navigation }) {
         progress={progress}
         visible={uploadVisible}
       />
+
       <TopNav navigation={navigation} />
-      <View style={styles.imageContainer}>
-        <UploadAvatar
-          imageUri={defaultImage}
-          onChangeImage={(image) => loadImage(image)}
-        />
-        <Text style={styles.pictureIndication}>
-          {IMLocalized("tabImageToReplace")}
-        </Text>
-      </View>
-      <ScrollView style={styles.formContainer}>
-        <Form
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            name="first_name"
-            placeholder={IMLocalized("first_name")}
-            textContentType="name"
-          />
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="email-address"
-            name="last_name"
-            placeholder={IMLocalized("last_name")}
-            textContentType="name"
-          />
-          <View style={styles.profileControls}>
-            <FormField
-              keyboardType="number-pad"
-              name="age"
-              placeholder={IMLocalized("age")}
-              width="30%"
+
+      <ScrollView style={{ overflow: "hidden", zIndex: -1 }}>
+        <KeyboardAwareScrollView>
+          <View style={styles.imageContainer}>
+            <UploadAvatar
+              imageUri={defaultImage}
+              onChangeImage={(image) => loadImage(image)}
             />
-            <FormToggle
-              options={[
-                { text: "F", value: "female" },
-                { text: "M", value: "male" },
-              ]}
-              name="gender"
-              width="30%"
-            />
-            <FormToggle
-              options={[
-                { text: "NON-SDA", value: 0 },
-                { text: "SDA", value: 1 },
-              ]}
-              name="is_adventist"
-              width="30%"
-            />
+            <Text style={styles.pictureIndication}>
+              {IMLocalized("tabImageToReplace")}
+            </Text>
           </View>
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="default"
-            name="career_name"
-            placeholder={IMLocalized("career_name")}
-            textContentType="none"
-          />
-          <Picker
-            items={categories}
-            name="career_category"
-            numberOfColumns={3}
-            PickerItemComponent={CategoryPickerItem}
-            placeholder={IMLocalized("career_category")}
-            width="100%"
-          />
+          <View style={styles.formContainer}>
+            <Form
+              initialValues={initialValues}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                name="first_name"
+                placeholder={IMLocalized("first_name")}
+                textContentType="name"
+              />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="email-address"
+                name="last_name"
+                placeholder={IMLocalized("last_name")}
+                textContentType="name"
+              />
+              <View style={styles.profileControls}>
+                <FormField
+                  keyboardType="number-pad"
+                  name="age"
+                  placeholder={IMLocalized("age")}
+                  width="30%"
+                />
+                <FormToggle
+                  options={[
+                    { text: "F", value: "female" },
+                    { text: "M", value: "male" },
+                  ]}
+                  name="gender"
+                  width="30%"
+                />
+                <FormToggle
+                  options={[
+                    { text: "NON-SDA", value: 0 },
+                    { text: "SDA", value: 1 },
+                  ]}
+                  name="is_adventist"
+                  width="30%"
+                />
+              </View>
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="default"
+                name="career_name"
+                placeholder={IMLocalized("career_name")}
+                textContentType="none"
+              />
+              <Picker
+                items={categories}
+                name="career_category"
+                numberOfColumns={3}
+                PickerItemComponent={CategoryPickerItem}
+                placeholder={IMLocalized("career_category")}
+                width="100%"
+              />
 
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={true}
-            name="cover"
-            placeholder={IMLocalized("about_me")}
-            numberOfLines={3}
-            multiline
-            maxLength={300}
-          />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={true}
+                name="cover"
+                placeholder={IMLocalized("about_me")}
+                numberOfLines={3}
+                multiline
+                maxLength={300}
+              />
 
-          <SubmitButton title={IMLocalized("update")} color="primary" />
-        </Form>
+              <SubmitButton title={IMLocalized("update")} color="primary" />
+            </Form>
+          </View>
+        </KeyboardAwareScrollView>
       </ScrollView>
     </Screen>
   );

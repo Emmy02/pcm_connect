@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 import * as Yup from "yup";
 
@@ -26,7 +26,7 @@ function LoginForm() {
   };
 
   return (
-    <View style={styles.formContainer}>
+    <ScrollView style={styles.formContainer}>
       <Form
         initialValues={{ email: "", password: "" }}
         onSubmit={handleSubmit}
@@ -36,6 +36,7 @@ function LoginForm() {
           error="Invalid email and/or password."
           visible={loginFailed}
         />
+
         <FormField
           autoCapitalize="none"
           autoCorrect={false}
@@ -52,9 +53,10 @@ function LoginForm() {
           secureTextEntry
           textContentType="password"
         />
+
         <SubmitButton title={IMLocalized("logIn")} color="primary" />
       </Form>
-    </View>
+    </ScrollView>
   );
 }
 
