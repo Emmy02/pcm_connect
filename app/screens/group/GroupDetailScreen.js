@@ -65,7 +65,7 @@ function GroupDetailScreen({ navigation, route }) {
       }
     });
 
-  const defaultImage = require("../../assets/1.jpg");
+  const defaultImage = require("../../assets/3.jpg");
   const baseUrl = "https://pcm-api.herokuapp.com";
 
   const getGroupApi = useApi(groupsApi.getGroup);
@@ -365,11 +365,7 @@ function GroupDetailScreen({ navigation, route }) {
             )}
             {activeTab === 3 && (
               <GroupForm
-                address={{
-                  lat: getGroupApi.data.lat,
-                  long: getGroupApi.data.lng,
-                  street: "1232132",
-                }}
+                {...getGroupApi.data}
                 setUpdated={() => setUpdated(!updated)}
               />
             )}

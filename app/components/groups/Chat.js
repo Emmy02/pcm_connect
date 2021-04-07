@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     overflow: "visible",
     borderRadius: 20,
     backgroundColor: "#fff",
-    height: "115%",
+    height: "105%",
     bottom: 70,
     left: 10,
     position: "absolute",

@@ -3,10 +3,18 @@ import { Text, View, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function GroupInfo({ name, description, address, university }) {
+import { IMLocalized } from "./../../config/IMLocalized";
+
+function GroupInfo({ name, description, address, university, status }) {
   return (
     <View style={styles.container}>
+      {status === "pending" && (
+        <Text style={{ color: "orange" }}>
+          {IMLocalized("waitingForApproval")}
+        </Text>
+      )}
       <Text style={styles.title}>{name}</Text>
+
       <Text style={styles.description}>{description}</Text>
       <View style={styles.list}>
         <MaterialCommunityIcons

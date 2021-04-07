@@ -14,55 +14,45 @@ const getGroupsByName = (name) =>
 const getGroup = (id) => client.get(endpoints.GROUPS + "/" + id);
 const destroyGroup = (id) => client.delete(endpoints.GROUPS + "/" + id);
 
-const updateGroup = (id, { name, description, address, location, images }) => {
-  const data = new FormData();
-  data.append("name", group.title);
-  data.append("description", group.description);
-  data.append("address", group.address);
-
-  images.forEach((image, index) =>
-    data.append("images", {
-      name: "image" + index,
-      type: "image/jpeg",
-      uri: image,
-    })
-  );
-
-  if (listing.location)
-    data.append("location", JSON.stringify(listing.location));
-
-  return client.post(endpoint, data, {
-    onUploadProgress: (progress) =>
-      onUploadProgress(progress.loaded / progress.total),
+const updateGroup = (id, { name, description, address, lat, lng }) =>
+  client.put(endpoints.GROUPS + "/" + id, {
+    name,
+    description,
+    address,
+    lat,
+    lng,
   });
-};
 
-const addGroup = (group, onUploadProgress) => {
-  const data = new FormData();
-  data.append("name", group.title);
-  data.append("description", group.description);
-  data.append("address", group.address);
-  data.append("status", group.status);
-  data.append("university_id", group.stuniversity_idatus);
-  data.append("adventist_association_id", group.adventist_association_id);
-  data.append("status", group.status);
+const acceptGroup = (id, { status = 1, adventist_association_id }) =>
+  client.put(endpoints.GROUPS + "/" + id, { status, adventist_association_id });
 
-  listing.images.forEach((image, index) =>
-    data.append("images", {
-      name: "image" + index,
-      type: "image/jpeg",
-      uri: image,
-    })
-  );
-
-  if (listing.location)
-    data.append("location", JSON.stringify(listing.location));
-
-  return client.post(endpoint, data, {
-    onUploadProgress: (progress) =>
-      onUploadProgress(progress.loaded / progress.total),
+const rejectGroup = (id, { status = 2 }) =>
+  client.put(endpoints.GROUPS + "/" + id, {
+    status,
   });
-};
+
+const addGroup = ({
+  name,
+  description,
+  address,
+  lat,
+  lng,
+  university_id,
+  country_id,
+  created_by,
+  status = 0,
+}) =>
+  client.post(endpoints.GROUPS, {
+    name,
+    description,
+    address,
+    lat,
+    lng,
+    university_id,
+    country_id,
+    created_by,
+    status,
+  });
 
 export default {
   getGroups,
@@ -74,4 +64,7 @@ export default {
   getGroup,
   destroyGroup,
   updateGroup,
+  addGroup,
+  acceptGroup,
+  rejectGroup,
 };

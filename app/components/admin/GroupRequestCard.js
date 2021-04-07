@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import MapView from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 import { colors } from "../../config";
 
@@ -8,40 +8,76 @@ import { NoGradientButton } from "./../../components/button";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { SubmitButton, FormField, Form } from "./../forms";
+import { SubmitButton, FormPicker, Form } from "./../forms";
 import { IMLocalized } from "./../../config/IMLocalized";
+
+import AdventistEntitiesItem from "./AdventistEntitiesItem";
+
+import groupsApi from "./../../api/groups";
+import adventistEntitiesApi from "./../../api/adventistEntities";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
-  adventistUnion: Yup.string()
-    .min(2, "Too Short")
-    .max(500, "Too Long")
-    .required()
-    .label("Adventist Union"),
-  adventistAssociation: Yup.string()
-    .min(2, "Too Short")
-    .max(500, "Too Long")
+  adventist_union_id: Yup.number().required().label("Adventist Union"),
+  adventist_association_id: Yup.string()
     .required()
     .label("Adventist Association"),
 });
 
 function GroupRequestCard({
+  id,
   name,
   university,
   address,
   lat,
-  long,
+  lng,
   description,
   user,
+  onReject,
+  onAccepted,
+  adventist_unions = [],
 }) {
+  const [adventistAssociations, setadventistAssociations] = useState([]);
+
+  const handleSubmit = async ({ adventist_association_id }) => {
+    const results = await groupsApi.acceptGroup(id, {
+      adventist_association_id,
+    });
+
+    if (results.ok) {
+      onAccepted();
+    }
+  };
+
+  const onSelect = async (adventist_union_id) => {
+    const results = await adventistEntitiesApi.getAdventistAssociations(
+      1,
+      adventist_union_id
+    );
+
+    if (results.ok) {
+      setadventistAssociations(results.data);
+    }
+  };
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardHeader}>
         <View style={styles.mapContainer}>
           <MapView
             style={styles.map}
-            region={{ latitude: lat, longitude: long }}
-          />
+            region={{
+              latitude: lat,
+              longitude: lng,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+          >
+            <Marker
+              coordinate={{ latitude: lat, longitude: lng }}
+              title={name}
+            />
+          </MapView>
         </View>
         <View style={styles.basicContainer}>
           <Text style={styles.name}>{name}</Text>
@@ -58,7 +94,7 @@ function GroupRequestCard({
             color={colors.medium}
             style={styles.icon}
           />
-          <Text style={styles.text}>{address}</Text>
+          <Text style={[styles.text, { width: "90%" }]}>{address}</Text>
         </View>
         <View style={styles.list}>
           <MaterialCommunityIcons
@@ -83,35 +119,45 @@ function GroupRequestCard({
       </View>
       <View style={styles.selectorsContainer}>
         <Form
-          initialValues={{ adventistAssociation: "", adventistUnion: "" }}
-          onSubmit={(values) => console.log(values)}
+          initialValues={{
+            adventist_association_id: "",
+            adventist_union_id: "",
+          }}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={true}
-            keyboardType="none"
-            name="adventistUnion"
+          <FormPicker
+            items={adventist_unions}
+            name="adventist_union_id"
+            numberOfColumns={1}
+            PickerItemComponent={AdventistEntitiesItem}
             placeholder={IMLocalized("selectUnion")}
-            textContentType="none"
+            onSelect={onSelect}
+            width="100%"
           />
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={true}
-            keyboardType="none"
-            name="adventistAssociation"
+
+          <FormPicker
+            items={adventistAssociations}
+            name="adventist_association_id"
+            numberOfColumns={1}
+            PickerItemComponent={AdventistEntitiesItem}
             placeholder={IMLocalized("selectConference")}
-            textContentType="none"
+            width="100%"
           />
+
+          <View style={styles.controlsContainer}>
+            <View style={styles.buttonContainer}>
+              <SubmitButton title={IMLocalized("accept")} color="clear" />
+            </View>
+            <View style={styles.buttonContainer}>
+              <NoGradientButton
+                title={IMLocalized("reject")}
+                onPress={() => onReject(id)}
+                color="danger"
+              />
+            </View>
+          </View>
         </Form>
-      </View>
-      <View style={styles.controlsContainer}>
-        <View style={styles.buttonContainer}>
-          <NoGradientButton title={IMLocalized("accept")} color="clear" />
-        </View>
-        <View style={styles.buttonContainer}>
-          <NoGradientButton title={IMLocalized("reject")} color="danger" />
-        </View>
       </View>
     </View>
   );

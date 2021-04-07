@@ -1,13 +1,15 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
-import Constants from "expo-constants";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import { colors } from "./../../config";
 
 const GOOGLE_PLACES_API_KEY = "AIzaSyA_LOSPKLGA0FS3aDB3KU6zD-LEqAD4xwE";
 
-function FormGoogleInput({ onPress }) {
+import { useFormikContext } from "formik";
+
+function FormGoogleInput({ name, onSelect }) {
+  const { errors, setFieldValue, touched, values } = useFormikContext();
   return (
     <View style={styles.container}>
       <GooglePlacesAutocomplete
@@ -29,13 +31,21 @@ function FormGoogleInput({ onPress }) {
         query={{
           key: GOOGLE_PLACES_API_KEY,
           language: "en",
-          types: [],
+          fields: ["formatted_address", "name", "geometry"],
         }}
         onPress={(data, details = null) => {
-          console.log("details+++++++", details);
-          console.log("data", data);
+          setFieldValue(name, data.description);
+          onSelect({
+            lng: details.geometry.location.lng,
+            lat: details.geometry.location.lat,
+          });
         }}
-        onFail={(error) => console.error(error)} // this in only required for use on the web. See https://git.io/JflFv more for details.
+        onFail={(error) => console.error(error)}
+        GooglePlacesDetailsQuery={{
+          // available options for GooglePlacesDetails API : https://developers.google.com/places/web-service/details
+          fields: "geometry",
+        }}
+        fetchDetails={true}
       />
     </View>
   );
@@ -44,7 +54,7 @@ function FormGoogleInput({ onPress }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: "20%",
+    height: 100,
   },
 });
 

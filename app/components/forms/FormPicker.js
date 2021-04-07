@@ -11,17 +11,23 @@ function AppFormPicker({
   PickerItemComponent,
   placeholder,
   width,
+  onSelect,
 }) {
   const { errors, setFieldValue, touched, values } = useFormikContext();
 
-  let selectedItem = items.filter((i) => i.value == values[name]);
+  let selectedItem = items.filter((i) => {
+    return i.value ? i.value == values[name] : i.id === values[name];
+  });
 
   return (
     <>
       <Picker
         items={items}
         numberOfColumns={numberOfColumns}
-        onSelectItem={(item) => setFieldValue(name, item.value)}
+        onSelectItem={(item) => {
+          setFieldValue(name, item.value || item.id);
+          if (onSelect) onSelect(item.id);
+        }}
         PickerItemComponent={PickerItemComponent}
         placeholder={placeholder}
         selectedItem={selectedItem[0]}

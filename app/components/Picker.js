@@ -41,7 +41,11 @@ function AppPicker({
             />
           )}
           {selectedItem ? (
-            <Text style={styles.text}>{IMLocalized(selectedItem.label)}</Text>
+            <Text style={styles.text}>
+              {selectedItem.label
+                ? IMLocalized(selectedItem.label)
+                : selectedItem.name}
+            </Text>
           ) : (
             <Text style={styles.placeholder}>{placeholder}</Text>
           )}
@@ -58,7 +62,9 @@ function AppPicker({
           <Button title="Close" onPress={() => setModalVisible(false)} />
           <FlatList
             data={items}
-            keyExtractor={(item) => item.value.toString()}
+            keyExtractor={(item) =>
+              item.value ? item.value.toString() : item.id.toString()
+            }
             numColumns={numberOfColumns}
             renderItem={({ item }) => (
               <PickerItemComponent

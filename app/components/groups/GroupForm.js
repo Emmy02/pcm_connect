@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
-import { SubmitButton, FormField, Form } from "./../forms";
+import { SubmitButton, FormField, Form, FormGoogleInput } from "./../forms";
+import MapView, { Marker } from "react-native-maps";
 
 import Title from "./../Title";
+
+import groupsApi from "./../../api/groups";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -24,13 +27,53 @@ const validationSchema = Yup.object().shape({
 });
 import { IMLocalized } from "./../../config/IMLocalized";
 
-function GroupForm({ id, name, description, address: { lat, long, street } }) {
+function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
+  const [initialValues, setInitialValues] = useState({});
+
+  const [location, setLocation] = useState({
+    latitude: lat,
+    longitude: lng,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
+
+  const onSelect = ({ lat, lng }) => {
+    let loc = {
+      ...location,
+      latitude: lat,
+      longitude: lng,
+    };
+    setLocation(loc);
+  };
+
+  const handleSubmit = async ({ address, description, name }) => {
+    const results = await groupsApi.updateGroup(id, {
+      address,
+      description,
+      name,
+      lat: location.latitude,
+      lng: location.longitude,
+    });
+
+    if (results.ok) {
+      setUpdated();
+    }
+  };
+
+  useEffect(() => {
+    setInitialValues({
+      name,
+      description,
+      address,
+    });
+  }, []);
+
   return (
     <View style={styles.formContainer}>
       <Title>{IMLocalized("groupUpdate")}</Title>
       <Form
-        initialValues={{ description: "", name: "", address: "" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormField
@@ -50,13 +93,18 @@ function GroupForm({ id, name, description, address: { lat, long, street } }) {
           multiline
           maxLength={255}
         />
-        <FormField
+        <FormGoogleInput
           autoCapitalize="none"
-          autoCorrect={true}
           name="address"
-          placeholder={IMLocalized("address")}
           textContentType="none"
+          onSelect={onSelect}
         />
+        <View style={styles.mapContainer}>
+          <MapView style={styles.map} region={location}>
+            <Marker coordinate={location} title="" />
+          </MapView>
+        </View>
+
         <SubmitButton title={IMLocalized("update")} color="primary" />
       </Form>
     </View>

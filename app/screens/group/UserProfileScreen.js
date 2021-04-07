@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, Image, Text, Alert } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Text,
+  Alert,
+  ImageBackground,
+} from "react-native";
 import { NavBack } from "./../../components/nav";
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
@@ -16,6 +23,8 @@ import requestApi from "./../../api/requests";
 import accountApi from "./../../api/account";
 
 import useAccount from "./../../account/useAccount";
+import { ScrollView } from "react-native-gesture-handler";
+import { color } from "react-native-reanimated";
 
 function UserProfileScreen({ navigation, route }) {
   const { getRoles, profile } = useAccount();
@@ -171,7 +180,6 @@ function UserProfileScreen({ navigation, route }) {
         style={styles.image}
         blurRadius={10}
       />
-
       <Screen style={styles.screen}>
         <View style={styles.backButtonContainer}>
           <NavBack onPress={() => navigation.goBack()} />
@@ -229,8 +237,8 @@ function UserProfileScreen({ navigation, route }) {
         <View style={styles.secondaryDataContainer}>
           <View style={styles.messageContainer}>
             <SvgUri
-              width="100"
-              height="100"
+              width="70"
+              height="70"
               style={styles.svg}
               source={require("./../../assets/quotes.svg")}
             />
@@ -306,19 +314,14 @@ function UserProfileScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   screen: {
-    overflow: "visible",
-    position: "absolute",
-    bottom: "5%",
-    width: "100%",
+    top: -120,
   },
   image: {
+    flex: 1,
     width: "100%",
-    maxHeight: "35%",
-    position: "relative",
-    top: 0,
   },
   mainScreen: {
-    height: "100%",
+    flex: 1,
   },
   card: {
     width: "100%",
@@ -354,8 +357,8 @@ const styles = StyleSheet.create({
     width: "75%",
   },
   avatar: {
-    width: 100,
-    height: 100,
+    width: 80,
+    height: 80,
     borderRadius: 10,
   },
   primaryInfo: {
@@ -387,7 +390,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   adventist: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     textTransform: "capitalize",
     textAlign: "center",
@@ -415,13 +418,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   secondaryDataContainer: {
-    marginTop: 10,
+    height: "100%",
+    top: -30,
+    zIndex: -1,
     paddingHorizontal: 20,
+    backgroundColor: colors.white,
   },
   firstRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingBottom: 10,
+  },
+  messageContainer: {
+    marginTop: 30,
+    flex: 1,
   },
   message: {
     height: 100,
@@ -429,9 +439,16 @@ const styles = StyleSheet.create({
   },
   backButtonContainer: {
     padding: 10,
+    position: "absolute",
+    zIndex: 1,
   },
   noActions: {
     height: "10%",
+  },
+  actionsContainer: {
+    backgroundColor: colors.white,
+    flex: 1,
+    paddingBottom: 20,
   },
 });
 

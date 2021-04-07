@@ -17,7 +17,7 @@ const getAdventistAssociations = (adventistDivisionId, adventistUnionId) =>
       endpoints.ADVENTIST_UNIONS +
       "/" +
       adventistUnionId +
-      endpoints.ADVENTIST_UNIONS
+      endpoints.ADVENTIST_ASSOCIATIONS
   );
 
 export default {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View, ScrollView, Text } from "react-native";
 
 import colors from "../../config/colors";
@@ -10,6 +10,8 @@ import { TopNav } from "../../components/nav";
 import GroupRequestCard from "../../components/admin/GroupRequestCard";
 
 import groupsApi from "./../../api/groups";
+import adventistEntitiesApi from "./../../api/adventistEntities";
+
 import useApi from "./../../hooks/useApi";
 
 import { IMLocalized } from "./../../config/IMLocalized";
@@ -18,9 +20,23 @@ import { NavBack } from "./../../components/nav";
 
 function GroupsValidationScreen({ navigation }) {
   const getGroupsApi = useApi(groupsApi.getPendingGroups);
+  const getAdventistUnionsApi = useApi(adventistEntitiesApi.getAdventistUnions);
+
+  const onAccepted = () => {
+    navigation.goBack();
+  };
+
+  const onReject = async (id) => {
+    const results = groupsApi.rejectGroup(id, { status: 2 });
+
+    if (results.ok) {
+      navigation.goBack();
+    }
+  };
 
   useEffect(() => {
     getGroupsApi.request();
+    getAdventistUnionsApi.request(1);
   }, []);
 
   return (
@@ -32,7 +48,15 @@ function GroupsValidationScreen({ navigation }) {
           style={{ flex: 1, overflow: "visible" }}
           data={getGroupsApi.data}
           keyExtractor={(listing) => listing.id.toString()}
-          renderItem={({ item, index }) => <GroupRequestCard {...item} />}
+          renderItem={({ item, index }) => (
+            <GroupRequestCard
+              {...item}
+              key={index}
+              adventist_unions={getAdventistUnionsApi.data}
+              onAccepted={onAccepted}
+              onReject={onReject}
+            />
+          )}
         />
       </ScrollView>
     </Screen>

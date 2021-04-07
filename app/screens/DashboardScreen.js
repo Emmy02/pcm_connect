@@ -115,7 +115,11 @@ function DashboardScreen({ navigation }) {
                 !roles.isMember && (
                   <OutLineButton
                     title={IMLocalized("createGroupButton")}
-                    onPress={() => navigation.navigate(routes.CREATE_GROUP)}
+                    onPress={() =>
+                      navigation.navigate(routes.CREATE_GROUP, {
+                        userId: profile.id,
+                      })
+                    }
                   />
                 )
               }
@@ -130,7 +134,7 @@ function DashboardScreen({ navigation }) {
               renderItem={({ item }) => (
                 <VerticalCard
                   {...item}
-                  image={require("../assets/1.jpg")}
+                  image={require("../assets/3.jpg")}
                   key={item.index}
                   onPress={() =>
                     navigation.navigate(routes.GROUP_DETAILS, item)
@@ -173,7 +177,7 @@ function DashboardScreen({ navigation }) {
                     />
                   }
                   {...item}
-                  image={require("../assets/4.jpg")}
+                  image={require("../assets/3.jpg")}
                   key={index}
                   reverse={index % 2}
                 />

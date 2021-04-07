@@ -124,5 +124,7 @@
     "subscribe": "Subscribe",
     "write_message_to_group_admin": "Write a message for the admin",
     "subscription_details": "By accepting, you will be able to have access to the public events of this group.",
-    "subscription": "Subscription"
+    "subscription": "Subscription",
+    "groupUpdate": "Update Group",
+    "waitingForApproval": "Waiting to be approved by PCM Admins"
 }

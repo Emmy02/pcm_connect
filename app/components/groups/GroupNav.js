@@ -66,13 +66,14 @@ function GroupNav({
 
 const styles = StyleSheet.create({
   menuContainer: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "rgba(0,0,0,.5)",
     justifyContent: "center",
     flexDirection: "row",
     padding: 15,
     height: 44,
     borderRadius: 10,
+    top: -22,
   },
   adminContainer: {
     width: "80%",
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     height: 44,
+    top: -22,
   },
   btn: {
     marginHorizontal: 20,
