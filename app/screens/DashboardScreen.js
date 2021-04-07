@@ -19,6 +19,7 @@ import accountApi from "./../api/account";
 import useAccount from "./../account/useAccount";
 
 import groupsApi from "./../api/groups";
+import groupSubscriptionApi from "./../api/groupSubscriptions";
 import useApi from "./../hooks/useApi";
 
 import useLocation from "./../hooks/useLocation";
@@ -27,7 +28,7 @@ import { IMLocalized } from "./../config/IMLocalized";
 
 import { FindGroup } from "./../components/groups";
 
-function DashboardScreen({ navigation }) {
+function DashboardScreen({ navigation, route }) {
   const { setProfile, profile, getRoles } = useAccount();
   const { roles, resources } = getRoles(profile?.roles);
 
@@ -35,6 +36,7 @@ function DashboardScreen({ navigation }) {
   const [locationLoaded, setLocationLoaded] = useState(null);
   const [isFinding, setIsFinding] = useState(false);
   const [groupsByName, setGroupsByName] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
 
   const onFocus = () => {
     setIsFinding(true);
@@ -62,6 +64,16 @@ function DashboardScreen({ navigation }) {
   }
   const getGroupsApi = useApi(groupsApi.getGroups);
   const getMostPopularGroupsApi = useApi(groupsApi.getMostPopularGroups);
+  const getGroupSubscriptionsApi = useApi(
+    groupSubscriptionApi.getGroupSubscriptions
+  );
+
+  const getSubscriptions = async () => {
+    const results = await groupSubscriptionApi.getGroupSubscriptions();
+    if (results.ok) {
+      setSubscriptions(results.data);
+    }
+  };
 
   const getProfile = async () => {
     const result = await accountApi.getProfile();
@@ -72,6 +84,7 @@ function DashboardScreen({ navigation }) {
     getProfile();
     getGroupsApi.request();
     getMostPopularGroupsApi.request();
+    getSubscriptions();
   }, []);
 
   return (
@@ -109,6 +122,37 @@ function DashboardScreen({ navigation }) {
               pending={roles.isRequested}
             />
           )}
+          {subscriptions.length > 0 && (
+            <View style={styles.closeGroups}>
+              <Title>{IMLocalized("subscribedGroups")}</Title>
+              <FlatList
+                horizontal
+                style={{ overflow: "visible" }}
+                data={subscriptions}
+                keyExtractor={(g) => g.id.toString()}
+                renderItem={({ item }) => (
+                  <VerticalCard
+                    {...item.group}
+                    image={require("../assets/3.jpg")}
+                    key={item.group.index}
+                    controls={
+                      <OutLineButton
+                        title={IMLocalized("visitButton")}
+                        backgroundColor={colors.white}
+                        width={100}
+                        onPress={() =>
+                          navigation.navigate(routes.GROUP_DETAILS, {
+                            ...item.group,
+                            getSubscriptions,
+                          })
+                        }
+                      />
+                    }
+                  />
+                )}
+              />
+            </View>
+          )}
           <View style={styles.closeGroups}>
             <Title
               controls={
@@ -137,7 +181,10 @@ function DashboardScreen({ navigation }) {
                   image={require("../assets/3.jpg")}
                   key={item.index}
                   onPress={() =>
-                    navigation.navigate(routes.GROUP_DETAILS, item)
+                    navigation.navigate(routes.GROUP_DETAILS, {
+                      ...item,
+                      getSubscriptions,
+                    })
                   }
                   controls={
                     <UniversityPointer
@@ -172,7 +219,10 @@ function DashboardScreen({ navigation }) {
                       backgroundColor={colors.white}
                       width={100}
                       onPress={() =>
-                        navigation.navigate(routes.GROUP_DETAILS, { ...item })
+                        navigation.navigate(routes.GROUP_DETAILS, {
+                          ...item,
+                          getSubscriptions,
+                        })
                       }
                     />
                   }

@@ -43,7 +43,7 @@ import routes from "./../../navigation/routes";
 function GroupDetailScreen({ navigation, route }) {
   const [updated, setUpdated] = useState(null);
 
-  const { id } = route.params;
+  const { id, getSubscriptions } = route.params;
 
   const { getRoles, profile, setProfile } = useAccount();
   const { roles, resources } = getRoles(profile.roles);
@@ -130,7 +130,10 @@ function GroupDetailScreen({ navigation, route }) {
             const result = await groupsSubscriptionApi.addGroupSubscription(
               groupId
             );
-            if (result.ok) getProfile();
+            if (result.ok) {
+              getSubscriptions();
+              getProfile();
+            }
           },
         },
       ],
@@ -154,7 +157,10 @@ function GroupDetailScreen({ navigation, route }) {
             const result = await groupsSubscriptionApi.destroyGroupSubscription(
               subscriptionId
             );
-            if (result.ok) getProfile();
+            if (result.ok) {
+              getSubscriptions();
+              getProfile();
+            }
           },
         },
       ],

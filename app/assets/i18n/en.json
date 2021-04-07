@@ -126,5 +126,6 @@
     "subscription_details": "By accepting, you will be able to have access to the public events of this group.",
     "subscription": "Subscription",
     "groupUpdate": "Update Group",
-    "waitingForApproval": "Waiting to be approved by PCM Admins"
+    "waitingForApproval": "Waiting to be approved by PCM Admins",
+    "subscribedGroups": "My Subscriptions"
 }
