@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { SubmitButton, FormField, Form, FormGoogleInput } from "./../forms";
 import MapView, { Marker } from "react-native-maps";
 
@@ -26,6 +26,7 @@ const validationSchema = Yup.object().shape({
     .label("Address"),
 });
 import { IMLocalized } from "./../../config/IMLocalized";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
   const [initialValues, setInitialValues] = useState({});
@@ -69,45 +70,47 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
   }, []);
 
   return (
-    <View style={styles.formContainer}>
-      <Title>{IMLocalized("groupUpdate")}</Title>
-      <Form
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
-      >
-        <FormField
-          autoCapitalize="none"
-          autoCorrect={false}
-          name="name"
-          placeholder={IMLocalized("name")}
-          textContentType="none"
-        />
+    <ScrollView style={styles.formContainer}>
+      <KeyboardAwareScrollView>
+        <Title>{IMLocalized("groupUpdate")}</Title>
+        <Form
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            name="name"
+            placeholder={IMLocalized("name")}
+            textContentType="none"
+          />
 
-        <FormField
-          autoCapitalize="none"
-          autoCorrect={true}
-          name="description"
-          placeholder={IMLocalized("description")}
-          numberOfLines={3}
-          multiline
-          maxLength={255}
-        />
-        <FormGoogleInput
-          autoCapitalize="none"
-          name="address"
-          textContentType="none"
-          onSelect={onSelect}
-        />
-        <View style={styles.mapContainer}>
-          <MapView style={styles.map} region={location}>
-            <Marker coordinate={location} title="" />
-          </MapView>
-        </View>
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={true}
+            name="description"
+            placeholder={IMLocalized("description")}
+            numberOfLines={3}
+            multiline
+            maxLength={255}
+          />
+          <FormGoogleInput
+            autoCapitalize="none"
+            name="address"
+            textContentType="none"
+            onSelect={onSelect}
+          />
+          <View style={styles.mapContainer}>
+            <MapView style={styles.map} region={location}>
+              <Marker coordinate={location} title="" />
+            </MapView>
+          </View>
 
-        <SubmitButton title={IMLocalized("update")} color="primary" />
-      </Form>
-    </View>
+          <SubmitButton title={IMLocalized("update")} color="primary" />
+        </Form>
+      </KeyboardAwareScrollView>
+    </ScrollView>
   );
 }
 

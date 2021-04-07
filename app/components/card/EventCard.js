@@ -36,7 +36,9 @@ function EventCard({
         </LinearGradient>
       </View>
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text numberOfLines={2} style={styles.title}>
+          {title}
+        </Text>
         <Text style={styles.subtitle}>{subtitle}</Text>
         <Text style={styles.description} numberOfLines={3}>
           {description}
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#fff",
     minHeight: 220,
-    maxHeight: 300,
+    maxHeight: 320,
     borderRadius: 10,
     borderColor: colors.clear,
     borderWidth: 1,

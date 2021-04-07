@@ -224,6 +224,31 @@ function GroupDetailScreen({ navigation, route }) {
     }
   };
 
+  const removeEvent = async (eventId) => {
+    Alert.alert(
+      IMLocalized("Alert"),
+      IMLocalized("areYouSure"),
+      [
+        {
+          text: IMLocalized("cancel"),
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: IMLocalized("accept"),
+          onPress: async () => {
+            const result = await eventsApi.destroyEvent(id, eventId);
+
+            if (result.ok) {
+              setUpdated(!updated);
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <View style={styles.mainScreen}>
       <Image
@@ -337,6 +362,15 @@ function GroupDetailScreen({ navigation, route }) {
                                 )
                               }
                             />
+                          )}
+                          {isCurrentGroupOwner && (
+                            <View style={{ marginTop: 7 }}>
+                              <NoGradientButton
+                                color="medium"
+                                title={IMLocalized("remove")}
+                                onPress={() => removeEvent(item.id)}
+                              />
+                            </View>
                           )}
                         </View>
                       }

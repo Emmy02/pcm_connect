@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Profiler } from "react";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import Screen from "./../../components/Screen";
 import colors from "../../config/colors";
@@ -27,6 +27,8 @@ import {
   Form,
   FormAutoCompleteInput,
 } from "./../../components/forms";
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -168,85 +170,86 @@ function GroupDetailScreen({ navigation, route }) {
   return (
     <Screen style={styles.mainScreen}>
       <NavBack onPress={() => navigation.goBack()} />
-      <View>
-        <Title> {IMLocalized("createGroupButton")}</Title>
-        <Form
-          initialValues={{
-            description: "",
-            name: "",
-            address: "",
-            country_id: "",
-            university_id: "",
-          }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          <FormAutoCompleteInput
-            autoCapitalize="none"
-            autoCorrect={true}
-            name="country_id"
-            placeholder={IMLocalized("country")}
-            textContentType="none"
-            items={countries}
-            onChangeText={onChangeTextCountry}
-            text={countryQuery}
-            setQuery={setCountryQuery}
-            hideResults={countryHideResults}
-            setHideResults={setCountryHideResults}
-          />
+      <ScrollView>
+        <KeyboardAwareScrollView>
+          <Title> {IMLocalized("createGroupButton")}</Title>
+          <Form
+            initialValues={{
+              description: "",
+              name: "",
+              address: "",
+              country_id: "",
+              university_id: "",
+            }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            <FormAutoCompleteInput
+              autoCapitalize="none"
+              autoCorrect={true}
+              name="country_id"
+              placeholder={IMLocalized("country")}
+              textContentType="none"
+              items={countries}
+              onChangeText={onChangeTextCountry}
+              text={countryQuery}
+              setQuery={setCountryQuery}
+              hideResults={countryHideResults}
+              setHideResults={setCountryHideResults}
+            />
 
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={false}
-            name="name"
-            placeholder={IMLocalized("name")}
-            textContentType="none"
-          />
+            <FormField
+              autoCapitalize="none"
+              autoCorrect={false}
+              name="name"
+              placeholder={IMLocalized("name")}
+              textContentType="none"
+            />
 
-          <FormField
-            autoCapitalize="none"
-            autoCorrect={true}
-            name="description"
-            placeholder={IMLocalized("description")}
-            numberOfLines={3}
-            multiline
-            maxLength={255}
-          />
+            <FormField
+              autoCapitalize="none"
+              autoCorrect={true}
+              name="description"
+              placeholder={IMLocalized("description")}
+              numberOfLines={3}
+              multiline
+              maxLength={255}
+            />
 
-          <FormAutoCompleteInput
-            autoCapitalize="none"
-            autoCorrect={true}
-            name="university_id"
-            placeholder={IMLocalized("university")}
-            textContentType="none"
-            items={universities}
-            onChangeText={onChangeTextUniversity}
-            text={universityQuery}
-            setQuery={setUniversityQuery}
-            hideResults={universityHideResults}
-            setHideResults={setUniversityHideResults}
-          />
+            <FormAutoCompleteInput
+              autoCapitalize="none"
+              autoCorrect={true}
+              name="university_id"
+              placeholder={IMLocalized("university")}
+              textContentType="none"
+              items={universities}
+              onChangeText={onChangeTextUniversity}
+              text={universityQuery}
+              setQuery={setUniversityQuery}
+              hideResults={universityHideResults}
+              setHideResults={setUniversityHideResults}
+            />
 
-          <FormGoogleInput
-            autoCapitalize="none"
-            name="address"
-            textContentType="none"
-            onSelect={onSelect}
-          />
-          <View style={styles.mapContainer}>
-            <MapView
-              style={styles.map}
-              customMapStyle={mapStyles}
-              region={location}
-            >
-              <Marker coordinate={location} title="" />
-            </MapView>
-          </View>
+            <FormGoogleInput
+              autoCapitalize="none"
+              name="address"
+              textContentType="none"
+              onSelect={onSelect}
+            />
+            <View style={styles.mapContainer}>
+              <MapView
+                style={styles.map}
+                customMapStyle={mapStyles}
+                region={location}
+              >
+                <Marker coordinate={location} title="" />
+              </MapView>
+            </View>
 
-          <SubmitButton title={IMLocalized("create")} color="primary" />
-        </Form>
-        <View style={{ height: 100 }}></View>
-      </View>
+            <SubmitButton title={IMLocalized("create")} color="primary" />
+          </Form>
+        </KeyboardAwareScrollView>
+      </ScrollView>
     </Screen>
   );
 }

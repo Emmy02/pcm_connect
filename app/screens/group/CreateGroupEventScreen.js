@@ -21,6 +21,8 @@ import eventsApi from "./../../api/events";
 
 import * as Yup from "yup";
 
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(10).max(30).label(IMLocalized("title")),
   subtitle: Yup.string()
@@ -70,65 +72,67 @@ function CreacteGroupEventScreen({ navigation, route }) {
     <Screen style={styles.screen}>
       <NavBack onPress={() => navigation.goBack()} />
       <ScrollView style={styles.mainScreen}>
-        <Title>{IMLocalized("createEvent")}</Title>
-        <View style={styles.formContainer}>
-          <Form
-            initialValues={{
-              title: "",
-              description: "",
-              subtitle: "",
-              expiration_date: "",
-              place: "",
-              audience: 0,
-            }}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              name="title"
-              placeholder={IMLocalized("title")}
-              textContentType="none"
-            />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={true}
-              name="subtitle"
-              placeholder={IMLocalized("subtitle")}
-              textContentType="none"
-            />
+        <KeyboardAwareScrollView>
+          <Title>{IMLocalized("createEvent")}</Title>
+          <View style={styles.formContainer}>
+            <Form
+              initialValues={{
+                title: "",
+                description: "",
+                subtitle: "",
+                expiration_date: "",
+                place: "",
+                audience: 0,
+              }}
+              onSubmit={handleSubmit}
+              validationSchema={validationSchema}
+            >
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={false}
+                name="title"
+                placeholder={IMLocalized("title")}
+                textContentType="none"
+              />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={true}
+                name="subtitle"
+                placeholder={IMLocalized("subtitle")}
+                textContentType="none"
+              />
 
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={true}
-              name="description"
-              placeholder={IMLocalized("description")}
-              numberOfLines={3}
-              multiline
-              maxLength={255}
-            />
-            <FormDateTime name="expiration_date" />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={true}
-              name="place"
-              placeholder={IMLocalized("meetingLink")}
-              textContentType="none"
-            />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={true}
+                name="description"
+                placeholder={IMLocalized("description")}
+                numberOfLines={3}
+                multiline
+                maxLength={255}
+              />
+              <FormDateTime name="expiration_date" />
+              <FormField
+                autoCapitalize="none"
+                autoCorrect={true}
+                name="place"
+                placeholder={IMLocalized("meetingLink")}
+                textContentType="none"
+              />
 
-            <FormToggle
-              options={[
-                { text: IMLocalized("public") },
-                { text: IMLocalized("private") },
-              ]}
-              name="type"
-              width="30%"
-              name="audience"
-            />
-            <SubmitButton title={IMLocalized("save")} color="primary" />
-          </Form>
-        </View>
+              <FormToggle
+                options={[
+                  { text: IMLocalized("public") },
+                  { text: IMLocalized("private") },
+                ]}
+                name="type"
+                width="30%"
+                name="audience"
+              />
+              <SubmitButton title={IMLocalized("save")} color="primary" />
+            </Form>
+          </View>
+        </KeyboardAwareScrollView>
       </ScrollView>
     </Screen>
   );
