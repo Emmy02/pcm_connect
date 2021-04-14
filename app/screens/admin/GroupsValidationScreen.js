@@ -27,7 +27,7 @@ function GroupsValidationScreen({ navigation }) {
   };
 
   const onReject = async (id) => {
-    const results = groupsApi.rejectGroup(id, { status: 2 });
+    const results = await groupsApi.rejectGroup(id, { status: 2 });
 
     if (results.ok) {
       navigation.goBack();

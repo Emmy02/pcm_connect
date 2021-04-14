@@ -62,13 +62,14 @@ const styles = StyleSheet.create({
   itemText: {
     fontSize: 16,
     marginVertical: 7,
+    zIndex: 1,
   },
   listStyle: {
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,
     padding: 10,
     borderColor: colors.light,
-    backgroundColor: colors.light,
+    backgroundColor: colors.primary,
   },
 });
 

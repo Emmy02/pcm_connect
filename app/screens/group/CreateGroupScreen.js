@@ -170,20 +170,26 @@ function GroupDetailScreen({ navigation, route }) {
   return (
     <Screen style={styles.mainScreen}>
       <NavBack onPress={() => navigation.goBack()} />
-      <ScrollView style={{ flex: 1 }}>
-        <KeyboardAwareScrollView>
-          <Title> {IMLocalized("createGroupButton")}</Title>
-          <Form
-            initialValues={{
-              description: "",
-              name: "",
-              address: "",
-              country_id: "",
-              university_id: "",
-            }}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
+      <View style={{ flex: 1 }}>
+        <Title> {IMLocalized("createGroupButton")}</Title>
+        <Form
+          initialValues={{
+            description: "",
+            name: "",
+            address: "",
+            country_id: "",
+            university_id: "",
+          }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          <FormGoogleInput
+            autoCapitalize="none"
+            name="address"
+            textContentType="none"
+            onSelect={onSelect}
+          />
+          <KeyboardAwareScrollView>
             <FormAutoCompleteInput
               autoCapitalize="none"
               autoCorrect={true}
@@ -229,12 +235,6 @@ function GroupDetailScreen({ navigation, route }) {
               hideResults={universityHideResults}
               setHideResults={setUniversityHideResults}
             />
-            <FormGoogleInput
-              autoCapitalize="none"
-              name="address"
-              textContentType="none"
-              onSelect={onSelect}
-            />
 
             <View style={styles.mapContainer}>
               <MapView
@@ -247,9 +247,9 @@ function GroupDetailScreen({ navigation, route }) {
             </View>
 
             <SubmitButton title={IMLocalized("create")} color="primary" />
-          </Form>
-        </KeyboardAwareScrollView>
-      </ScrollView>
+          </KeyboardAwareScrollView>
+        </Form>
+      </View>
     </Screen>
   );
 }

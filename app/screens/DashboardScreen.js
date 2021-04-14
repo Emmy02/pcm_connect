@@ -237,7 +237,13 @@ function DashboardScreen({ navigation, route }) {
           </View>
         </ScrollView>
       )}
-      {isFinding && <FindGroup groups={groupsByName} navigation={navigation} />}
+      {isFinding && (
+        <FindGroup
+          groups={groupsByName}
+          navigation={navigation}
+          getSubscriptions={getSubscriptions}
+        />
+      )}
     </Screen>
   );
 }

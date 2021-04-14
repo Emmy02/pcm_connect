@@ -6,12 +6,12 @@ import routes from "../../navigation/routes";
 
 import { VerticalCard } from "../card";
 
-function FindGroup({ groups, navigation }) {
+function FindGroup({ groups, navigation, getSubscriptions }) {
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
-        style={{ overflow: "visible" }}
+        style={{ overflow: "visible", height: 400 }}
         data={groups}
         keyExtractor={(g) => g.id.toString()}
         renderItem={({ item }) => (
@@ -19,7 +19,12 @@ function FindGroup({ groups, navigation }) {
             {...item}
             image={require("../../assets/1.jpg")}
             key={item.index}
-            onPress={() => navigation.navigate(routes.GROUP_DETAILS, item)}
+            onPress={() =>
+              navigation.navigate(routes.GROUP_DETAILS, {
+                ...item,
+                getSubscriptions,
+              })
+            }
             controls={
               <UniversityPointer university={{ name: item.university.name }} />
             }
