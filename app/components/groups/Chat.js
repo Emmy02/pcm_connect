@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
+import { StyleSheet, View, Keyboard, ScrollView, Platform } from "react-native";
 
 import { ActionCable, Cable } from "@kesha-antonov/react-native-action-cable";
 
@@ -89,57 +89,61 @@ function Chat({ messages, groupId, userId }) {
   };
 
   return (
-    <ScrollView style={styles.chatContainer}>
-      <KeyboardAwareScrollView>
-        <View style={styles.chatHeader}></View>
-        <ScrollView
-          style={{ flex: 1, height: 500 }}
-          ref={scrollView}
-          onContentSizeChange={() => scrollView.current.scrollToEnd()}
+    <View style={styles.chatContainer}>
+      <View style={styles.chatHeader}></View>
+      <ScrollView
+        style={{ flex: 1 }}
+        ref={scrollView}
+        onContentSizeChange={() => scrollView.current.scrollToEnd()}
+      >
+        {mgs.map((message, index) => (
+          <Message
+            {...message}
+            avatar={
+              message.avatar ? { uri: baseUrl + message.avatar } : defautImage
+            }
+            onPress={() => {}}
+            key={"group-chat-" + index}
+            me={message.user_id === userId}
+          />
+        ))}
+      </ScrollView>
+      <View
+        style={[
+          styles.chatFooter,
+          {
+            marginBottom: Platform.OS === "ios" && didKeyboardShow ? "52%" : 0,
+          },
+        ]}
+      >
+        <Form
+          initialValues={{ message: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
         >
-          {mgs.map((message, index) => (
-            <Message
-              {...message}
-              avatar={
-                message.avatar ? { uri: baseUrl + message.avatar } : defautImage
-              }
-              onPress={() => {}}
-              key={"group-chat-" + index}
-              me={message.user_id === userId}
-            />
-          ))}
-        </ScrollView>
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={true}
+            keyboardType="default"
+            name="message"
+            placeholder={IMLocalized("typeYourMessageHere")}
+            textContentType="none"
+            width="78%"
+          />
 
-        <View style={styles.chatFooter}>
-          <Form
-            initialValues={{ message: "" }}
-            onSubmit={handleSubmit}
-            validationSchema={validationSchema}
-          >
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={true}
-              keyboardType="default"
-              name="message"
-              placeholder={IMLocalized("typeYourMessageHere")}
-              textContentType="none"
-              width="80%"
-            />
-
-            <SubmitButton color="primary" title="Send" width="20%" />
-          </Form>
-        </View>
-      </KeyboardAwareScrollView>
-    </ScrollView>
+          <SubmitButton color="primary" title="Send" width="20%" />
+        </Form>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   chatContainer: {
     overflow: "visible",
-    borderRadius: 20,
+    borderRadius: 10,
     backgroundColor: "#fff",
-    height: "105%",
+    height: "104%",
     bottom: 90,
     left: 10,
     position: "absolute",
@@ -159,6 +163,7 @@ const styles = StyleSheet.create({
   chatFooter: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     width: "100%",
     marginBottom: 0,
   },

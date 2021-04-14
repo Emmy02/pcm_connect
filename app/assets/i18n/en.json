@@ -64,6 +64,7 @@
     "title": "Title",
     "subtitle": "Subtitle",
     "date": "Date",
+    "select_date": "Set date",
     "meetingLink": "Meeting Link",
     "save": "Save",
     "seeDetailsButton": "See Details",

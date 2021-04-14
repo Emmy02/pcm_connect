@@ -122,10 +122,9 @@ function CreacteGroupEventScreen({ navigation, route }) {
 
               <FormToggle
                 options={[
-                  { text: IMLocalized("public") },
                   { text: IMLocalized("private") },
+                  { text: IMLocalized("public") },
                 ]}
-                name="type"
                 width="30%"
                 name="audience"
               />

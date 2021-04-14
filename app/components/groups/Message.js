@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   bubble: {
     padding: 10,
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     borderRadius: 10,
     width: "70%",
   },
@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 14,
   },
-  contentContainer: {},
   content: {
     color: colors.black,
   },

@@ -301,7 +301,7 @@ function GroupDetailScreen({ navigation, route }) {
         {activeTab !== 2 && (
           <View style={styles.tabs}>
             {activeTab === 0 && (
-              <ScrollView>
+              <ScrollView style={{ marginBottom: 70 }}>
                 <Info {...getGroupApi.data} />
                 <Title
                   controls={

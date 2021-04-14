@@ -178,8 +178,9 @@ function UserProfileScreen({ navigation, route }) {
       <Image
         source={require("../../assets/3.jpg")}
         style={styles.image}
-        blurRadius={10}
+        blurRadius={7}
       />
+
       <Screen style={styles.screen}>
         <View style={styles.backButtonContainer}>
           <NavBack onPress={() => navigation.goBack()} />
@@ -235,17 +236,19 @@ function UserProfileScreen({ navigation, route }) {
           </LinearGradient>
         </View>
         <View style={styles.secondaryDataContainer}>
-          <View style={styles.messageContainer}>
-            <SvgUri
-              width="70"
-              height="70"
-              style={styles.svg}
-              source={require("./../../assets/quotes.svg")}
-            />
-            <View>
-              <Text style={styles.message}>{message}</Text>
+          {message && (
+            <View style={styles.messageContainer}>
+              <SvgUri
+                width="70"
+                height="70"
+                style={styles.svg}
+                source={require("./../../assets/quotes.svg")}
+              />
+              <View>
+                <Text style={styles.message}>{message}</Text>
+              </View>
             </View>
-          </View>
+          )}
           {isCurrentGroupOwner && !isRequest && !itIsSelf && (
             <View style={styles.actionsContainer}>
               <Title>{IMLocalized("adminActions")}</Title>
@@ -314,14 +317,18 @@ function UserProfileScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   screen: {
-    top: -120,
+    flex: 1,
   },
   image: {
-    flex: 1,
     width: "100%",
+    position: "absolute",
+    top: 0,
+    height: "30%",
   },
   mainScreen: {
     flex: 1,
+    height: "100%",
+    backgroundColor: colors.white,
   },
   card: {
     width: "100%",
@@ -418,10 +425,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   secondaryDataContainer: {
-    height: "100%",
-    top: -30,
-    zIndex: -1,
-    paddingHorizontal: 20,
+    flex: 1,
+    zIndex: 1,
+    paddingHorizontal: 10,
     backgroundColor: colors.white,
   },
   firstRow: {
@@ -440,7 +446,7 @@ const styles = StyleSheet.create({
   backButtonContainer: {
     padding: 10,
     position: "absolute",
-    zIndex: 1,
+    zIndex: 999,
   },
   noActions: {
     height: "10%",
@@ -448,7 +454,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     backgroundColor: colors.white,
     flex: 1,
-    paddingBottom: 20,
+    marginBottom: 100,
   },
 });
 

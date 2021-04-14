@@ -15,6 +15,7 @@ function NoGradientButton({
       onPress={onPress}
     >
       <Text
+        numberOfLines={1}
         style={[
           styles.text,
           { color: color === "clear" ? colors.black : colors.white },

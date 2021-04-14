@@ -19,13 +19,13 @@ function AppTextInput({ width = "100%", ...otherProps }) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 7,
-    maxHeight: 55,
+    maxHeight: 45,
   },
   textInput: {
     backgroundColor: colors.light,
     height: "100%",
     width: "100%",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
   },
 });
