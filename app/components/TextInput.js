@@ -18,7 +18,7 @@ function AppTextInput({ width = "100%", ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
+    marginVertical: 7,
     maxHeight: 55,
   },
   textInput: {

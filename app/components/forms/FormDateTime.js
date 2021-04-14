@@ -14,7 +14,7 @@ function AppFormPicker({ name }) {
   const [mode, setMode] = useState("time");
   const [show, setShow] = useState(false);
 
-  const onChangeIos = (event, selectedDate) => {
+  const onChangeAndroind = (event, selectedDate) => {
     setFieldValue(selectedDate);
   };
 
@@ -52,7 +52,7 @@ function AppFormPicker({ name }) {
             value={date}
             mode={"date"}
             display="default"
-            onChange={onChange}
+            onChange={onChangeAndroind}
           />
           <ErrorMessage error={errors[name]} visible={touched[name]} />
         </View>

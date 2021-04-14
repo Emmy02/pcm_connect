@@ -4,7 +4,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 
 import { colors } from "./../../config";
 
-const GOOGLE_PLACES_API_KEY = "AIzaSyA_LOSPKLGA0FS3aDB3KU6zD-LEqAD4xwE";
+const GOOGLE_PLACES_API_KEY = "AIzaSyDUuDOUp_nCkxv7xvi9cM-dwgeC8ihfMmo";
 
 import { useFormikContext } from "formik";
 
@@ -26,6 +26,9 @@ function FormGoogleInput({ name, onSelect }) {
           },
           predefinedPlacesDescription: {
             color: colors.medium,
+          },
+          listView: {
+            zIndex: 9999,
           },
         }}
         query={{
@@ -54,7 +57,9 @@ function FormGoogleInput({ name, onSelect }) {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    height: 100,
+    height: 200,
+    overflow: "hidden",
+    zIndex: 999,
   },
 });
 

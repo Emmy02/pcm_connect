@@ -11,7 +11,7 @@ import routes from "../../navigation/routes";
 
 import { IMLocalized } from "./../../config/IMLocalized";
 
-import { Dropbox } from "dropbox";
+//import { Dropbox } from "dropbox";
 
 function DropBoxImagePicker({ navigation }) {
   const [customPictures, setCustomPictures] = useState([]);

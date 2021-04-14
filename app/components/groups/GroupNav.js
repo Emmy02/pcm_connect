@@ -18,24 +18,24 @@ function GroupNav({
         <View style={styles.menuContainer}>
           <TouchableOpacity onPress={() => onPress(0)} style={[styles.btn]}>
             <SvgUri
-              width="20"
-              height="20"
+              width="24"
+              height="24"
               style={styles.svg}
               source={require("./../../assets/group/home.svg")}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onPress(1)} style={[styles.btn]}>
             <SvgUri
-              width="20"
-              height="20"
+              width="24"
+              height="24"
               style={styles.svg}
               source={require("./../../assets/group/user.svg")}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onPress(2)} style={[styles.btn]}>
             <SvgUri
-              width="20"
-              height="20"
+              width="24"
+              height="24"
               style={styles.svg}
               source={require("./../../assets/group/chat.svg")}
             />
@@ -43,8 +43,8 @@ function GroupNav({
           {isGroupOwner && (
             <TouchableOpacity onPress={() => onPress(3)} style={[styles.btn]}>
               <SvgUri
-                width="20"
-                height="20"
+                width="24"
+                height="24"
                 style={styles.svg}
                 source={require("./../../assets/group/coolicon-1.svg")}
               />
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,.5)",
     justifyContent: "center",
     flexDirection: "row",
-    padding: 15,
+    padding: 10,
     height: 44,
     borderRadius: 10,
     top: -22,

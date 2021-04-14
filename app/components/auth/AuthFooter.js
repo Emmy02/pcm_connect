@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   footerContainer: {
     position: "absolute",
     bottom: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     width: "100%",
   },
   footer: {
@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
   },
   firstOption: {
     color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "400",
     textAlign: "right",
   },
   secondOption: {
     color: colors.dark,
-    fontSize: 16,
-    fontWeight: "bold",
+    fontSize: 18,
+    fontWeight: "400",
   },
   buttons: {
     width: "50%",

@@ -127,5 +127,6 @@
     "subscription": "Subscription",
     "groupUpdate": "modifier le groupe",
     "waitingForApproval": "En attente d'approbation par les administrateurs PCM",
-    "subscribedGroups": "Mes abonnements"
+    "subscribedGroups": "Mes abonnements",
+    "agreedToAccept": "En rejoignant PCM Connect, j'accepte les conditions de confidentialité établies sur le lien suivant."
 }

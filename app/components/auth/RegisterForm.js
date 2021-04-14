@@ -3,10 +3,18 @@ import { View, StyleSheet } from "react-native";
 
 import * as Yup from "yup";
 
-import { Form, FormField, SubmitButton, ErrorMessage } from "./../forms";
+import {
+  Form,
+  FormField,
+  SubmitButton,
+  ErrorMessage,
+  FormCheckBox,
+} from "./../forms";
 
 import authApi from "./../../api/auth";
 import useAuth from "../../auth/useAuth";
+
+import LinkComponent from "./../../components/LinkComponent";
 
 import { IMLocalized } from "./../../config/IMLocalized";
 
@@ -16,6 +24,7 @@ const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref("email"), null], "Emails don't match!")
     .required("Required"),
   password: Yup.string().required().min(4).label("Password"),
+  accepted: Yup.boolean().required(),
 });
 
 function RegisterForm() {
@@ -32,7 +41,12 @@ function RegisterForm() {
   return (
     <View style={[styles.formContainer]}>
       <Form
-        initialValues={{ email: "", confirmEmail: "", password: "" }}
+        initialValues={{
+          email: "",
+          confirmEmail: "",
+          password: "",
+          accepted: false,
+        }}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
@@ -60,9 +74,22 @@ function RegisterForm() {
           autoCapitalize="none"
           autoCorrect={false}
           name="password"
-          placeholder={IMLocalized("password")}
+          placeholder={IMLocalized("typeYourPassword")}
           secureTextEntry
           textContentType="password"
+        />
+
+        <FormCheckBox
+          name="accepted"
+          width="100%"
+          linkComponent={
+            <View>
+              <LinkComponent
+                url="https://www.interamerica.org/es/legales/"
+                text={IMLocalized("agreedToAccept")}
+              />
+            </View>
+          }
         />
         <SubmitButton title={IMLocalized("register")} color="primary" />
       </Form>

@@ -1,16 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import {
-  StyleSheet,
-  FlatList,
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  Keyboard,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
 
 import { ActionCable, Cable } from "@kesha-antonov/react-native-action-cable";
+
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import Message from "./Message";
 import { colors, defaultStyles } from "../../config";
@@ -96,11 +89,11 @@ function Chat({ messages, groupId, userId }) {
   };
 
   return (
-    <View style={styles.chatContainer}>
-      <View style={styles.chatHeader}></View>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    <ScrollView style={styles.chatContainer}>
+      <KeyboardAwareScrollView>
+        <View style={styles.chatHeader}></View>
         <ScrollView
-          style={{ flex: 1 }}
+          style={{ flex: 1, height: 500 }}
           ref={scrollView}
           onContentSizeChange={() => scrollView.current.scrollToEnd()}
         >
@@ -117,12 +110,7 @@ function Chat({ messages, groupId, userId }) {
           ))}
         </ScrollView>
 
-        <View
-          style={[
-            styles.chatFooter,
-            { paddingBottom: didKeyboardShow ? 90 : 0 },
-          ]}
-        >
+        <View style={styles.chatFooter}>
           <Form
             initialValues={{ message: "" }}
             onSubmit={handleSubmit}
@@ -141,8 +129,8 @@ function Chat({ messages, groupId, userId }) {
             <SubmitButton color="primary" title="Send" width="20%" />
           </Form>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </KeyboardAwareScrollView>
+    </ScrollView>
   );
 }
 
@@ -152,7 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: "#fff",
     height: "105%",
-    bottom: 70,
+    bottom: 90,
     left: 10,
     position: "absolute",
     width: "100%",

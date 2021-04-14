@@ -15,30 +15,36 @@ import NoticesNavigator from "./../navigation/NoticesNavigator";
 import SupportNavigator from "./../navigation/SupportNavigator";
 import AdminNavigator from "./../navigation/AdminNavigator";
 
+import useNotifications from "./../hooks/useNotifications";
+
 const Stack = createStackNavigator();
 
-const AppNavigator = () => (
-  <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
-    <Stack.Screen name={routes.DASHBOARD} component={DashboardScreen} />
-    <Stack.Screen name={routes.PROFILE} component={ProfileScreen} />
-    <Stack.Screen name={routes.NOTICES} component={NoticesNavigator} />
-    <Stack.Screen name={routes.CONTACT} component={SupportNavigator} />
-    <Stack.Screen name={routes.ADMIN_DASHBOARD} component={AdminNavigator} />
-    <Stack.Screen name={routes.GROUP_DETAILS} component={GroupDetailScreen} />
-    <Stack.Screen
-      name={routes.CREATE_JOIN_REQUEST}
-      component={CreateJoinRequest}
-    />
-    <Stack.Screen name={routes.CREATE_GROUP} component={CreateGroupScreen} />
-    <Stack.Screen
-      name={routes.CREATE_GROUP_EVENT}
-      component={CreateGroupEventScreen}
-    />
-    <Stack.Screen
-      name={routes.USER_PROFILE_GROUP}
-      component={UserProfileScreen}
-    />
-  </Stack.Navigator>
-);
+const AppNavigator = () => {
+  useNotifications();
+
+  return (
+    <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
+      <Stack.Screen name={routes.DASHBOARD} component={DashboardScreen} />
+      <Stack.Screen name={routes.PROFILE} component={ProfileScreen} />
+      <Stack.Screen name={routes.NOTICES} component={NoticesNavigator} />
+      <Stack.Screen name={routes.CONTACT} component={SupportNavigator} />
+      <Stack.Screen name={routes.ADMIN_DASHBOARD} component={AdminNavigator} />
+      <Stack.Screen name={routes.GROUP_DETAILS} component={GroupDetailScreen} />
+      <Stack.Screen
+        name={routes.CREATE_JOIN_REQUEST}
+        component={CreateJoinRequest}
+      />
+      <Stack.Screen name={routes.CREATE_GROUP} component={CreateGroupScreen} />
+      <Stack.Screen
+        name={routes.CREATE_GROUP_EVENT}
+        component={CreateGroupEventScreen}
+      />
+      <Stack.Screen
+        name={routes.USER_PROFILE_GROUP}
+        component={UserProfileScreen}
+      />
+    </Stack.Navigator>
+  );
+};
 
 export default AppNavigator;

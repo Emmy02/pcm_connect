@@ -170,7 +170,7 @@ function GroupDetailScreen({ navigation, route }) {
   return (
     <Screen style={styles.mainScreen}>
       <NavBack onPress={() => navigation.goBack()} />
-      <ScrollView>
+      <ScrollView style={{ flex: 1 }}>
         <KeyboardAwareScrollView>
           <Title> {IMLocalized("createGroupButton")}</Title>
           <Form
@@ -229,13 +229,13 @@ function GroupDetailScreen({ navigation, route }) {
               hideResults={universityHideResults}
               setHideResults={setUniversityHideResults}
             />
-
             <FormGoogleInput
               autoCapitalize="none"
               name="address"
               textContentType="none"
               onSelect={onSelect}
             />
+
             <View style={styles.mapContainer}>
               <MapView
                 style={styles.map}

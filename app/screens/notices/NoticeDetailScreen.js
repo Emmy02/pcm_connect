@@ -1,5 +1,5 @@
-import React from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Image, Text, SafeAreaView } from "react-native";
 
 import colors from "../../config/colors";
 import Screen from "../../components/Screen";
@@ -11,28 +11,69 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { IMLocalized } from "./../../config/IMLocalized";
 import { NavBack } from "./../../components/nav";
 
-const notice = {
-  id: 1,
-  title: "PCM Virtual Congress 2021",
-  description:
-    "Contrary to popular belief,Lorem Ipsum is not simply random text. It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots. Contrary to popular belief, Lorem Ipsum is not simply random text It has roots.",
-  link: "Zoom 193 -123 - 4564 Pwd: 123432",
-  peopleGoing: "60",
-  date: "23rd March",
-  dateTime: "3:00 pm",
-  image: require("../../assets/2.jpg"),
-  onPress: () => {},
-};
+import noticesApi from "./../../api/notices";
 
-function NoticeDetailScreen({ navigation }) {
+import { getRecordId } from "./../../utility/utils";
+
+import dayjs from "dayjs";
+
+function NoticeDetailScreen({ navigation, route }) {
+  const [notice, setNotice] = useState({ attendants: [] });
+
+  const {
+    id,
+    userId,
+    title,
+    description,
+    expiration_date,
+    subtitle,
+    place,
+    image_src,
+  } = route.params;
+
+  const participate = async () => {
+    const params = {
+      status: 0,
+      user_id: userId,
+      activity_type: "Notice",
+      activity_id: id,
+    };
+
+    const result = await noticesApi.addAttendant(params);
+
+    if (result.ok) getNotice();
+  };
+
+  const notParticipate = async (attendant) => {
+    const results = await noticesApi.destroyAttendant(attendant);
+
+    if (results.ok) getNotice();
+  };
+
+  const getNotice = async () => {
+    const results = await noticesApi.getNotice(id);
+
+    if (results.ok) {
+      setNotice(results.data);
+    }
+  };
+
+  useEffect(() => {
+    getNotice();
+  }, []);
+
   return (
     <View style={styles.mainScreen}>
-      <Image source={notice.image} style={styles.image} />
+      <Image source={{ uri: image_src }} style={styles.image} blurRadius={1} />
+
       <Screen style={styles.screen}>
-        <NavBack onPress={() => navigation.goBack()} />
-        <Title>{notice.title}</Title>
+        <View style={{ position: "absolute", top: "-40%", left: 10 }}>
+          <NavBack onPress={() => navigation.goBack()} />
+        </View>
+        <Title>{title}</Title>
+        <Text>{subtitle}</Text>
         <Text style={styles.description} numberOfLines={4}>
-          {notice.description}
+          {description}
         </Text>
 
         <View style={styles.listContainer}>
@@ -42,7 +83,7 @@ function NoticeDetailScreen({ navigation }) {
             color={colors.medium}
             style={styles.icon}
           />
-          <Text>{notice.link}</Text>
+          <Text>{place}</Text>
         </View>
 
         <View style={styles.listContainer}>
@@ -52,7 +93,7 @@ function NoticeDetailScreen({ navigation }) {
             color={colors.medium}
             style={styles.icon}
           />
-          <Text>{notice.dateTime}</Text>
+          <Text> {dayjs(expiration_date).format(" h:mm A")}</Text>
         </View>
 
         <View style={styles.listContainer}>
@@ -62,7 +103,7 @@ function NoticeDetailScreen({ navigation }) {
             color={colors.medium}
             style={styles.icon}
           />
-          <Text>{notice.date}</Text>
+          <Text> {dayjs(expiration_date).format("ddd, MMM D, YYYY")}</Text>
         </View>
 
         <View style={styles.listContainer}>
@@ -73,12 +114,33 @@ function NoticeDetailScreen({ navigation }) {
             style={styles.icon}
           />
           <Text>
-            {notice.peopleGoing} {IMLocalized("peopleGoing")}
+            {notice.attendants.length} {IMLocalized("peopleGoing")}
           </Text>
         </View>
 
         <View style={styles.buttonContainer}>
-          <NoGradientButton title={IMLocalized("participate")} />
+          {!notice.attendants.some(
+            (attendant) => attendant.user_id === userId
+          ) && (
+            <NoGradientButton
+              title={IMLocalized("participate")}
+              color="primary"
+              onPress={participate}
+            />
+          )}
+          {notice.attendants.some(
+            (attendant) => attendant.user_id === userId
+          ) && (
+            <NoGradientButton
+              title={IMLocalized("notParticipate")}
+              color="danger"
+              onPress={() =>
+                notParticipate(
+                  getRecordId(userId, "user_id", notice.attendants)
+                )
+              }
+            />
+          )}
         </View>
       </Screen>
     </View>
@@ -114,6 +176,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     paddingRight: 10,
+  },
+  goBack: {
+    marginTop: 30,
+    position: "absolute",
+    width: "100%",
   },
 });
 

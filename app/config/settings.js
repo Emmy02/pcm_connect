@@ -2,7 +2,7 @@ import Constants from "expo-constants";
 
 const settings = {
   dev: {
-    apiUrl: "http://localhost:3000",
+    apiUrl: "https://pcm-api-staging.herokuapp.com",
   },
   staging: {
     apiUrl: "http://192.168.0.14:9000/api",

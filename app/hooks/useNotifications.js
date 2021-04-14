@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Notifications } from "expo";
+import * as Notifications from "expo-notifications";
 import * as Permissions from "expo-permissions";
 
-import expoPushTokensApi from "../api/expoPushTokens";
+import expoPushTokensApi from "./../api/expoPushToken";
 
 export default useNotifications = (notificationListener) => {
   useEffect(() => {
@@ -17,7 +17,10 @@ export default useNotifications = (notificationListener) => {
       if (!permission.granted) return;
 
       const token = await Notifications.getExpoPushTokenAsync();
-      expoPushTokensApi.register(token);
+      expoPushTokensApi.setPushNotificationToken({
+        value: token.data,
+        provider: 3,
+      });
     } catch (error) {
       console.log("Error getting a push token", error);
     }

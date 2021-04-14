@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 15,
+    zIndex: 1,
   },
   backButtonContainer: {
     width: "50%",
@@ -45,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 44,
     height: 44,
+    zIndex: 1,
   },
 });
 

@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     height: 44,
     width: 44,
-    ...defaultStyles.shadows,
   },
 });
 

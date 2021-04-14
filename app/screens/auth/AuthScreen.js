@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Text,
   ImageBackground,
+  Keyboard,
   ScrollView,
 } from "react-native";
 
@@ -20,32 +21,60 @@ import {
 
 import { IMLocalized } from "./../../config/IMLocalized";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Screen from "../../components/Screen";
 
 function AuthScreen({ navigation }) {
   const [activeFrom, setActiveFrom] = useState("login"); // login, register, passwordRecovery
+  const [didKeyboardShow, setKeyboardShow] = useState(false);
+
+  const _keyboardDidShow = () => {
+    setKeyboardShow(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardShow(false);
+  };
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => {
+      Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("./../../assets/background.png")}
+        source={
+          didKeyboardShow
+            ? require("./../../assets/white-background.png")
+            : require("./../../assets/background.png")
+        }
         style={styles.background}
       >
-        <SafeAreaView style={styles.safeAreaView}>
-          <ScrollView style={styles.contentContainer}>
+        <Screen style={styles.screen}>
+          <ScrollView
+            style={styles.contentContainer}
+            contentContainerStyle={{
+              justifyContent: "center",
+              alignContent: "center",
+            }}
+          >
             <KeyboardAwareScrollView>
               <View style={{ alignItems: "center" }}>
                 <Image
                   style={styles.logo}
                   source={require("./../../assets/logo.png")}
                 />
-                {activeFrom !== "passwordRecovery" && (
-                  <Text style={styles.title}>PCM Connect</Text>
-                )}
-                {activeFrom !== "passwordRecovery" && (
-                  <Text style={styles.subtitle}>
-                    {IMLocalized("welcomeToTheFamily")}
-                  </Text>
-                )}
+
+                <Text style={styles.title}>PCM Connect</Text>
+
+                <Text style={styles.subtitle}>
+                  {IMLocalized("welcomeToTheFamily")}
+                </Text>
               </View>
 
               {activeFrom === "register" && <RegisterForm />}
@@ -53,27 +82,32 @@ function AuthScreen({ navigation }) {
               {activeFrom === "passwordRecovery" && <PasswordRecoveryForm />}
             </KeyboardAwareScrollView>
           </ScrollView>
-          <AuthFooter activeFrom={activeFrom} setActiveFrom={setActiveFrom} />
-        </SafeAreaView>
+          {!didKeyboardShow && (
+            <AuthFooter activeFrom={activeFrom} setActiveFrom={setActiveFrom} />
+          )}
+        </Screen>
       </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    resizeMode: "contain",
-    justifyContent: "center",
-    zIndex: -1,
-  },
   container: {
     flex: 1,
   },
+  background: {
+    resizeMode: "cover",
+    zIndex: -1,
+    flex: 1,
+  },
+  screen: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
+  },
   contentContainer: {
-    width: "100%",
-    height: "100%",
     paddingTop: "20%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   logo: {
     width: 96,
@@ -81,7 +115,7 @@ const styles = StyleSheet.create({
     overflow: "visible",
   },
   title: {
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: "bold",
     paddingTop: 10,
     color: colors.secondary,

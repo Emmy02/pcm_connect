@@ -156,7 +156,8 @@ function DashboardScreen({ navigation, route }) {
           <View style={styles.closeGroups}>
             <Title
               controls={
-                !roles.isMember && (
+                roles.isDefaultUser &&
+                !roles.isRequested && (
                   <OutLineButton
                     title={IMLocalized("createGroupButton")}
                     onPress={() =>

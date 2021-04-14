@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 
 import * as Yup from "yup";
 
@@ -65,26 +65,24 @@ function PasswordRecoveryForm() {
   };
 
   return (
-    <View style={styles.formContainer}>
+    <ScrollView style={styles.formContainer}>
       {!validEmail && (
-        <View style={{ paddingTop: validEmail ? 0 : 150 }}>
-          <Form
-            initialValues={{ email: "" }}
-            onSubmit={handleSubmitEmail}
-            validationSchema={emailValidationSchema}
-          >
-            <ErrorMessage error="Invalid data" visible={emailFailed} />
-            <FormField
-              autoCapitalize="none"
-              autoCorrect={false}
-              keyboardType="email-address"
-              name="email"
-              placeholder={IMLocalized("typeYourEmail")}
-              textContentType="emailAddress"
-            />
-            <SubmitButton color="primary" title={IMLocalized("validate")} />
-          </Form>
-        </View>
+        <Form
+          initialValues={{ email: "" }}
+          onSubmit={handleSubmitEmail}
+          validationSchema={emailValidationSchema}
+        >
+          <ErrorMessage error="Invalid data" visible={emailFailed} />
+          <FormField
+            autoCapitalize="none"
+            autoCorrect={false}
+            keyboardType="email-address"
+            name="email"
+            placeholder={IMLocalized("typeYourEmail")}
+            textContentType="emailAddress"
+          />
+          <SubmitButton color="primary" title={IMLocalized("validate")} />
+        </Form>
       )}
       {canUpdate && (
         <Form
@@ -119,7 +117,7 @@ function PasswordRecoveryForm() {
           <SubmitButton title={IMLocalized("logIn")} color="primary" />
         </Form>
       )}
-    </View>
+    </ScrollView>
   );
 }
 

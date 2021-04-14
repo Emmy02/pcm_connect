@@ -34,13 +34,15 @@ function TicketCard({
         </LinearGradient>
       </View>
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description} numberOfLines={5}>
+        <Text numberOfLines={2} style={styles.title}>
+          {title}
+        </Text>
+        <Text numberOfLines={3} style={styles.description}>
           {description}
         </Text>
         {assigned_to && (
           <View style={styles.supportContainer}>
-            <Text style={styles.description} numberOfLines={5}>
+            <Text style={styles.description} numberOfLines={3}>
               {comment}
             </Text>
             <Text style={styles.assigned_to} numberOfLines={1}>

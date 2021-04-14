@@ -2,24 +2,28 @@ import client from "./client";
 import endpoints from "./endpoints";
 
 const getNotices = () => client.get(endpoints.NOTICES);
+const getAdventistUnionNotices = () =>
+  client.get(endpoints.ADVENTIST_UNION_NOTICES);
+const getAdventistAssociationNotices = () =>
+  client.get(endpoints.ADVENTIST_ASSOCIATION_NOTICES);
 
-const addNotice = (
+const addNotice = ({
   title,
   description,
   expiration_date,
-  image,
   subtitle,
   place,
-  image_src
-) =>
+  image_src,
+  created_by,
+}) =>
   client.post(endpoints.NOTICES, {
     title,
     description,
     expiration_date,
-    image,
     subtitle,
     place,
     image_src,
+    created_by,
   });
 
 const updateNotice = (
@@ -27,7 +31,6 @@ const updateNotice = (
   title,
   description,
   expiration_date,
-  image,
   subtitle,
   place,
   image_src
@@ -36,7 +39,6 @@ const updateNotice = (
     title,
     description,
     expiration_date,
-    image,
     subtitle,
     place,
     image_src,
@@ -45,23 +47,20 @@ const updateNotice = (
 const getNotice = (id) => client.get(endpoints.NOTICES + "/" + id);
 const destroyNotice = (id) => client.delete(endpoints.NOTICES + "/" + id);
 
-const getAttendants = (noticeId) =>
-  client.get(endpoints.NOTICES + "/" + noticeId + endpoints.ATTENDANTS);
-const addAttendant = (noticeId) =>
-  client.get(endpoints.NOTICES + "/" + noticeId);
-const updateAttendant = (noticeId) =>
-  client.get(endpoints.NOTICES + "/" + noticeId);
+const addAttendant = (attendant) =>
+  client.post(endpoints.ATTENDANTS, attendant);
 
-const destroyAttendant = (noticeId) =>
-  client.get(endpoints.NOTICES + "/" + noticeId);
+const destroyAttendant = (attendantId) =>
+  client.delete(endpoints.ATTENDANTS + "/" + attendantId);
 
 export default {
   getNotices,
+  getAdventistUnionNotices,
+  getAdventistAssociationNotices,
   addNotice,
   updateNotice,
   destroyNotice,
-  getAttendants,
   addAttendant,
-  updateAttendant,
   destroyAttendant,
+  getNotice,
 };

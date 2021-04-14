@@ -3,6 +3,25 @@ import jwtDecode from "jwt-decode";
 
 const key = "authToken";
 
+const storeCredentials = async ({ email, password }) => {
+  try {
+    await SecureStore.setItemAsync(
+      "credentials",
+      JSON.stringify({ email, password })
+    );
+  } catch (error) {
+    console.log("Error storing the auth Credentials", error);
+  }
+};
+
+const getCredentials = async () => {
+  try {
+    await SecureStore.setItemAsync("key", authToken);
+  } catch (error) {
+    console.log("Error storing the auth token", error);
+  }
+};
+
 const storeToken = async (authToken) => {
   try {
     await SecureStore.setItemAsync(key, authToken);
