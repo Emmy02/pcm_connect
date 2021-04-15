@@ -30,6 +30,7 @@ function AdminDashboardScreen({ navigation }) {
 
   const isAdmin = roles.isAdmin;
   const isDirector = roles.isDirector;
+  const isCoordinator = roles.isCoordinator;
 
   const getAdminDashBoard = async () => {
     const results = await adminApi.getRootDashboard();
@@ -88,11 +89,13 @@ function AdminDashboardScreen({ navigation }) {
               navigation.navigate(routes.NOTICE_FORM, { userId: profile.id })
             }
           />
-          <OutLineButton
-            onPress={() => navigation.navigate(routes.GROUPS_VALIDATION)}
-            width="48%"
-            title={"Validate Groups(" + getGroupsApi.data.length + ")"}
-          />
+          {(isAdmin || isCoordinator) && (
+            <OutLineButton
+              onPress={() => navigation.navigate(routes.GROUPS_VALIDATION)}
+              width="48%"
+              title={"Validate Groups(" + getGroupsApi.data.length + ")"}
+            />
+          )}
         </View>
         <View style={styles.statsCardContainer}>
           <GradientCard>
@@ -106,12 +109,11 @@ function AdminDashboardScreen({ navigation }) {
           <View style={styles.mostPopularGroups}>
             <Title>{IMLocalized("groupsInTerritory")}</Title>
             <FlatList
-              horizontal
-              style={{ overflow: "visible" }}
+              style={{ overflow: "visible", width: "100%" }}
               data={directorGroups}
               keyExtractor={(g) => g.id.toString()}
               renderItem={({ item }) => (
-                <VerticalCard
+                <HorizontalCard
                   {...item}
                   image={require("../../assets/3.jpg")}
                   key={item.index}
@@ -150,6 +152,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  mostPopularGroups: {
+    width: "100%",
   },
 });
 

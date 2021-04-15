@@ -5,6 +5,8 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  TextInput,
+  FlatList,
 } from "react-native";
 
 import colors from "../../config/colors";
@@ -25,8 +27,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 import { NavBack } from "./../../components/nav";
 
 import * as Yup from "yup";
-
-import DropboxModal from "./../../components/DropBoxModal";
+import { createClient } from "pexels";
 
 import noticesApi from "./../../api/notices";
 
@@ -48,10 +49,19 @@ const validationSchema = Yup.object().shape({
 
 function NoticeFormScreen({ navigation, route }) {
   const { userId } = route.params;
-
-  const [modalVisible, setModalVisible] = useState(false);
+  const [photos, setPhotos] = useState(false);
   const [image, setImage] = useState(null);
   const [creatingError, setCreatingError] = useState(null);
+
+  const client = createClient(
+    "563492ad6f91700001000001f02799b4e2cc48488ad0f5ec036edc3c"
+  );
+
+  const getPhotos = (query) => {
+    client.photos
+      .search({ query, per_page: 20 })
+      .then((res) => setPhotos(res.photos || []));
+  };
 
   const handleSubmit = async ({
     title,
@@ -62,7 +72,6 @@ function NoticeFormScreen({ navigation, route }) {
     expiration_date,
     created_by = userId,
   }) => {
-    console.log(title);
     if (!image) return setCreatingError(true);
 
     const result = await noticesApi.addNotice({
@@ -83,14 +92,9 @@ function NoticeFormScreen({ navigation, route }) {
 
   return (
     <Screen style={styles.screen}>
-      <DropboxModal
-        onPress={setImage}
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
-      />
       <NavBack onPress={() => navigation.goBack()} />
+      <Title>{IMLocalized("createTerritoryEvent")}</Title>
       <ScrollView style={styles.mainScreen}>
-        <Title>{IMLocalized("createTerritoryEvent")}</Title>
         <View style={styles.formContainer}>
           <ErrorMessage
             visible={creatingError}
@@ -156,11 +160,37 @@ function NoticeFormScreen({ navigation, route }) {
               )}
               {!image && (
                 <View style={{ paddingBottom: 10 }}>
-                  <NoGradientButton
-                    title="select image"
-                    onPress={() => setModalVisible(true)}
-                    color="medium"
-                  />
+                  <View style={styles.search}>
+                    <TextInput
+                      placeholder="Type in Image Filter Name"
+                      style={styles.textInput}
+                      onChangeText={(text) => getPhotos(text)}
+                    />
+                    <FlatList
+                      horizontal
+                      style={{ overflow: "visible" }}
+                      data={photos}
+                      keyExtractor={(photo) => photo.id.toString()}
+                      renderItem={({ item, index }) => (
+                        <TouchableOpacity
+                          key={index}
+                          onPress={() => {
+                            setImage(item.src.medium);
+                          }}
+                        >
+                          <Image
+                            style={{
+                              height: 100,
+                              width: 100,
+                              borderRadius: 10,
+                              margin: 5,
+                            }}
+                            source={{ uri: item.src.medium }}
+                          />
+                        </TouchableOpacity>
+                      )}
+                    />
+                  </View>
                 </View>
               )}
             </View>
@@ -183,6 +213,12 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     paddingBottom: 20,
+  },
+  textInput: {
+    borderRadius: 10,
+    borderColor: colors.primary,
+    backgroundColor: colors.light,
+    padding: 10,
   },
 });
 

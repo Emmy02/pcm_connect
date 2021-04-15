@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, View, ScrollView, Text } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  ScrollView,
+  Text,
+  RefreshControl,
+} from "react-native";
 
 import { VerticalCard, HorizontalCard } from "../components/card";
 import colors from "../config/colors";
@@ -37,6 +44,8 @@ function DashboardScreen({ navigation, route }) {
   const [isFinding, setIsFinding] = useState(false);
   const [groupsByName, setGroupsByName] = useState([]);
   const [subscriptions, setSubscriptions] = useState([]);
+
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const onFocus = () => {
     setIsFinding(true);
@@ -76,8 +85,12 @@ function DashboardScreen({ navigation, route }) {
   };
 
   const getProfile = async () => {
+    setRefreshing(true);
     const result = await accountApi.getProfile();
-    if (result.ok) setProfile(result.data);
+    if (result.ok) {
+      setProfile(result.data);
+      setRefreshing(false);
+    }
   };
 
   useEffect(() => {
@@ -95,7 +108,12 @@ function DashboardScreen({ navigation, route }) {
         navigation={navigation}
       />
       {!isFinding && (
-        <ScrollView style={styles.mainScreen}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={getProfile} />
+          }
+          style={styles.mainScreen}
+        >
           {getGroupsApi.error && (
             <>
               <Text>{IMLocalized("groupsApiError")}</Text>

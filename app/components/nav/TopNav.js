@@ -15,6 +15,7 @@ function TopNav({ controls, navigation }) {
   const { profile } = useAccount();
   const [showMenu, setShowMenu] = useState(false);
   const baseUrl = "https://pcm-api.herokuapp.com";
+
   return (
     <View style={styles.navContainer}>
       <View>

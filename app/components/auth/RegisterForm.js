@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 import * as Yup from "yup";
 
@@ -8,7 +8,7 @@ import {
   FormField,
   SubmitButton,
   ErrorMessage,
-  FormCheckBox,
+  FormCheckMark,
 } from "./../forms";
 
 import authApi from "./../../api/auth";
@@ -45,7 +45,7 @@ function RegisterForm() {
           email: "",
           confirmEmail: "",
           password: "",
-          accepted: false,
+          accepted: null,
         }}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
@@ -78,19 +78,28 @@ function RegisterForm() {
           secureTextEntry
           textContentType="password"
         />
-
-        <FormCheckBox
-          name="accepted"
-          width="100%"
-          linkComponent={
-            <View>
+        <View
+          style={{
+            justifyContent: "center",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ textAlign: "center" }}>
+            {IMLocalized("agreedToAccept")}
+            <Text>
               <LinkComponent
                 url="https://www.interamerica.org/es/legales/"
-                text={IMLocalized("agreedToAccept")}
+                text={IMLocalized("DIA")}
               />
-            </View>
-          }
-        />
+            </Text>
+            <LinkComponent
+              url="https://drive.google.com/file/d/1bvtHBrWmb9rXxHRayle_BneMI6JgCAv3/view?usp=sharing"
+              text={IMLocalized("PCM Connect")}
+            />
+          </Text>
+        </View>
+        <FormCheckMark name="accepted" width="100%" />
         <SubmitButton title={IMLocalized("register")} color="primary" />
       </Form>
     </View>

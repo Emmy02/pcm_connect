@@ -42,11 +42,8 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 20,
-    minHeight: 100,
-    minWidth: 100,
-    maxHeight: 130,
-    maxWidth: 200,
-    width: "100%",
+    width: 130,
+    height: 130,
   },
   imageContainer: {
     width: "40%",

@@ -67,9 +67,8 @@ function NoticeDetailScreen({ navigation, route }) {
       <Image source={{ uri: image_src }} style={styles.image} blurRadius={1} />
 
       <Screen style={styles.screen}>
-        <View style={{ position: "absolute", top: "-40%", left: 10 }}>
-          <NavBack onPress={() => navigation.goBack()} />
-        </View>
+        <NavBack onPress={() => navigation.goBack()} />
+
         <Title>{title}</Title>
         <Text>{subtitle}</Text>
         <Text style={styles.description} numberOfLines={4}>
@@ -156,7 +155,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   image: {
-    height: "30%",
+    height: 230,
     width: "100%",
   },
   buttonContainer: {

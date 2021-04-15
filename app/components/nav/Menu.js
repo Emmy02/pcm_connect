@@ -16,7 +16,12 @@ import { colors, defaultStyles } from "./../../config";
 import { IMLocalized } from "./../../config/IMLocalized";
 
 const options = (roles = []) => {
-  const isAdmin = roles.some((role) => role.name === "admin");
+  const isAdmin = roles.some(
+    (role) =>
+      role.name === "admin" ||
+      role.name === "coordinator" ||
+      role.name === "director"
+  );
   let menu = [
     {
       id: 1,
@@ -40,7 +45,7 @@ const options = (roles = []) => {
       id: 4,
       title: IMLocalized("Admin"),
       route: routes.ADMIN_DASHBOARD,
-      isAdmin: roles.some((role) => role.name === "admin"),
+      isAdmin,
     });
 
   return menu;
