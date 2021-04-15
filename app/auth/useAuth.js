@@ -11,10 +11,19 @@ export default useAuth = () => {
     authStorage.storeToken(data["auth_token"]);
   };
 
+  const saveCrendentials = ({ email, password }) => {
+    authStorage.storeCredentials({ email, password });
+  };
+
+  const getCrendentials = async () => {
+    return authStorage.getCredentials();
+  };
+
   const logOut = () => {
     setUser(null);
     authStorage.removeToken();
+    authStorage.removeCredentials();
   };
 
-  return { user, logIn, logOut };
+  return { user, logIn, logOut, saveCrendentials, getCrendentials };
 };

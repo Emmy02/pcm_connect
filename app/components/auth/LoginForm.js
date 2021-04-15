@@ -23,6 +23,7 @@ function LoginForm() {
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
     auth.logIn(result.data);
+    auth.saveCrendentials({ email, password });
   };
 
   return (

@@ -7,8 +7,7 @@
     "icon": "./app/assets/icon.png",
     "splash": {
       "image": "./app/assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#EDF7FB"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -17,12 +16,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "io.pcm.app1",
+      "buildNumber": "2.5"
     },
     "android": {
+      "package": "io.pcm.app1",
+      "versionCode": 13,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#EDF7FB"
       }
     },
     "web": {

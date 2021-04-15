@@ -57,7 +57,10 @@ function PasswordRecoveryForm() {
     if (results.ok) {
       if (results.data.success) {
         const res = await authApi.login(email, password);
-        if (res.ok) auth.logIn(res.data);
+        if (res.ok) {
+          auth.logIn(res.data);
+          auth.saveCrendentials({ email, password });
+        }
       }
     } else {
       setEmailFailed(false);

@@ -16,9 +16,17 @@ const storeCredentials = async ({ email, password }) => {
 
 const getCredentials = async () => {
   try {
-    await SecureStore.setItemAsync("key", authToken);
+    return await SecureStore.getItemAsync("credentials");
   } catch (error) {
     console.log("Error storing the auth token", error);
+  }
+};
+
+const removeCredentials = async () => {
+  try {
+    await SecureStore.deleteItemAsync("credentials");
+  } catch (error) {
+    console.log("Error removing the auth credentials", error);
   }
 };
 
@@ -51,4 +59,12 @@ const removeToken = async () => {
   }
 };
 
-export default { getToken, getUser, removeToken, storeToken };
+export default {
+  getToken,
+  getUser,
+  removeToken,
+  storeToken,
+  storeCredentials,
+  getCredentials,
+  removeCredentials,
+};

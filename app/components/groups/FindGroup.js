@@ -17,7 +17,7 @@ function FindGroup({ groups, navigation, getSubscriptions }) {
         renderItem={({ item }) => (
           <VerticalCard
             {...item}
-            image={require("../../assets/1.jpg")}
+            image={require("../../assets/3.jpg")}
             key={item.index}
             onPress={() =>
               navigation.navigate(routes.GROUP_DETAILS, {

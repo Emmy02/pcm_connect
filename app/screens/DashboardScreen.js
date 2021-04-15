@@ -35,7 +35,11 @@ import { IMLocalized } from "./../config/IMLocalized";
 
 import { FindGroup } from "./../components/groups";
 
+import authApi from "./../api/auth";
+import useAuth from "./../auth/useAuth";
+
 function DashboardScreen({ navigation, route }) {
+  const auth = useAuth();
   const { setProfile, profile, getRoles } = useAccount();
   const { roles, resources } = getRoles(profile?.roles);
 
@@ -93,11 +97,27 @@ function DashboardScreen({ navigation, route }) {
     }
   };
 
-  useEffect(() => {
+  const autoLogIn = async () => {
+    const res = await auth.getCrendentials();
+    const { email, password } = JSON.parse(res);
+
+    const result = await authApi.login(email, password);
+    if (!result.ok) return auth.logOut();
+
+    auth.logIn(result.data);
+    auth.saveCrendentials({ email, password });
+    makeApiCalls();
+  };
+
+  const makeApiCalls = async () => {
     getProfile();
     getGroupsApi.request();
     getMostPopularGroupsApi.request();
     getSubscriptions();
+  };
+
+  useEffect(() => {
+    autoLogIn();
   }, []);
 
   return (
