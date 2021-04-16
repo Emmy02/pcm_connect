@@ -101,7 +101,7 @@ function ProfileScreen({ navigation }) {
     setUploadVisible(true);
 
     const data = new FormData();
-    data.append("avatar", image, `file-avatar.jpg`);
+    data.append("avatar", image);
 
     const result = await accountApi.uploadAvatar(data, (progress) =>
       setProgress(progress)

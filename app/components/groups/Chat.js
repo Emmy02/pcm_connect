@@ -3,8 +3,6 @@ import { StyleSheet, View, Keyboard, ScrollView, Platform } from "react-native";
 
 import { ActionCable, Cable } from "@kesha-antonov/react-native-action-cable";
 
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-
 import Message from "./Message";
 import { colors, defaultStyles } from "../../config";
 
@@ -42,7 +40,9 @@ function Chat({ messages, groupId, userId }) {
     Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
 
-    const actionCable = ActionCable.createConsumer("ws://localhost:3000/cable");
+    const actionCable = ActionCable.createConsumer(
+      "wss://pcm-api.herokuapp.com/cable"
+    );
     const cable = new Cable({});
 
     const channel = cable.setChannel(

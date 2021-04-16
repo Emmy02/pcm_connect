@@ -10,8 +10,6 @@ import * as ImagePicker from "expo-image-picker";
 
 import colors from "../config/colors";
 
-import { urlToBlob } from "./../utility/utils";
-
 function AvatarUpload({ imageUri, onChangeImage }) {
   useEffect(() => {
     requestPermission();
@@ -27,11 +25,11 @@ function AvatarUpload({ imageUri, onChangeImage }) {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.3,
+        base64: true,
       });
 
-      const blob = await urlToBlob(result.uri);
-
-      if (!result.cancelled) onChangeImage(blob);
+      if (!result.cancelled)
+        onChangeImage("data:image/jpg;base64," + result.base64);
     } catch (error) {
       console.log("Error reading an image", error);
     }

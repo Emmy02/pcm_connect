@@ -236,19 +236,18 @@ function UserProfileScreen({ navigation, route }) {
           </LinearGradient>
         </View>
         <View style={styles.secondaryDataContainer}>
-          {message && (
-            <View style={styles.messageContainer}>
-              <SvgUri
-                width="70"
-                height="70"
-                style={styles.svg}
-                source={require("./../../assets/quotes.svg")}
-              />
-              <View>
-                <Text style={styles.message}>{message}</Text>
-              </View>
+          <View style={styles.messageContainer}>
+            <SvgUri
+              width="70"
+              height="70"
+              style={styles.svg}
+              source={require("./../../assets/quotes.svg")}
+            />
+            <View>
+              <Text style={styles.message}>{message}</Text>
             </View>
-          )}
+          </View>
+
           {isCurrentGroupOwner && !isRequest && !itIsSelf && (
             <View style={styles.actionsContainer}>
               <Title>{IMLocalized("adminActions")}</Title>
@@ -454,7 +453,6 @@ const styles = StyleSheet.create({
   actionsContainer: {
     backgroundColor: colors.white,
     flex: 1,
-    marginBottom: 100,
   },
 });
 

@@ -5,10 +5,16 @@ import colors from "../config/colors";
 import Text from "./Text";
 
 function MemberCount({ count, avatars = [] }) {
+  const baseUrl = "https://pcm-api.herokuapp.com";
+
   return (
     <View style={styles.container}>
-      {avatars.map((avatar, index) => (
-        <Image source={avatar} style={styles.image} key={index} />
+      {avatars.slice(0, 4).map((avatar, index) => (
+        <Image
+          source={{ uri: baseUrl + avatar }}
+          style={styles.image}
+          key={index}
+        />
       ))}
       <Text style={styles.text}>{count}</Text>
     </View>

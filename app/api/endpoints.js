@@ -28,7 +28,7 @@ export default Object.freeze({
   DIRECTOR_DASHBOARD: "/director_dashboard",
   ROOT_DASHBOARD: "/root_dashboard",
   PROFILE: "/profile",
-  UPLOAD_AVATAR: "/upload_avatar",
+  UPLOAD_AVATAR: "/upload_avatar_2",
   USER_PROFILE: "/user_profile",
   CANCEL_REQUEST: "/cancel_request",
   REPORTS: "/reports",
