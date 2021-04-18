@@ -11,14 +11,7 @@ import { OutLineButton } from "./../../components/button";
 
 import { TopNav } from "./../../components/nav";
 import routes from "../../navigation/routes";
-import accountApi from "./../../api/account";
 import useAccount from "./../../account/useAccount";
-
-const seeds = [
-  { id: 1, title: "DIA" },
-  { id: 2, title: "North Mexican Conference" },
-  { id: 3, title: "Northen Adventist Association" },
-];
 
 import noticesApi from "./../../api/notices";
 import useApi from "./../../hooks/useApi";
@@ -27,7 +20,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 
 function NoticesScreen({ navigation }) {
   const { profile, getRoles } = useAccount();
-  const { roles, resources } = getRoles(profile?.roles);
+  const { roles } = getRoles(profile?.roles);
 
   const [activeFilter, setActiveFilter] = useState(1);
 
@@ -38,15 +31,18 @@ function NoticesScreen({ navigation }) {
       setSeeds([
         {
           id: 1,
-          title: profile.adventist_division?.name || "DIA",
+          title: profile.adventist_division?.name || IMLocalized("dia"),
         },
         {
           id: 2,
-          title: profile.adventist_union?.name || "Your Union",
+          title:
+            profile.adventist_union?.name || IMLocalized("yourAdventistUnion"),
         },
         {
           id: 3,
-          title: profile.adventist_association?.name || "Your Association",
+          title:
+            profile.adventist_association?.name ||
+            IMLocalized("yourLocalField"),
         },
       ]);
   };
@@ -179,8 +175,10 @@ function NoticesScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   screen: {
+    flex: 1,
     padding: 10,
     backgroundColor: colors.background,
+    overflow: "visible",
   },
   scrollView: {
     zIndex: -1,

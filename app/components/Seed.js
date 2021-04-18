@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: 14,
-    textTransform: "capitalize",
     fontWeight: "400",
     paddingHorizontal: 20,
     paddingVertical: 10,
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 20,
-    textTransform: "capitalize",
     overflow: "hidden",
     alignContent: "center",
     justifyContent: "center",

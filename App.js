@@ -1,6 +1,3 @@
-import Bugsnag from "@bugsnag/expo";
-Bugsnag.start();
-
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
@@ -15,11 +12,8 @@ import authStorage from "./app/auth/storage";
 import AccountContext from "./app/account/context";
 
 import { navigationRef } from "./app/navigation/rootNavigation";
-import logger from "./app/utility/logger";
 
 import { init } from "./app/config/IMLocalized";
-
-logger.start();
 
 export default function App() {
   init();

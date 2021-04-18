@@ -29,7 +29,13 @@ function TopNav({ controls, navigation }) {
             />
           </View>
         </TouchableOpacity>
-        {showMenu && <Menu navigation={navigation} roles={profile?.roles} />}
+        {showMenu && (
+          <Menu
+            navigation={navigation}
+            roles={profile?.roles}
+            setShowMenu={setShowMenu}
+          />
+        )}
       </View>
 
       {controls && <View style={styles.controls}>{controls}</View>}

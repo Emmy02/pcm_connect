@@ -15,7 +15,7 @@ import useApi from "./../../hooks/useApi";
 import accountApi from "./../../api/account";
 import useAccount from "./../../account/useAccount";
 
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { mapStyles } from "./../../config";
 
@@ -238,6 +238,7 @@ function GroupDetailScreen({ navigation, route }) {
 
             <View style={styles.mapContainer}>
               <MapView
+                provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 customMapStyle={mapStyles}
                 region={location}

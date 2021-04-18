@@ -3,14 +3,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 
 import colors from "../config/colors";
 
-function Presenter({
-  image_src,
-  title,
-  description,
-  controls,
-  reverse,
-  attendants = [],
-}) {
+function Presenter({ image_src, title, description, controls, reverse }) {
   return (
     <View
       style={[
@@ -42,7 +35,7 @@ const styles = StyleSheet.create({
   },
   image: {
     borderRadius: 20,
-    width: 130,
+    width: "100%",
     height: 130,
   },
   imageContainer: {
@@ -50,7 +43,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     marginTop: 10,
-    marginHorizontal: 20,
+    marginHorizontal: 10,
     paddingHorizontal: 25,
     width: "60%",
   },

@@ -129,5 +129,8 @@
     "groupUpdate": "Edite su Grupo",
     "waitingForApproval": "Esperando a ser aprovado por los administradores de PCM",
     "subscribedGroups": "Mis Subscripciones",
-    "agreedToAccept": "Al unirme a PCM Connect, acepto los terminos de privacidad establecidos en el siguiente Link."
+    "agreedToAccept": "Al unirme a PCM Connect, acepto los terminos de privacidad establecidos en el siguiente Link.",
+    "dia": "DIA",
+    "yourAdventistUnion":  "Tu Unión",
+    "yourLocalField": "Tu campo local"
 }

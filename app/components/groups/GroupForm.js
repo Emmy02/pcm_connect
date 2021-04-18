@@ -6,7 +6,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { SubmitButton, FormField, Form, FormGoogleInput } from "./../forms";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import Title from "./../Title";
 
@@ -108,7 +108,11 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
           onSelect={onSelect}
         />
         <View style={styles.mapContainer}>
-          <MapView style={styles.map} region={location}>
+          <MapView
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            region={location}
+          >
             <Marker coordinate={location} title="" />
           </MapView>
         </View>

@@ -39,7 +39,7 @@
     "peopleGoing": "People going",
     "public": "Public",
     "private": "Private",
-    "participate": "Partipate",
+    "participate": "Participate",
     "notParticipate": "Not Participate",
     "requests":"Requests",
     "members":"Members",
@@ -129,5 +129,8 @@
     "groupUpdate": "Update Group",
     "waitingForApproval": "Waiting to be approved by PCM Admins",
     "subscribedGroups": "My Subscriptions",
-    "agreedToAccept": "By joining PCM Connect, I accept the privacy terms set out in the following link."
+    "agreedToAccept": "By joining PCM Connect, I accept the privacy terms set out in the following link.",
+    "dia": "IAD",
+    "yourAdventistUnion":  "Your Adventist Union",
+    "yourLocalField": "Your Local Field"
 }

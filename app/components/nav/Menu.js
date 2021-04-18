@@ -51,7 +51,7 @@ const options = (roles = []) => {
   return menu;
 };
 
-function Menu({ navigation, roles }) {
+function Menu({ navigation, roles, setShowMenu }) {
   const { logOut } = useAuth();
 
   return (
@@ -63,7 +63,10 @@ function Menu({ navigation, roles }) {
         renderItem={({ item, index }) => (
           <TouchableOpacity
             key={index}
-            onPress={() => navigation.navigate(item.route)}
+            onPress={() => {
+              setShowMenu(false);
+              navigation.navigate(item.route);
+            }}
           >
             <Text style={styles.text}>{item.title}</Text>
           </TouchableOpacity>

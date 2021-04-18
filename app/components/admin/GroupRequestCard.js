@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 import { colors } from "../../config";
 
@@ -65,6 +65,7 @@ function GroupRequestCard({
       <View style={styles.cardHeader}>
         <View style={styles.mapContainer}>
           <MapView
+            provider={PROVIDER_GOOGLE}
             style={styles.map}
             region={{
               latitude: lat,

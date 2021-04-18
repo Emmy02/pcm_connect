@@ -17,6 +17,7 @@ export default useNotifications = (notificationListener) => {
       if (!permission.granted) return;
 
       const token = await Notifications.getExpoPushTokenAsync();
+
       expoPushTokensApi.setPushNotificationToken({
         value: token.data,
         provider: 3,

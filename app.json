@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "pcm_connect",
+    "name": "PCM Connect",
     "slug": "pcm_connect",
-    "version": "1.0.0",
+    "version": "2.6.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -18,14 +18,23 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "io.pcm.app1",
-      "buildNumber": "2.5"
+      "buildNumber": "2.6",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCAR4NlJ2e4vVRDQUXAQ6SgeV4cIQWaav8"
+      }
     },
     "android": {
       "package": "io.pcm.app1",
-      "versionCode": 13,
+      "versionCode": 14,
+      "useNextNotificationsApi": true,
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/icon.png",
         "backgroundColor": "#EDF7FB"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDUuDOUp_nCkxv7xvi9cM-dwgeC8ihfMmo"
+        }
       }
     },
     "web": {
@@ -35,14 +44,6 @@
       "bugsnag": {
         "apiKey": "44db8ebf6c9ece7dc99f009cbe1e58d1"
       }
-    },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "@bugsnag/expo/hooks/post-publish.js",
-          "config": {}
-        }
-      ]
     }
   }
 }

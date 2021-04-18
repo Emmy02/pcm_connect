@@ -38,7 +38,7 @@ import { FindGroup } from "./../components/groups";
 import authApi from "./../api/auth";
 import useAuth from "./../auth/useAuth";
 
-function DashboardScreen({ navigation, route }) {
+function DashboardScreen({ navigation }) {
   const auth = useAuth();
   const { setProfile, profile, getRoles } = useAccount();
   const { roles, resources } = getRoles(profile?.roles);
