@@ -19,13 +19,13 @@ const getCareerCategories = () => {
     {
       backgroundColor: "#2bcbba",
       label: "social_sciences_and_government",
-      icon: "social-distance-2-meters",
+      icon: "account-group-outline",
       value: 2,
     },
     {
       backgroundColor: "#45aaf2",
       label: "humanities_and_education",
-      icon: "book-education-outline",
+      icon: "bookshelf",
       value: 3,
     },
     {

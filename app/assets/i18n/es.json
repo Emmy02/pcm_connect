@@ -134,5 +134,6 @@
     "yourAdventistUnion":  "Tu Unión",
     "yourLocalField": "Tu campo local",
     "setAddress": "Conf. Dirección",
-    "send": "Enviar"
+    "send": "Enviar",
+        "noGroupsClose": "No hay grupos cercanos a ti"
 }

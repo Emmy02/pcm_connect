@@ -134,5 +134,6 @@
     "yourAdventistUnion":  "Your Adventist Union",
     "yourLocalField": "Your Local Field",
     "setAddress": "Set Address",
-    "send": "Send"
+    "send": "Send",
+    "noGroupsClose": "No Groups found close to you"
 }
