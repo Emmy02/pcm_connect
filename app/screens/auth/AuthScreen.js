@@ -23,7 +23,7 @@ import { IMLocalized } from "./../../config/IMLocalized";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Screen from "../../components/Screen";
 
-function AuthScreen({ navigation }) {
+function AuthScreen() {
   const [activeFrom, setActiveFrom] = useState("login"); // login, register, passwordRecovery
   const [didKeyboardShow, setKeyboardShow] = useState(false);
 

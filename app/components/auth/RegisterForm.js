@@ -17,6 +17,7 @@ import useAuth from "../../auth/useAuth";
 import LinkComponent from "./../../components/LinkComponent";
 
 import { IMLocalized } from "./../../config/IMLocalized";
+import ActivityIndicator from "./../ActivityIndicator";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -30,9 +31,12 @@ const validationSchema = Yup.object().shape({
 function RegisterForm() {
   const auth = useAuth();
   const [registerFailed, setRegisterFailed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ({ email, password }) => {
+    setLoading(true);
     const result = await authApi.signup(email, password);
+    setLoading(false);
     if (!result.ok) return setLoginFailed(true);
     setRegisterFailed(false);
     auth.logIn(result.data);
@@ -102,6 +106,7 @@ function RegisterForm() {
         <FormCheckMark name="accepted" width="100%" />
         <SubmitButton title={IMLocalized("register")} color="primary" />
       </Form>
+      <ActivityIndicator visible={loading} />
     </View>
   );
 }

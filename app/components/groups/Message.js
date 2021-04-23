@@ -1,21 +1,12 @@
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import colors from "../../config/colors";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
-function Message({
-  user_first_name,
-  content,
-  avatar,
-  created_at,
-  me,
-  onPress,
-}) {
+function Message({ user_first_name, content, avatar, created_at, me }) {
   dayjs.extend(relativeTime);
 
   return (
@@ -38,7 +29,9 @@ function Message({
             { flexDirection: me ? "row-reverse" : "row" },
           ]}
         >
-          <Text style={styles.name}>{user_first_name.split(" ")[0]}</Text>
+          {user_first_name && (
+            <Text style={styles.name}>{user_first_name.split(" ")[0]}</Text>
+          )}
           <Text style={styles.date}>{dayjs(created_at).fromNow()}</Text>
         </View>
         <View style={styles.contentContainer}>

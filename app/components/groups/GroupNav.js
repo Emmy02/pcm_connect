@@ -11,41 +11,51 @@ function GroupNav({
   onPress,
   user,
   image,
+  index,
 }) {
+  const getSizeIfActive = (activated) => {
+    return activated === index
+      ? {
+          borderBottomWidth: 2,
+          borderColor: colors.white,
+          paddingBottom: 5,
+        }
+      : {};
+  };
   return (
     <View style={containerStyles}>
       {isGroupMember && (
         <View style={styles.menuContainer}>
           <TouchableOpacity onPress={() => onPress(0)} style={[styles.btn]}>
             <SvgUri
-              width="24"
-              height="24"
-              style={styles.svg}
+              width={24}
+              height={24}
+              style={[styles.svg, getSizeIfActive(0)]}
               source={require("./../../assets/group/home.svg")}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onPress(1)} style={[styles.btn]}>
             <SvgUri
-              width="24"
-              height="24"
-              style={styles.svg}
+              width={24}
+              height={24}
+              style={[styles.svg, getSizeIfActive(1)]}
               source={require("./../../assets/group/user.svg")}
             />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => onPress(2)} style={[styles.btn]}>
             <SvgUri
-              width="24"
-              height="24"
-              style={styles.svg}
+              width={24}
+              height={24}
+              style={[styles.svg, getSizeIfActive(2)]}
               source={require("./../../assets/group/chat.svg")}
             />
           </TouchableOpacity>
           {isGroupOwner && (
             <TouchableOpacity onPress={() => onPress(3)} style={[styles.btn]}>
               <SvgUri
-                width="24"
-                height="24"
-                style={styles.svg}
+                width={24}
+                height={24}
+                style={[styles.svg, getSizeIfActive(3)]}
                 source={require("./../../assets/group/coolicon-1.svg")}
               />
             </TouchableOpacity>

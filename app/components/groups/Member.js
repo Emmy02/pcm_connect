@@ -11,6 +11,7 @@ function Member({
     email,
     user_profile: { first_name, last_name },
   },
+  is_owner,
   onPress,
 }) {
   return (
@@ -19,7 +20,12 @@ function Member({
         <Image source={avatar} style={styles.image} />
         <View style={styles.text}>
           <Text style={styles.name}>
-            {first_name} {last_name}
+            {first_name} {last_name}{" "}
+            {is_owner && (
+              <Text style={{ color: colors.primary, fontWeight: "400" }}>
+                (Admin)
+              </Text>
+            )}
           </Text>
           <Text style={styles.email}>{email}</Text>
         </View>

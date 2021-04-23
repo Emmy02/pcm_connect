@@ -2,7 +2,7 @@
   "expo": {
     "name": "PCM Connect",
     "slug": "pcm_connect",
-    "version": "2.6.0",
+    "version": "2.9.8",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -16,16 +16,25 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false,
+      "supportsTablet": true,
       "bundleIdentifier": "io.pcm.app1",
-      "buildNumber": "2.6",
+      "buildNumber": "2.9.8",
       "config": {
         "googleMapsApiKey": "AIzaSyCAR4NlJ2e4vVRDQUXAQ6SgeV4cIQWaav8"
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "PCM Connect  will use your photo to make you more recognizable to other users. Especially when you are trying to join a team.",
+        "NSLocationUsageDescription": "PCM Connect uses your location to find the closest groups to you. We do not track you or store your location in any way.",
+        "NSLocationAlwaysUsageDescription": "PCM Connect uses your location to find the closest groups to you. We do not track you or store your location in any way.",
+        "NSLocationWhenInUseUsageDescription":"PCM Connect uses your location to find the closest groups to you. We do not track you or store your location in any way.",
+        "NSPhotoLibraryUsageDescription": "PCM Connect  will use your photo to make you more recognizable to other users. Especially when you are trying to join a team.",
+        "NSPhotoLibraryAddUsageDescription": "PCM Connect  will use your photo to make you more recognizable to other users. Especially when you are trying to join a team.",
+        "NSMicrophoneUsageDescription": "To Record Audio With Video"
       }
     },
     "android": {
       "package": "io.pcm.app1",
-      "versionCode": 14,
+      "versionCode": 17,
       "useNextNotificationsApi": true,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/icon.png",

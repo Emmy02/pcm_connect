@@ -9,7 +9,7 @@
     "agreedToJoin": "En cliquant sur cette case, j'accepte les conditions d'utilisation suivantes: ",
     "and": "et",
     "typeYourSecretCode": "Tapez votre code secret",
-    "resendCode": "Renvoyer le code",
+    "resetCode": "Tapez le code envoyé à votre e-mail",
     "typeNewPassword": "Saisissez un nouveau mot de passe",
     "confirmNewPassword": "Confirmer le nouveau mot de passe",
     "invalidCode": "Le code que vous avez fourni n'est pas valide",
@@ -67,7 +67,7 @@
     "select_date": "Set date",
     "meetingLink": "Meeting Link",
     "save": "Save",
-    "seeDetails": "Voir les détails",
+    "seeDetailsButton": "Voir les détails",
     "contactUsButton": "Contactez-nous",
     "createTerritoryEvent": "Créer un événement de territoire",
     "cancel": "Annuler",
@@ -132,5 +132,7 @@
     "agreedToAccept": "En rejoignant PCM Connect, j'accepte les conditions de confidentialité établies sur le lien suivant.",
     "dia": "IAD",
     "yourAdventistUnion":  "Votre union adventiste",
-    "yourLocalField": "Votre Domaine Local"
+    "yourLocalField": "Votre Domaine Local",
+    "setAddress": "Définir L'adresse",
+    "send": "Envoyer"
 }

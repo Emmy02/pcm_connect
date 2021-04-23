@@ -1,5 +1,12 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Image, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 import colors from "../../config/colors";
 import Screen from "../../components/Screen";
@@ -11,7 +18,13 @@ import { TopNav } from "./../../components/nav";
 import { IMLocalized } from "./../../config/IMLocalized";
 import routes from "../../navigation/routes";
 
+import * as WebBrowser from "expo-web-browser";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 function ContactScreen({ navigation }) {
+  const _handlePressButtonAsync = async (url) => {
+    await WebBrowser.openBrowserAsync(url);
+  };
   return (
     <Screen style={styles.screen}>
       <TopNav image={require("../../assets/3.jpg")} navigation={navigation} />
@@ -48,6 +61,41 @@ function ContactScreen({ navigation }) {
         <Text style={styles.text}>
           {IMLocalized("not_receiving_notifications_text")}
         </Text>
+        <View style={{ flexDirection: "row", marginTop: 10 }}>
+          <TouchableOpacity
+            onPress={() =>
+              _handlePressButtonAsync(
+                "https://www.facebook.com/PCM-Connect-101092648436445"
+              )
+            }
+            style={styles.list}
+          >
+            <MaterialCommunityIcons
+              name={"facebook"}
+              size={40}
+              color={colors.primary}
+              style={styles.icon}
+            />
+            <Text style={styles.text}>PCM Connect</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              _handlePressButtonAsync(
+                "https://www.instagram.com/pcm_connect20/"
+              )
+            }
+            style={styles.list}
+          >
+            <MaterialCommunityIcons
+              name={"instagram"}
+              size={40}
+              color={colors.danger}
+              style={styles.icon}
+            />
+            <Text style={styles.text}>PCM Connect</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
         <NoGradientButton
@@ -86,6 +134,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight: "bold",
+  },
+  list: {
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    width: "50%",
   },
 });
 

@@ -49,7 +49,7 @@ function ProfileScreen({ navigation }) {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const { setProfile, profile, getRoles } = useAccount();
+  const { setProfile, profile = {}, getRoles } = useAccount();
 
   const getProfile = async () => {
     const result = await accountApi.getProfile();
@@ -217,7 +217,10 @@ function ProfileScreen({ navigation }) {
                 maxLength={300}
               />
 
-              <SubmitButton title={IMLocalized("update")} color="primary" />
+              <SubmitButton
+                title={IMLocalized("updateButton")}
+                color="primary"
+              />
             </Form>
           </View>
         </KeyboardAwareScrollView>

@@ -22,12 +22,13 @@ function Users({
     <ScrollView style={styles.usersContainer}>
       <Title>{title}</Title>
       <FlatList
-        style={{ flex: 1 }}
+        style={{ flex: 1, marginBottom: 50 }}
         data={list}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item, index }) => (
           <Member
             user={item.user}
+            is_owner={item.is_owner}
             avatar={item.avatar ? { uri: baseUrl + item.avatar } : defautImage}
             onPress={() =>
               navigation.navigate(routes.USER_PROFILE_GROUP, {

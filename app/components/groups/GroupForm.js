@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SubmitButton, FormField, Form, FormGoogleInput } from "./../forms";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -117,7 +112,7 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
           </MapView>
         </View>
 
-        <SubmitButton title={IMLocalized("update")} color="primary" />
+        <SubmitButton title={IMLocalized("updateButton")} color="primary" />
       </Form>
     </View>
   );
@@ -128,12 +123,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   mapContainer: {
-    height: 100,
+    height: 80,
     width: "100%",
     marginBottom: 10,
   },
   map: {
-    height: 100,
+    height: 80,
     width: "100%",
     borderRadius: 10,
     overflow: "hidden",

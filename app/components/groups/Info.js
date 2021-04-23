@@ -5,7 +5,14 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { IMLocalized } from "./../../config/IMLocalized";
 
-function GroupInfo({ name, description, address, university, status }) {
+function GroupInfo({
+  name,
+  description,
+  address,
+  university,
+  members_count,
+  status,
+}) {
   return (
     <View style={styles.container}>
       {status === "pending" && (
@@ -33,6 +40,15 @@ function GroupInfo({ name, description, address, university, status }) {
           style={styles.icon}
         />
         <Text style={styles.text}>{university?.name}</Text>
+      </View>
+      <View style={styles.list}>
+        <MaterialCommunityIcons
+          name={"account-group-outline"}
+          size={24}
+          color={colors.medium}
+          style={styles.icon}
+        />
+        <Text style={styles.text}>{members_count}</Text>
       </View>
     </View>
   );

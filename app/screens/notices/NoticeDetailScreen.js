@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, Text, SafeAreaView } from "react-native";
+import { StyleSheet, View, Image, Text } from "react-native";
 
 import colors from "../../config/colors";
 import Screen from "../../components/Screen";
@@ -14,11 +14,13 @@ import { NavBack } from "./../../components/nav";
 import noticesApi from "./../../api/notices";
 
 import { getRecordId } from "./../../utility/utils";
+import ActivityIndicator from "./../../components/ActivityIndicator";
 
 import dayjs from "dayjs";
 
 function NoticeDetailScreen({ navigation, route }) {
   const [notice, setNotice] = useState({ attendants: [] });
+  const [loading, setLoading] = useState(false);
 
   const {
     id,
@@ -39,23 +41,27 @@ function NoticeDetailScreen({ navigation, route }) {
       activity_id: id,
     };
 
+    setLoading(true);
     const result = await noticesApi.addAttendant(params);
+    setLoading(false);
 
     if (result.ok) getNotice();
   };
 
   const notParticipate = async (attendant) => {
+    setLoading(true);
     const results = await noticesApi.destroyAttendant(attendant);
+    setLoading(false);
 
     if (results.ok) getNotice();
   };
 
   const getNotice = async () => {
+    setLoading(true);
     const results = await noticesApi.getNotice(id);
+    setLoading(false);
 
-    if (results.ok) {
-      setNotice(results.data);
-    }
+    if (results.ok) setNotice(results.data);
   };
 
   useEffect(() => {
@@ -141,6 +147,7 @@ function NoticeDetailScreen({ navigation, route }) {
             />
           )}
         </View>
+        <ActivityIndicator visible={loading} />
       </Screen>
     </View>
   );

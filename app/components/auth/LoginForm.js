@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView, View } from "react-native";
 
 import * as Yup from "yup";
 
@@ -14,12 +14,18 @@ const validationSchema = Yup.object().shape({
 import authApi from "./../../api/auth";
 import useAuth from "./../../auth/useAuth";
 
+import ActivityIndicator from "./../ActivityIndicator";
+
 function LoginForm() {
   const auth = useAuth();
   const [loginFailed, setLoginFailed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async ({ email, password }) => {
+    setLoading(true);
     const result = await authApi.login(email, password);
+
+    setLoading(false);
     if (!result.ok) return setLoginFailed(true);
     setLoginFailed(false);
     auth.logIn(result.data);
@@ -57,6 +63,7 @@ function LoginForm() {
 
         <SubmitButton title={IMLocalized("logIn")} color="primary" />
       </Form>
+      <ActivityIndicator visible={loading} />
     </ScrollView>
   );
 }

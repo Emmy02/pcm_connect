@@ -9,7 +9,7 @@
     "agreedToJoin": "By clicking on this box I  am agreeing with the following terms of use: ",
     "and": "and",
     "typeYourSecretCode": "Type your secret Code",
-    "resendCode": "Resend code",
+    "resetCode": "Type in Code sent to your email",
     "typeNewPassword":  "Type new password",
     "confirmNewPassword":  "Confirm new Password",
     "invalidCode": "The code you provided is invalid",
@@ -132,5 +132,7 @@
     "agreedToAccept": "By joining PCM Connect, I accept the privacy terms set out in the following link.",
     "dia": "IAD",
     "yourAdventistUnion":  "Your Adventist Union",
-    "yourLocalField": "Your Local Field"
+    "yourLocalField": "Your Local Field",
+    "setAddress": "Set Address",
+    "send": "Send"
 }

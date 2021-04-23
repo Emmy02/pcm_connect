@@ -131,7 +131,11 @@ function Chat({ messages, groupId, userId }) {
             width="78%"
           />
 
-          <SubmitButton color="primary" title="Send" width="20%" />
+          <SubmitButton
+            color="primary"
+            title={IMLocalized("send")}
+            width="20%"
+          />
         </Form>
       </View>
     </View>
