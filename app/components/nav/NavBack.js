@@ -5,9 +5,9 @@ import { colors } from "./../../config";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-function NavBack({ controls, onPress }) {
+function NavBack({ controls, onPress, style }) {
   return (
-    <View style={styles.navContainer}>
+    <View style={style || styles.navContainer}>
       <View style={styles.backButtonContainer}>
         <TouchableOpacity style={styles.button} onPress={onPress}>
           <MaterialCommunityIcons

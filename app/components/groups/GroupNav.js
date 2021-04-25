@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     top: -22,
   },
   btn: {
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
   },
   image: {
     height: 30,

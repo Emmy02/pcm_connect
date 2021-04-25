@@ -35,7 +35,7 @@ function FormToggle({ options, width, name }) {
 
 const styles = StyleSheet.create({
   toogleContainer: {
-    height: 55,
+    height: 45,
     backgroundColor: colors.light,
     padding: 10,
     borderRadius: 10,

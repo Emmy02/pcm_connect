@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Image, Text } from "react-native";
-
+import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
+import Constants from "expo-constants";
 import colors from "../../config/colors";
 import Screen from "../../components/Screen";
 
@@ -15,6 +15,7 @@ import noticesApi from "./../../api/notices";
 
 import { getRecordId } from "./../../utility/utils";
 import ActivityIndicator from "./../../components/ActivityIndicator";
+import * as WebBrowser from "expo-web-browser";
 
 import dayjs from "dayjs";
 
@@ -64,6 +65,16 @@ function NoticeDetailScreen({ navigation, route }) {
     if (results.ok) setNotice(results.data);
   };
 
+  const getURL = async (string = "") => {
+    let matches = string.match(/\bhttps?:\/\/\S+/gi);
+
+    if (matches.length !== 0) _handlePressButtonAsync(matches[0]);
+  };
+
+  const _handlePressButtonAsync = async (url) => {
+    await WebBrowser.openBrowserAsync(url);
+  };
+
   useEffect(() => {
     getNotice();
   }, []);
@@ -71,24 +82,27 @@ function NoticeDetailScreen({ navigation, route }) {
   return (
     <View style={styles.mainScreen}>
       <Image source={{ uri: image_src }} style={styles.image} blurRadius={1} />
+      <NavBack style={styles.goBack} onPress={() => navigation.goBack()} />
 
       <Screen style={styles.screen}>
-        <NavBack onPress={() => navigation.goBack()} />
-
         <Title>{title}</Title>
         <Text>{subtitle}</Text>
         <Text style={styles.description} numberOfLines={4}>
           {description}
         </Text>
 
-        <View style={styles.listContainer}>
-          <MaterialCommunityIcons
-            name={"link-variant"}
-            size={24}
-            color={colors.medium}
-            style={styles.icon}
-          />
-          <Text>{place}</Text>
+        <View>
+          <TouchableOpacity onPress={() => getURL(place)}>
+            <View style={styles.listContainer}>
+              <MaterialCommunityIcons
+                name={"link-variant"}
+                size={24}
+                color={colors.medium}
+                style={styles.icon}
+              />
+              <Text>{place}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.listContainer}>
@@ -155,7 +169,7 @@ function NoticeDetailScreen({ navigation, route }) {
 
 const styles = StyleSheet.create({
   mainScreen: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.white,
     flex: 1,
   },
   screen: {
@@ -184,9 +198,10 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   goBack: {
-    marginTop: 30,
+    marginTop: Constants.statusBarHeight,
     position: "absolute",
     width: "100%",
+    left: 10,
   },
 });
 

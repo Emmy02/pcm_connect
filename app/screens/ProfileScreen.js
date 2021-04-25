@@ -171,7 +171,7 @@ function ProfileScreen({ navigation }) {
                   keyboardType="number-pad"
                   name="age"
                   placeholder={IMLocalized("age")}
-                  width="30%"
+                  width="20%"
                 />
                 <FormToggle
                   options={[
@@ -187,7 +187,7 @@ function ProfileScreen({ navigation }) {
                     { text: "SDA", value: 1 },
                   ]}
                   name="is_adventist"
-                  width="30%"
+                  width="40%"
                 />
               </View>
               <FormField
