@@ -32,4 +32,5 @@ export default Object.freeze({
   USER_PROFILE: "/user_profile",
   CANCEL_REQUEST: "/cancel_request",
   REPORTS: "/reports",
+  UPLOAD_GROUP_IMAGE: "/upload_image",
 });

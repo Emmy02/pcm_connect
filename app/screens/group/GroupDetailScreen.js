@@ -254,7 +254,7 @@ function GroupDetailScreen({ navigation, route }) {
       <Image
         source={
           getGroupApi.data.image
-            ? { uri: getGroupApi.data.image }
+            ? { uri: baseUrl + getGroupApi.data.image }
             : defaultImage
         }
         style={styles.image}

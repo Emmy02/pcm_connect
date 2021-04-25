@@ -116,6 +116,8 @@ function DashboardScreen({ navigation }) {
     getSubscriptions();
   };
 
+  const baseUrl = "https://pcm-api.herokuapp.com";
+
   useEffect(() => {
     autoLogIn();
   }, []);
@@ -171,7 +173,11 @@ function DashboardScreen({ navigation }) {
                 renderItem={({ item }) => (
                   <VerticalCard
                     {...item.group}
-                    image={require("../assets/3.jpg")}
+                    image={
+                      item.image
+                        ? { uri: baseUrl + item.image }
+                        : require("../assets/3.jpg")
+                    }
                     key={item.group.index}
                     controls={
                       <OutLineButton
@@ -217,7 +223,11 @@ function DashboardScreen({ navigation }) {
               renderItem={({ item }) => (
                 <VerticalCard
                   {...item}
-                  image={require("../assets/3.jpg")}
+                  image={
+                    item.image
+                      ? { uri: baseUrl + item.image }
+                      : require("../assets/3.jpg")
+                  }
                   key={item.index}
                   onPress={() =>
                     navigation.navigate(routes.GROUP_DETAILS, {
@@ -266,7 +276,11 @@ function DashboardScreen({ navigation }) {
                     />
                   }
                   {...item}
-                  image={require("../assets/3.jpg")}
+                  image={
+                    item.image
+                      ? { uri: "http://localhost:3000" + item.image }
+                      : require("../assets/3.jpg")
+                  }
                   key={index}
                   reverse={index % 2}
                 />

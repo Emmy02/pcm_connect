@@ -6,6 +6,8 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import Title from "./../Title";
 
 import groupsApi from "./../../api/groups";
+import ImageInput from "./../../components/ImageInput";
+import UploadScreen from "./../../screens/UploadScreen";
 
 import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
@@ -26,10 +28,11 @@ const validationSchema = Yup.object().shape({
     .label("Address"),
 });
 import { IMLocalized } from "./../../config/IMLocalized";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
   const [initialValues, setInitialValues] = useState({});
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const [location, setLocation] = useState({
     latitude: lat || 0,
@@ -45,6 +48,28 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
       longitude: lng,
     };
     setLocation(loc);
+  };
+
+  const loadImage = async (image) => {
+    setProgress(0);
+    setUploadVisible(true);
+
+    const data = new FormData();
+    data.append("image", image);
+
+    const result = await groupsApi.uploadImage(id, data, (progress) =>
+      setProgress(progress)
+    );
+
+    setUploadVisible(false);
+
+    if (!result.ok) {
+      return alert("Could not save the listing");
+    }
+
+    if (result.ok) {
+      setUpdated();
+    }
   };
 
   const handleSubmit = async ({ address, description, name }) => {
@@ -71,6 +96,11 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
 
   return (
     <View style={styles.formContainer}>
+      <UploadScreen
+        onDone={() => setUploadVisible(false)}
+        progress={progress}
+        visible={uploadVisible}
+      />
       <Title>{IMLocalized("groupUpdate")}</Title>
 
       <Form
@@ -111,6 +141,8 @@ function GroupForm({ id, name, description, lat, lng, address, setUpdated }) {
             <Marker coordinate={location} title="" />
           </MapView>
         </View>
+
+        <ImageInput onChangeImage={(image) => loadImage(image)} />
 
         <SubmitButton title={IMLocalized("updateButton")} color="primary" />
       </Form>

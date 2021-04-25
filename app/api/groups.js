@@ -31,6 +31,17 @@ const rejectGroup = (id, { status = 2 }) =>
     status,
   });
 
+const uploadImage = (id, form, onUploadProgress) => {
+  return client.post(
+    endpoints.GROUPS + "/" + id + endpoints.UPLOAD_GROUP_IMAGE,
+    form,
+    {
+      onUploadProgress: (progress) =>
+        onUploadProgress(progress.loaded / progress.total),
+    }
+  );
+};
+
 const addGroup = ({
   name,
   description,
@@ -67,4 +78,5 @@ export default {
   addGroup,
   acceptGroup,
   rejectGroup,
+  uploadImage,
 };
