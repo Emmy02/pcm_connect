@@ -1,9 +1,11 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
+import * as WebBrowser from "expo-web-browser";
 
 import Text from "../Text";
 import { colors } from "../../config";
 
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import dayjs from "dayjs";
 
@@ -17,6 +19,15 @@ function EventCard({
   place,
   controls,
 }) {
+  const getURL = async (string = "") => {
+    let matches = string.match(/\bhttps?:\/\/\S+/gi);
+
+    if (matches.length !== 0) _handlePressButtonAsync(matches[0]);
+  };
+
+  const _handlePressButtonAsync = async (url) => {
+    await WebBrowser.openBrowserAsync(url);
+  };
   return (
     <View style={styles.card}>
       <View style={styles.dateContainer}>
@@ -43,7 +54,20 @@ function EventCard({
         <Text style={styles.description} numberOfLines={3}>
           {description}
         </Text>
-        <Text style={styles.link}>{place}</Text>
+        <View>
+          <TouchableOpacity onPress={() => getURL(place)}>
+            <View style={styles.listContainer}>
+              <MaterialCommunityIcons
+                name={"link-variant"}
+                size={24}
+                color={colors.medium}
+                style={styles.icon}
+              />
+              <Text>{place}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+
         {controls}
       </View>
       <View style={styles.typeContainer}>
@@ -161,6 +185,14 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
+  },
+  listContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
+  },
+  icon: {
+    paddingRight: 10,
   },
 });
 
