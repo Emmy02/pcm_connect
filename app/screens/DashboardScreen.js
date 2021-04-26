@@ -278,7 +278,7 @@ function DashboardScreen({ navigation }) {
                   {...item}
                   image={
                     item.image
-                      ? { uri: "http://localhost:3000" + item.image }
+                      ? { uri: baseUrl + item.image }
                       : require("../assets/3.jpg")
                   }
                   key={index}

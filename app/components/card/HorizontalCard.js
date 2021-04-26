@@ -2,16 +2,9 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 import Text from "../Text";
-import { colors, defaultStyles } from "../../config";
+import { colors } from "../../config";
 
-function HorizontalCard({
-  name,
-  description,
-  image,
-  members,
-  reverse,
-  controls,
-}) {
+function HorizontalCard({ name, description, image, reverse, controls }) {
   return (
     <View
       style={[styles.card, { flexDirection: reverse ? "row-reverse" : "row" }]}
