@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1030059590826",
+    "firebase_url": "https://pcm-connect-f1083.firebaseio.com",
+    "project_id": "pcm-connect-f1083",
+    "storage_bucket": "pcm-connect-f1083.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030059590826:android:b913a70c9d1beab3d8bcd3",
+        "android_client_info": {
+          "package_name": "io.pcm.app1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030059590826-ml0sunfuhvtudshu3ahcof68l3i1lc6n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBOhqWQ0jVHk4WOtcTyiwrhHiAD4GOel0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030059590826-ml0sunfuhvtudshu3ahcof68l3i1lc6n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

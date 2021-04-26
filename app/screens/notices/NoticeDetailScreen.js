@@ -19,6 +19,8 @@ import * as WebBrowser from "expo-web-browser";
 
 import dayjs from "dayjs";
 
+import { addReminder } from "./../../utility/notifications";
+
 function NoticeDetailScreen({ navigation, route }) {
   const [notice, setNotice] = useState({ attendants: [] });
   const [loading, setLoading] = useState(false);
@@ -46,7 +48,11 @@ function NoticeDetailScreen({ navigation, route }) {
     const result = await noticesApi.addAttendant(params);
     setLoading(false);
 
-    if (result.ok) getNotice();
+    if (result.ok) {
+      getNotice();
+
+      addReminder({ title, body: subtitle, expiration_date });
+    }
   };
 
   const notParticipate = async (attendant) => {

@@ -40,6 +40,8 @@ import { getRecordId } from "./../../utility/utils";
 
 import routes from "./../../navigation/routes";
 
+import { addReminder } from "./../../utility/notifications";
+
 function GroupDetailScreen({ navigation, route }) {
   const [updated, setUpdated] = useState(null);
 
@@ -95,7 +97,12 @@ function GroupDetailScreen({ navigation, route }) {
 
   const [activeTab, setActiveTab] = useState(0);
 
-  const participate = async (groupId, eventId, userId) => {
+  const participate = async (
+    groupId,
+    eventId,
+    userId,
+    { title, body, expiration_date }
+  ) => {
     const params = {
       status: 0,
       user_id: userId,
@@ -104,6 +111,8 @@ function GroupDetailScreen({ navigation, route }) {
     };
 
     const result = await eventsApi.addAttendant(params);
+
+    addReminder({ title, body, expiration_date });
 
     if (result.ok) getEventsApi.request(groupId);
   };
@@ -342,7 +351,11 @@ function GroupDetailScreen({ navigation, route }) {
                               title={IMLocalized("participate")}
                               color="primary"
                               onPress={() =>
-                                participate(id, item.id, profile.id)
+                                participate(id, item.id, profile.id, {
+                                  title: item.title,
+                                  body: item.subtitle,
+                                  expiration_date: item.expiration_date,
+                                })
                               }
                             />
                           )}
