@@ -4,7 +4,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 
 import { colors } from "./../../config";
 
-const GOOGLE_PLACES_API_KEY = "AIzaSyDUuDOUp_nCkxv7xvi9cM-dwgeC8ihfMmo";
+const GOOGLE_PLACES_API_KEY = "AIzaSyA_LOSPKLGA0FS3aDB3KU6zD-LEqAD4xwE";
 
 import { useFormikContext } from "formik";
 
