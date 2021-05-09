@@ -5,6 +5,21 @@ import dayjs from "dayjs";
 const prefix = "cache";
 const expiryInMinutes = 5;
 
+const getAllStorage = async () => {
+  try {
+    const response = await AsyncStorage.getAllKeys();
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const resetCache = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (error) {}
+};
+
 const store = async (key, value) => {
   try {
     const item = {
@@ -41,7 +56,8 @@ const get = async (key) => {
     console.log(error);
   }
 };
-
+resetCache();
+getAllStorage();
 export default {
   store,
   get,
