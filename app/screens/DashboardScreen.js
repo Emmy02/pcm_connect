@@ -77,9 +77,6 @@ function DashboardScreen({ navigation }) {
   }
   const getGroupsApi = useApi(groupsApi.getGroups);
   const getMostPopularGroupsApi = useApi(groupsApi.getMostPopularGroups);
-  const getGroupSubscriptionsApi = useApi(
-    groupSubscriptionApi.getGroupSubscriptions
-  );
 
   const getSubscriptions = async () => {
     const results = await groupSubscriptionApi.getGroupSubscriptions();

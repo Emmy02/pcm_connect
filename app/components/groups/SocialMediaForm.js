@@ -26,7 +26,7 @@ const validationSchema = Yup.object().shape({
 
 function SocialMediaForm({
   groupId,
-  socialMedia: { facebook, twitter, instagram, id },
+  socialMedia: { facebook = "", twitter = "", instagram = "" },
   setUpdated,
 }) {
   const handleSubmit = async ({ facebook, twitter, instagram }) => {

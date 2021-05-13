@@ -443,7 +443,7 @@ function GroupDetailScreen({ navigation, route }) {
         )}
         {activeTab === 4 && (
           <SocialMediaForm
-            socialMedia={getGroupApi.data.social_media_profile}
+            socialMedia={getGroupApi.data.social_media_profile || {}}
             groupId={id}
             setUpdated={setUpdated}
           />

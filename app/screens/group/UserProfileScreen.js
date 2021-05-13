@@ -1,12 +1,5 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  Image,
-  Text,
-  Alert,
-  ImageBackground,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Image, Text, Alert } from "react-native";
 import { NavBack } from "./../../components/nav";
 import Title from "./../../components/Title";
 import { NoGradientButton } from "./../../components/button";
@@ -23,8 +16,6 @@ import requestApi from "./../../api/requests";
 import accountApi from "./../../api/account";
 
 import useAccount from "./../../account/useAccount";
-import { ScrollView } from "react-native-gesture-handler";
-import { color } from "react-native-reanimated";
 
 function UserProfileScreen({ navigation, route }) {
   const { getRoles, profile } = useAccount();
@@ -185,6 +176,7 @@ function UserProfileScreen({ navigation, route }) {
         <View style={styles.backButtonContainer}>
           <NavBack onPress={() => navigation.goBack()} />
         </View>
+
         <View style={styles.card}>
           <LinearGradient
             start={{ x: 0, y: 1 }}
