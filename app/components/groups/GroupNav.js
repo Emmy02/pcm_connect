@@ -50,6 +50,14 @@ function GroupNav({
               source={require("./../../assets/group/chat.svg")}
             />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => onPress(4)} style={[styles.btn]}>
+            <SvgUri
+              width={24}
+              height={24}
+              style={[styles.svg, getSizeIfActive(4)]}
+              source={require("./../../assets/group/network.svg")}
+            />
+          </TouchableOpacity>
           {isGroupOwner && (
             <TouchableOpacity onPress={() => onPress(3)} style={[styles.btn]}>
               <SvgUri
@@ -76,8 +84,8 @@ function GroupNav({
 
 const styles = StyleSheet.create({
   menuContainer: {
-    width: "90%",
-    backgroundColor: "rgba(0,0,0,.5)",
+    width: "94%",
+    backgroundColor: "rgba(0,0,0,.5 )",
     justifyContent: "center",
     flexDirection: "row",
     padding: 10,

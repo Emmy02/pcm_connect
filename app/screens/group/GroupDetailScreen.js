@@ -17,6 +17,7 @@ import {
   TopNavBar,
   GroupNav,
   GroupForm,
+  SocialMediaForm,
 } from "./../../components/groups";
 import colors from "../../config/colors";
 
@@ -311,7 +312,7 @@ function GroupDetailScreen({ navigation, route }) {
           <View style={styles.tabs}>
             {activeTab === 0 && (
               <ScrollView style={{ marginBottom: 70 }}>
-                <Info {...getGroupApi.data} />
+                <Info {...getGroupApi.data} isEditable={isCurrentGroupOwner} />
                 <Title
                   controls={
                     isCurrentGroupOwner && (
@@ -439,6 +440,13 @@ function GroupDetailScreen({ navigation, route }) {
               isGroupOwner={isCurrentGroupOwner}
             />
           </View>
+        )}
+        {activeTab === 4 && (
+          <SocialMediaForm
+            socialMedia={getGroupApi.data.social_media_profile}
+            groupId={id}
+            setUpdated={setUpdated}
+          />
         )}
       </Screen>
     </View>

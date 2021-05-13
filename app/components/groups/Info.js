@@ -1,9 +1,11 @@
 import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import colors from "../../config/colors";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { IMLocalized } from "./../../config/IMLocalized";
+
+import SocialMedia from "./SocialMedia";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 function GroupInfo({
   name,
@@ -12,6 +14,8 @@ function GroupInfo({
   university,
   members_count,
   status,
+  social_media_profile,
+  isEditable,
 }) {
   return (
     <View style={styles.container}>
@@ -50,6 +54,12 @@ function GroupInfo({
         />
         <Text style={styles.text}>{members_count}</Text>
       </View>
+      {social_media_profile && (
+        <SocialMedia
+          socialMedia={social_media_profile}
+          isEditable={isEditable}
+        />
+      )}
     </View>
   );
 }

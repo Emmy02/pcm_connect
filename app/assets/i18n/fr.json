@@ -135,5 +135,6 @@
     "yourLocalField": "Votre Domaine Local",
     "setAddress": "Définir L'adresse",
     "send": "Envoyer",
-    "noGroupsClose":"aucun groupe trouvé près de chez vous."
+    "noGroupsClose":"aucun groupe trouvé près de chez vous.",
+    "socialmedia": "Des médias sociaux"
 }
