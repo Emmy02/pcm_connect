@@ -12,8 +12,8 @@ export default {
   shadows: {
     elevation: 4,
     shadowColor: colors.medium,
-    shadowOffset: { width: 0, height: 0.5 * 10 },
-    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 0.7 * 10 },
+    shadowOpacity: 0.1,
     shadowRadius: 0.8 * 10,
   },
 };

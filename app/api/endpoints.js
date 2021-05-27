@@ -33,4 +33,7 @@ export default Object.freeze({
   CANCEL_REQUEST: "/cancel_request",
   REPORTS: "/reports",
   UPLOAD_GROUP_IMAGE: "/upload_image",
+  POSTS: "/posts",
+  COMMENTS: "/comments",
+  LIKES: "/likes",
 });

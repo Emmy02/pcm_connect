@@ -135,6 +135,9 @@
     "yourLocalField": "Tu campo local",
     "setAddress": "Conf. Dirección",
     "send": "Enviar",
-        "noGroupsClose": "No hay grupos cercanos a ti",
-        "socialmedia": "Redes Sociales"
+    "noGroupsClose": "No hay grupos cercanos a ti",
+    "socialmedia": "Redes Sociales",
+    "library": "Recursos",
+    "writtenBy": "Escrito Por",
+    "likePeople": "personas les gusta esta lectura."
 }

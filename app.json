@@ -2,7 +2,7 @@
   "expo": {
     "name": "PCM Connect",
     "slug": "pcm_connect",
-    "version": "3.0.3",
+    "version": "3.0.5",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
     "splash": {
@@ -18,7 +18,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "io.pcm.app1",
-      "buildNumber": "3.0.3",
+      "buildNumber": "3.0.5",
       "config": {
         "googleMapsApiKey": "AIzaSyCAR4NlJ2e4vVRDQUXAQ6SgeV4cIQWaav8"
       },
@@ -34,7 +34,7 @@
     },
     "android": {
       "package": "io.pcm.app1",
-      "versionCode": 22,
+      "versionCode": 23,
       "useNextNotificationsApi": true,
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/icon.png",

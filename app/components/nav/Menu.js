@@ -35,14 +35,19 @@ const options = (roles = []) => {
     },
     {
       id: 3,
-      title: "About PCM Connect",
+      title: IMLocalized("library"),
+      route: routes.LIBRARY,
+    },
+    {
+      id: 4,
+      title: IMLocalized("aboutPCMConnect"),
       route: routes.CONTACT,
     },
   ];
 
   if (isAdmin)
     menu.push({
-      id: 4,
+      id: 5,
       title: IMLocalized("Admin"),
       route: routes.ADMIN_DASHBOARD,
       isAdmin,

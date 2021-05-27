@@ -28,7 +28,7 @@
     "welcomeBack": "Welcome back",
     "goToMyGroup": "Go to my Group",
     "notices": "Notices",
-    "aboutPCMConnect": "About pcm Connect",
+    "aboutPCMConnect": "About PCM Connect",
     "stats": "Stats",
     "groupsValidation": "Groups Validation",
     "groupsInTerritory": "Groups in Territory",
@@ -136,5 +136,8 @@
     "setAddress": "Set Address",
     "send": "Send",
     "noGroupsClose": "No Groups found close to you",
-    "socialmedia": "Social Media"
+    "socialmedia": "Social Media",
+    "library": "Library",
+    "writtenBy": "Written By",
+    "likePeople": "people like this read."
 }

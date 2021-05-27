@@ -28,7 +28,7 @@
     "welcomeBack": "Bienvenue à nouveau",
     "goToMyGroup": "Accéder à mon groupe",
     "notices": "Avis",
-    "aboutPCMConnect": "À propos de pcm Connect",
+    "aboutPCMConnect": "À propos de Pcm Connect",
     "stats": "Statistiques",
     "groupsValidation": "Validation de groupes",
     "joinGroup": "Rejoindre le groupe",
@@ -136,5 +136,8 @@
     "setAddress": "Définir L'adresse",
     "send": "Envoyer",
     "noGroupsClose":"aucun groupe trouvé près de chez vous.",
-    "socialmedia": "Des médias sociaux"
+    "socialmedia": "Des médias sociaux",
+    "library": "bibliothèque",
+    "writtenBy": "Écrit Par",
+    "likePeople": "personnes aiment cette lecture."
 }

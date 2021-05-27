@@ -23,6 +23,9 @@ import PrivacyAndTermsOfUseScreen from "../screens/support/PrivacyAndTermsOfUseS
 import SupportFormScreen from "./../screens/support/SupportFormScreen";
 import SupportTicketsScreen from "./../screens/support/SupportTicketsScreen";
 
+import LibraryScreen from "./../screens/library/LibraryScreen";
+import ArticleViewScreen from "./../screens/library/ArticleViewScreen";
+
 import useNotifications from "./../hooks/useNotifications";
 
 const Stack = createStackNavigator();
@@ -34,7 +37,6 @@ const AppNavigator = () => {
     <Stack.Navigator mode="modal" screenOptions={{ headerShown: false }}>
       <Stack.Screen name={routes.DASHBOARD} component={DashboardScreen} />
       <Stack.Screen name={routes.PROFILE} component={ProfileScreen} />
-
       <Stack.Screen name={routes.GROUP_DETAILS} component={GroupDetailScreen} />
       <Stack.Screen
         name={routes.CREATE_JOIN_REQUEST}
@@ -49,7 +51,6 @@ const AppNavigator = () => {
         name={routes.USER_PROFILE_GROUP}
         component={UserProfileScreen}
       />
-
       <Stack.Screen
         name={routes.ADMIN_DASHBOARD}
         component={AdminDashboardScreen}
@@ -59,13 +60,11 @@ const AppNavigator = () => {
         component={GroupsValidationScreen}
       />
       <Stack.Screen name={routes.NOTICE_FORM} component={NoticeFormScreen} />
-
       <Stack.Screen name={routes.NOTICES} component={NoticesScreen} />
       <Stack.Screen
         name={routes.NOTICE_DETAILS}
         component={NoticeDetailScreen}
       />
-
       <Stack.Screen name={routes.CONTACT} component={ContactScreen} />
       <Stack.Screen
         name={routes.PRIVACY_AND_TERMS_OF_USE}
@@ -76,6 +75,8 @@ const AppNavigator = () => {
         name={routes.SUPPORT_TICKETS}
         component={SupportTicketsScreen}
       />
+      <Stack.Screen name={routes.LIBRARY} component={LibraryScreen} />
+      <Stack.Screen name={routes.ARTICLE_VIEW} component={ArticleViewScreen} />
     </Stack.Navigator>
   );
 };
