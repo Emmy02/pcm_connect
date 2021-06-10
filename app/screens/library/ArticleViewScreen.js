@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, ScrollView, Text, Image } from "react-native";
 import Constants from "expo-constants";
 
@@ -10,7 +10,7 @@ import { NavBack } from "./../../components/nav";
 import { IMLocalized } from "./../../config/IMLocalized";
 
 import libraryApi from "./../../api/library";
-import useApi from "./../../hooks/useApi";
+import likeApi from "./../../api/likes";
 import ActivityIndicator from "./../../components/ActivityIndicator";
 
 import LikeIndicator from "./../../components/LikeIndicator";
@@ -18,19 +18,68 @@ import LikeIndicator from "./../../components/LikeIndicator";
 import dayjs from "dayjs";
 
 function ArticleViewScreen({ navigation, route }) {
+  const [data, setData] = useState({});
+  const [liked, setLiked] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const [likeId, setLikeId] = useState(null);
+  const [names, setNames] = useState("");
+
   const { id, userId } = route.params;
 
-  const getPostApi = useApi(libraryApi.getPost);
+  const addLike = async () => {
+    setLiked(true);
+
+    const results = await likeApi.addLike({
+      user_id: userId,
+      read_id: id,
+      read_type: "Post",
+    });
+    if (!results.ok) return setLiked(false);
+
+    setId(results.data.id);
+  };
+
+  const removeLike = async () => {
+    await likeApi.removeLike({ id: likeId });
+    setLiked(false);
+  };
+
+  const getRecords = async () => {
+    const results = await libraryApi.getPost({ id });
+
+    setLoading(false);
+
+    if (!results.ok) return alert("error");
+
+    const { likes } = results.data;
+
+    let names = [];
+    if (likes && liked === null) {
+      likes.map((like) => {
+        if (userId === like.user_id) {
+          setLikeId(like.id);
+          setLiked(true);
+        }
+        names.push(like?.user?.first_name);
+      });
+
+      setNames(names.join(","));
+    }
+
+    console.log(names);
+    setData(results.data);
+  };
 
   useEffect(() => {
-    getPostApi.request({ id });
+    getRecords();
     return () => {};
-  }, []);
+  }, [liked]);
 
   return (
     <View style={styles.screen}>
       <Image
-        source={{ uri: getPostApi.data.image_src }}
+        source={{ uri: data.image_src }}
         style={styles.image}
         blurRadius={1}
       />
@@ -38,7 +87,7 @@ function ArticleViewScreen({ navigation, route }) {
 
       <Screen style={{ padding: 10 }}>
         <ScrollView style={styles.container}>
-          <ActivityIndicator visible={getPostApi.loading} />
+          <ActivityIndicator visible={loading} />
           <View style={styles.header}>
             <Text
               style={{
@@ -48,17 +97,18 @@ function ArticleViewScreen({ navigation, route }) {
                 fontSize: 16,
               }}
             >
-              {dayjs(getPostApi.data.created_at).format("d/M/YYYY h:mm a")}
+              {dayjs(data.created_at).format("d/M/YYYY h:mm a")}
             </Text>
-            <Title style={styles.title}>{getPostApi.data.title}</Title>
+            <Title style={styles.title}>{data.title}</Title>
 
-            <Text style={styles.text}>{getPostApi.data.body}</Text>
+            <Text style={styles.text}>{data.body}</Text>
 
             <LikeIndicator
-              user_id={userId}
-              read_id={id}
-              read_type="Post"
-              likes={getPostApi.data.likes}
+              addLike={addLike}
+              removeLike={removeLike}
+              liked={liked}
+              likes={data.likes}
+              names={names}
             />
             <View style={{ textAlign: "left", width: "100%", paddingTop: 15 }}>
               <Text
@@ -76,21 +126,19 @@ function ArticleViewScreen({ navigation, route }) {
               <View>
                 <Image
                   source={{
-                    uri:
-                      "https://pcm-api.herokuapp.com" +
-                      getPostApi.data.author?.avatar,
+                    uri: "https://pcm-api.herokuapp.com" + data.author?.avatar,
                   }}
                   style={styles.userAvatar}
                 />
               </View>
               <View>
                 <Text style={styles.userName}>
-                  {getPostApi.data.author?.user_profile?.first_name +
+                  {data.author?.user_profile?.first_name +
                     " " +
-                    getPostApi.data.author?.user_profile?.last_name}
+                    data.author?.user_profile?.last_name}
                 </Text>
                 <Text style={styles.cover}>
-                  {getPostApi.data.author?.user_profile?.cover}
+                  {data.author?.user_profile?.cover}
                 </Text>
               </View>
             </View>

@@ -139,5 +139,7 @@
     "socialmedia": "Social Media",
     "library": "Library",
     "writtenBy": "Written By",
-    "likePeople": "people like this read."
+    "likePeople": "like this read.",
+    "you": "You",
+    "andOther": "and others"
 }

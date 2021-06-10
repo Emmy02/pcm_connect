@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet, Image } from "react-native";
 
 import Text from "../Text";
-import { colors } from "../../config";
+import { colors, defaultStyles } from "../../config";
 
 function HorizontalCard({ name, description, image, reverse, controls }) {
   return (
@@ -41,8 +41,7 @@ const styles = StyleSheet.create({
     width: "100%",
     marginVertical: 10,
     overflow: "visible",
-    borderWidth: 1,
-    borderColor: colors.clear,
+    ...defaultStyles.shadows
   },
   controls: {
     textAlign: "left",

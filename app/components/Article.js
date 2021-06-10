@@ -23,26 +23,25 @@ function Article({
 
 const styles = StyleSheet.create({
   container: {
-    textAlign: "center",
-    alignContent: "center",
-    alignItems: "center",
     padding: 10,
     marginRight: 15,
+    width: 150,
   },
   image: {
-    height: 130,
-    width: 100,
-    borderRadius: 7,
-    resizeMode: "contain",
+    height: 150,
+    width: 120,
+    borderRadius: 5,
+    resizeMode: "cover",
   },
   title: {
     fontWeight: "bold",
     marginTop: 7,
-    fontSize: 18,
+    fontSize: 16,
     color: colors.secondary,
   },
   authorName: {
-    color: colors.dark,
+    color: colors.medium,
+    fontSize:12
   },
 });
 
