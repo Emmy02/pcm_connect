@@ -79,7 +79,10 @@ function ArticleViewScreen({ navigation, route }) {
           setLikeId(like.id);
           setLiked(true);
         }
-        names.push(like?.user?.first_name);
+
+        if (like.user) {
+          if (like.user.first_name) names.push(like?.user?.first_name);
+        }
       });
 
       setNames(names.join(","));
