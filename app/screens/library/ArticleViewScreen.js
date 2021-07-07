@@ -11,6 +11,8 @@ import { IMLocalized } from "./../../config/IMLocalized";
 
 import libraryApi from "./../../api/library";
 import likeApi from "./../../api/likes";
+import visitApi from "./../../api/visits";
+
 import ActivityIndicator from "./../../components/ActivityIndicator";
 
 import LikeIndicator from "./../../components/LikeIndicator";
@@ -40,6 +42,18 @@ function ArticleViewScreen({ navigation, route }) {
     setId(results.data.id);
   };
 
+  const addVisit = async () => {
+    try {
+      await visitApi.addVisit({
+        user_id: userId,
+        entity_id: id,
+        entity_type: "Post",
+      });
+    } catch (error) {
+      console.log("error while adding Visit");
+    }
+  };
+
   const removeLike = async () => {
     await likeApi.removeLike({ id: likeId });
     setLiked(false);
@@ -52,7 +66,11 @@ function ArticleViewScreen({ navigation, route }) {
 
     if (!results.ok) return alert("error");
 
-    const { likes } = results.data;
+    const { likes, visits } = results.data;
+
+    const isVisited = checkIfVisited(visits, userId);
+
+    if (!isVisited) addVisit();
 
     let names = [];
     if (likes && liked === null) {
@@ -67,8 +85,11 @@ function ArticleViewScreen({ navigation, route }) {
       setNames(names.join(","));
     }
 
-    console.log(names);
     setData(results.data);
+  };
+
+  const checkIfVisited = (visits, id) => {
+    return visits.some((visit) => visit.user_id === id);
   };
 
   useEffect(() => {
@@ -110,6 +131,16 @@ function ArticleViewScreen({ navigation, route }) {
               likes={data.likes}
               names={names}
             />
+            {data.visits && (
+              <View
+                style={{ textAlign: "left", width: "100%", paddingTop: 15 }}
+              >
+                <Text>
+                  {data.visits.length} {IMLocalized("views")}
+                </Text>
+              </View>
+            )}
+
             <View style={{ textAlign: "left", width: "100%", paddingTop: 15 }}>
               <Text
                 style={{

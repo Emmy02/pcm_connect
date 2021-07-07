@@ -36,4 +36,5 @@ export default Object.freeze({
   POSTS: "/posts",
   COMMENTS: "/comments",
   LIKES: "/likes",
+  VISITS: "/visits",
 });
